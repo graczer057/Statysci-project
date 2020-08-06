@@ -3,8 +3,11 @@
 namespace App\Entity\CandidateProfil;
 
 use App\Entity\SendOfferBusiness\SendOfferBusiness;
+use App\Entity\SendOfferGrupe\SendOfferGrupe;
 use App\Entity\User\User;
 use App\Repository\CandidateProfil\CandidateProfilRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,10 +58,20 @@ class CandidateProfil
     private $User;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SendOfferBusiness::class, inversedBy="Candidate")
+     * @ORM\OneToMany(targetEntity=SendOfferBusiness::class, mappedBy="Candidate")
      * @ORM\JoinColumn(nullable=false)
      */
     private $sendOfferBusiness;
+
+    /**
+     * @ORM\OneToMany(targetEntity=SendOfferGrupe::class, mappedBy="Candidat")
+     */
+    private $sendOfferGrupes;
+
+    public function __construct()
+    {
+        $this->sendOfferGrupes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -157,6 +170,37 @@ class CandidateProfil
     public function setSendOfferBusiness(?SendOfferBusiness $sendOfferBusiness): self
     {
         $this->sendOfferBusiness = $sendOfferBusiness;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SendOfferGrupe[]
+     */
+    public function getSendOfferGrupes(): Collection
+    {
+        return $this->sendOfferGrupes;
+    }
+
+    public function addSendOfferGrupe(SendOfferGrupe $sendOfferGrupe): self
+    {
+        if (!$this->sendOfferGrupes->contains($sendOfferGrupe)) {
+            $this->sendOfferGrupes[] = $sendOfferGrupe;
+            $sendOfferGrupe->setCandidat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSendOfferGrupe(SendOfferGrupe $sendOfferGrupe): self
+    {
+        if ($this->sendOfferGrupes->contains($sendOfferGrupe)) {
+            $this->sendOfferGrupes->removeElement($sendOfferGrupe);
+            // set the owning side to null (unless already changed)
+            if ($sendOfferGrupe->getCandidat() === $this) {
+                $sendOfferGrupe->setCandidat(null);
+            }
+        }
 
         return $this;
     }

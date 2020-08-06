@@ -28,7 +28,7 @@ class SendOfferBusiness
     private $Business;
 
     /**
-     * @ORM\OneToMany(targetEntity=CandidateProfil::class, mappedBy="sendOfferBusiness")
+     * @ORM\ManyToOne(targetEntity=CandidateProfil::class, inversedBy="sendOfferBusiness")
      */
     private $Candidate;
 

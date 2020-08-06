@@ -2,6 +2,7 @@
 
 namespace App\Entity\User;
 
+use App\Entity\ActorGrupe\ActorGrupe;
 use App\Entity\Business\Business;
 use App\Entity\CandidateProfil\CandidateProfil;
 use App\Repository\User\UserRepository;
@@ -70,6 +71,11 @@ class User implements UserInterface
      * @ORM\OneToOne(targetEntity=CandidateProfil::class, mappedBy="User", cascade={"persist", "remove"})
      */
     private $candidateProfil;
+
+    /**
+     * @ORM\OneToOne(targetEntity=ActorGrupe::class, mappedBy="User", cascade={"persist", "remove"})
+     */
+    private $actorGrupe;
 
     public function getId(): ?int
     {
@@ -239,6 +245,23 @@ class User implements UserInterface
         $newUser = null === $candidateProfil ? null : $this;
         if ($candidateProfil->getUser() !== $newUser) {
             $candidateProfil->setUser($newUser);
+        }
+
+        return $this;
+    }
+
+    public function getActorGrupe(): ?ActorGrupe
+    {
+        return $this->actorGrupe;
+    }
+
+    public function setActorGrupe(ActorGrupe $actorGrupe): self
+    {
+        $this->actorGrupe = $actorGrupe;
+
+        // set the owning side of the relation if necessary
+        if ($actorGrupe->getUser() !== $this) {
+            $actorGrupe->setUser($this);
         }
 
         return $this;
