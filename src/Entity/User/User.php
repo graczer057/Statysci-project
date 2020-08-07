@@ -6,6 +6,7 @@ use App\Entity\ActorGrupe\ActorGrupe;
 use App\Entity\Business\Business;
 use App\Entity\CandidateProfil\CandidateProfil;
 use App\Repository\User\UserRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -14,6 +15,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+
+
+    public function Role(int $id){
+        $role[1]=['Candidate'];
+        $role[2]=['Business'];
+        $role[3]=['Groupe'];
+        return $role[$id];
+    }
+
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -77,6 +88,28 @@ class User implements UserInterface
      */
     private $actorGrupe;
 
+
+    public function __construct(
+        string $login,
+        string $email,
+        string $password,
+        array $roles,
+        bool $is_active=false
+    )
+    {
+
+        $this->login = $login;
+        $this->email = $email;
+        $this->password =  password_hash($password, PASSWORD_BCRYPT);;
+        $this->roles = $roles;
+        $this->is_active = $is_active;
+        $this->Token =md5(uniqid(time()));
+        $this->Token_Expire = new DateTime('+15 minutes');
+
+
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -110,8 +143,6 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
