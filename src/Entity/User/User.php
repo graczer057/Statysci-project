@@ -103,7 +103,7 @@ class User implements UserInterface
         $this->password =  password_hash($password, PASSWORD_BCRYPT);;
         $this->roles = $roles;
         $this->is_active = $is_active;
-        $this->Token =md5(uniqid(time()));
+        $this->Token = md5(uniqid(time()));
         $this->Token_Expire = new DateTime('+15 minutes');
 
 
@@ -296,5 +296,9 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function getRoleName(): ?int{
+        return self::Role($this->getRoleName());
     }
 }

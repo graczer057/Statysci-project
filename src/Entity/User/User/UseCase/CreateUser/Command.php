@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: patry
- * Date: 06.08.2020
- * Time: 15:47
- */
 
 namespace App\Entity\User\User\UseCase\CreateUser;
-
 
 use App\Entity\ActorGrupe\ActorGrupe;
 use App\Entity\Business\Business;
@@ -16,17 +9,17 @@ use App\Entity\CandidateProfil\CandidateProfil;
 class Command
 {
 
-
     private $email;
     private $roles = [];
     private $password;
     private $login;
+    private $responder;
 
     public function __construct(
-    string $login,
-    string $email,
-    array $roles,
-    string $password
+        string $login,
+        string $email,
+        array $roles,
+        string $password
     )
     {
 
@@ -34,6 +27,7 @@ class Command
         $this->email = $email;
         $this->roles = $roles;
         $this->password = $password;
+        $this->responder = new NullResponder();
     }
 
 
@@ -73,7 +67,13 @@ class Command
         return $this->login;
     }
 
+    public function getResponder(): Responder {
+        return $this->responder;
+    }
 
+    public function setResponder(Responder $responder) {
+        $this->responder = $responder;
 
-
+        return $this;
+    }
 }

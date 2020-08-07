@@ -11,7 +11,7 @@ class RegisterController extends AbstractController
 {
     /**
      * @return Response
-     * @Route("/", name="homepage", methods={"GET"})
+     * @Route("/", name="homepage")
      */
     public function Homepage(): Response{
         return $this->render('homepage.html.twig');
