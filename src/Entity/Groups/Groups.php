@@ -33,9 +33,30 @@ class Groups
     private $email;
 
     /**
+     * @var string The hashed password
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $token_expire;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_active;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -46,6 +67,32 @@ class Groups
      * @ORM\Column(type="string", length=255)
      */
     private $photoPath;
+
+    public function __construct(
+        string $name,
+        int $nip,
+        string $email,
+        string $password,
+        array $roles,
+        string $description,
+        string $photoPath,
+        bool $is_active,
+        string $token,
+        \DateTime $token_expire
+    ){
+        $non_active = false;
+        $non_path = null;
+        $this->name = $name;
+        $this->nip = $nip;
+        $this->email = $email;
+        $this->password = password_hash($password, PASSWORD_BCRYPT);
+        $this->roles = $roles;
+        $this->description = $description;
+        $this->photoPath = $non_path;
+        $this->is_active = $non_active;
+        $this->token = md5(uniqid());
+        $this->token_expire = new \DateTime('+60 minutes');
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +167,46 @@ class Groups
     public function setPhotoPath(string $photoPath): self
     {
         $this->photoPath = $photoPath;
+
+        return $this;
+    }
+
+    public function getRoles(): ?array {
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): self {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getToken(): ?string {
+        return $this->token;
+    }
+
+    public function setToken(string $token): self {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    public function getTokenExpire(): \DateTime {
+        return $this->token_expire;
+    }
+
+    public function setTokenExpire(\DateTime $token_expire): self {
+        $this->token_expire = $token_expire;
+
+        return $this;
+    }
+
+    public function getIsActive(): bool {
+        return $this->is_active;
+    }
+
+    public function setIsActive(bool $is_active): self {
+        $this->is_active = $is_active;
 
         return $this;
     }

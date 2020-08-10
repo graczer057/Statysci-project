@@ -2,8 +2,8 @@
 
 namespace App\Adapter\User;
 
-use App\Entity\User\ReadModel\Users;
-use App\Entity\User\ReadModel\UsersQueryInterface;
+use App\Entity\User\User\ReadModel;
+use App\Entity\User\User\ReadModel\UsersQueryInterface;
 use App\Entity\User\User;
 use Doctrine\DBAL\Connection;
 
