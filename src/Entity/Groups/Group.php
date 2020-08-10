@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Groups;
 
 use App\Repository\GroupsRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=GroupsRepository::class)
  */
-class Groups
+class Group
 {
     /**
      * @ORM\Id()
@@ -73,12 +73,12 @@ class Groups
         int $nip,
         string $email,
         string $password,
-        array $roles,
         string $description,
         string $photoPath,
-        bool $is_active,
+        array $roles,
         string $token,
-        \DateTime $token_expire
+        \DateTime $token_expire,
+        bool $is_active
     ){
         $non_active = false;
         $non_path = null;

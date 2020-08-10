@@ -2,11 +2,6 @@
 
 namespace App\Entity\User\User\UseCase\CreateUser;
 
-use App\Entity\ActorGrupe\ActorGrupe;
-use App\Entity\Business\Business;
-use App\Entity\CandidateProfil\CandidateProfil;
-use phpDocumentor\Reflection\Types\This;
-
 class Command
 {
 
@@ -14,11 +9,11 @@ class Command
     private $roles = [];
     private $password;
     private $login;
-    private $responder;
     private $token;
     private $token_expire;
     private $is_active;
     private $date;
+    private $responder;
 
     public function __construct(
         string $login,
@@ -44,13 +39,6 @@ class Command
     public function getEmail(): ?string
     {
         return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
     }
 
     public function getUsername(): string
