@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=GroupsRepository::class)
  */
-class Group
+class Group implements GroupsInterface
 {
     /**
      * @ORM\Id()
@@ -64,31 +64,28 @@ class Group
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $photoPath;
 
     public function __construct(
         string $name,
-        int $nip,
         string $email,
+        int $nip,
         string $password,
         string $description,
-        string $photoPath,
         array $roles,
         string $token,
         \DateTime $token_expire,
         bool $is_active
     ){
         $non_active = false;
-        $non_path = null;
         $this->name = $name;
         $this->nip = $nip;
         $this->email = $email;
         $this->password = password_hash($password, PASSWORD_BCRYPT);
         $this->roles = $roles;
         $this->description = $description;
-        $this->photoPath = $non_path;
         $this->is_active = $non_active;
         $this->token = md5(uniqid());
         $this->token_expire = new \DateTime('+60 minutes');
@@ -209,5 +206,20 @@ class Group
         $this->is_active = $is_active;
 
         return $this;
+    }
+
+    public function add(Group $groups)
+    {
+        // TODO: Implement add() method.
+    }
+
+    public function findByToken(string $token)
+    {
+        // TODO: Implement findByToken() method.
+    }
+
+    public function findByName(string $name)
+    {
+        // TODO: Implement findByName() method.
     }
 }

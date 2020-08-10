@@ -59,6 +59,38 @@ class Command
     }
 
     public function getDescription(): string {
-        
+        return $this->description;
+    }
+
+    public function getPhotoPath(): ?string {
+        return $this->photoPath;
+    }
+
+    public function getRoles(): array {
+        $roles = $this->roles;
+
+        return array_unique($roles);
+    }
+
+    public function getToken(): string {
+        return $this->token;
+    }
+
+    public function getTokenExpire(): \DateTime {
+        return $this->tokenExpire;
+    }
+
+    public function getIsActive(): bool {
+        return $this->isActive;
+    }
+
+    public function getResponder(): Responder {
+        return $this->responder;
+    }
+
+    public function setResponder(Responder $responder) {
+        $this->responder = $responder;
+
+        return $this;
     }
 }

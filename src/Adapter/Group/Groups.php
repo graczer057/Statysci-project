@@ -26,8 +26,8 @@ class Groups implements GroupsInterface
         return $this->manager->getRepository(Group::class)->findOneBy(['token' => $token]);
     }
 
-    public function findByEmail(string $email)
+    public function findByName(string $name)
     {
-        return $this->manager->getRepository(Group::class)->findOneBy(['email' => $email]);
+        return $this->manager->getRepository(Group::class)->findOneBy(['name' => $name]);
     }
 }

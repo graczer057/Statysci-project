@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Controller\Register\User;
+namespace App\Controller\User\Register;
 
 use App\Entity\User\User\UseCase\CreateUser;
 use App\Entity\User\User\UseCase\CreateUser\Responder as RegisterResponder;
@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController implements RegisterResponder
 {
     /**
-     * @Route("/{_locale}/register", name="user_register")
+     * @Route("/{_locale}/users/register", name="user_register")
      * @param Request $request
      * @param CreateUser $createUser
      * @return Response
@@ -56,6 +56,6 @@ class UserController extends AbstractController implements RegisterResponder
 
     public function emailExists()
     {
-        $this->addFlash('success', 'Account with this email already exists, please type another email');
+        $this->addFlash('error', 'Account with this email already exists, please type another email');
     }
 }

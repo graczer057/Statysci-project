@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Form\User;
+namespace App\Form\Group;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -10,21 +11,33 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class UserRegisterType extends AbstractType{
+class GroupRegisterType extends AbstractType
+{
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('name', TextType::class, [
+                'label' => 'Name of the group*'
+            ])
             ->add('email', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Email'
+                'label' => 'Email*'
             ])
-            ->add('login', TextType::class, [
+            ->add('nip', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Login'
+                'constraints' => [
+                    new Length([
+                        'min' => 10,
+                        'max' => 10,
+                        'minMessage' => 'NIP is longer',
+                        'maxMessage' => 'NIP is shorter',
+                    ]),
+                ],
+                'label' => 'NIP if you are a company (optional)'
             ])
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
@@ -38,7 +51,13 @@ class UserRegisterType extends AbstractType{
                         'max' => 4096,
                     ]),
                 ],
-                'label' => 'Password'
+                'label' => 'Password*'
+            ])
+            ->add('description', TextareaType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Description'
             ])
             ->add('save', SubmitType::class, [
                 'attr' => [

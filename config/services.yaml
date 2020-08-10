@@ -54,6 +54,20 @@ services:
             - "@Users"
             - "@doctrine_application_transaction"
 
+    Groups:
+        class: App\Adapter\Group\Groups
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        public: true
+
+    App\Entity\Groups\UseCase\CreateGroup:
+        arguments:
+            - "@Groups"
+            - "@application_transaction"
+            - "@doctrine.orm.entity_manager"
+            - "@email_factory"
+            - "@Swift_Mailer"
+
     App\Adapter\Core\EmailFactory:
         arguments:
             - '%mailer_from%'

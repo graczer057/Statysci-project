@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Controller\Register\User;
+namespace App\Controller\User\Activate;
 
 use Symfony\Component\Routing\Annotation\Route;
 

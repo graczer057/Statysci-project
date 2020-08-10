@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Dear Group please type some information about your new profile on our website.</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.nip)}}
+    {{ form_row(form.plainPassword) }}
+    {{ form_row(form.description) }}
+
+    <button type="submit" class="btn"></button>
+    {{ form_end(form) }}
+{% endblock %}
