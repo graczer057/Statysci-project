@@ -4,6 +4,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    mailer_from: 'patryk.pogorzelski@yellows.eu'
+    locale: 'pl'
+    app_locales: pl|en|
 
 services:
     # default configuration for services in *this* file
@@ -50,3 +53,12 @@ services:
         arguments:
             - "@Users"
             - "@doctrine_application_transaction"
+
+    App\Adapter\Core\EmailFactory:
+        arguments:
+            - '%mailer_from%'
+        public: true
+
+    email_factory:
+        alias: App\Adapter\Core\EmailFactory
+        public: true
