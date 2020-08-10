@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="31" height="21" viewBox="0 0 31 21">
+  <g id="flag_pl_ic" transform="translate(0.5 0.5)">
+    <path id="Path_848" data-name="Path 848" d="M0,263.742a2.271,2.271,0,0,0,2.247,2.295H27.753A2.271,2.271,0,0,0,30,263.742V256H0Z" transform="translate(0 -246.037)" fill="#dc143c"/>
+    <path id="Path_849" data-name="Path 849" d="M27.753,88.276H2.247A2.271,2.271,0,0,0,0,90.571v7.742H30V90.571A2.271,2.271,0,0,0,27.753,88.276Z" transform="translate(0 -88.276)" fill="#fff"/>
+    <path id="Path_855" data-name="Path 855" d="M27.753,88.276H2.247A2.267,2.267,0,0,0,0,90.562V105.99a2.267,2.267,0,0,0,2.247,2.286H27.753A2.267,2.267,0,0,0,30,105.99V90.562A2.267,2.267,0,0,0,27.753,88.276Z" transform="translate(0 -88.276)" fill="#fff" opacity="0.23"/>
+    <path id="Path_858" data-name="Path 858" d="M27.753,88.276H2.247A2.267,2.267,0,0,0,0,90.562V105.99a2.267,2.267,0,0,0,2.247,2.286H27.753A2.267,2.267,0,0,0,30,105.99V90.562A2.267,2.267,0,0,0,27.753,88.276Z" transform="translate(0 -88.276)" fill="none" stroke="#4a4a4a" stroke-width="1"/>
+  </g>
+</svg>
