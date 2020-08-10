@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="9A1Bs6R" resname="Strona główna">
+        <source>Strona główna</source>
+        <target>__Strona główna</target>
+      </trans-unit>
+      <trans-unit id="Q13MGpK" resname="Zaloguj">
+        <source>Zaloguj</source>
+        <target>__Zaloguj</target>
+      </trans-unit>
+      <trans-unit id="YJ7anPX" resname="Wyloguj">
+        <source>Wyloguj</source>
+        <target>__Wyloguj</target>
+      </trans-unit>
+      <trans-unit id="19PVyqI" resname="Statyści">
+        <source>Statyści</source>
+        <target>__Statyści</target>
+      </trans-unit>
+      <trans-unit id="l_npuy2" resname="Zaloguj się">
+        <source>Zaloguj się</source>
+        <target>__Zaloguj się</target>
+      </trans-unit>
+      <trans-unit id="wa5b3NO" resname="Zarejestruj się">
+        <source>Zarejestruj się</source>
+        <target>__Zarejestruj się</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>__Logout</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

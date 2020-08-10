@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController implements RegisterResponder
 {
     /**
-     * @Route("/register/user", name="user_register")
+     * @Route("/{_locale}/register", name="user_register")
      * @param Request $request
      * @param CreateUser $createUser
      * @return Response
