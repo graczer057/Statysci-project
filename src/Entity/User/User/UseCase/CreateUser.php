@@ -39,19 +39,20 @@ class CreateUser extends AbstractController
     {
         $this->transaction->begin();
 
-        if($this->users->findByEmail($command->getEmail())){
-            $command->getResponder()->emailExists();
-            return;
-        }
-
-
-
         $user = new User(
             $command->getLogin(),
             $command->getEmail(),
             $command->getPassword(),
-            $command->getRoles()
+            $command->getRoles(),
+            $command->getIsActive(),
+            $command->getToken(),
+            $command->getTokenExpire()
         );
+
+        if($this->users->findByEmail($command->getEmail())){
+            $command->getResponder()->emailExists();
+            return $this->redirectToRoute('homepage');
+        }
 
         $this->users->add($user);
 
@@ -63,11 +64,11 @@ class CreateUser extends AbstractController
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email'=>$command->getEmail()]);
-        $template = $this->renderView("User/UserRegister.html.twig");
+        $template = $this->renderView("homepage.html.twig");
         $this->createNotFoundException();
         $url = $this->generateUrl('activate', array('token'=>$user->getToken()), UrlGenerator::ABSOLUTE_URL);
         $template = str_replace("$.name.$", $command->getLogin(), $template);
-        $template = str_replace("$.LINK.$", '<A href="'.$url.'" target="_blank">aktywuj konto</a>', $template);
+        $template = str_replace("$.LINK.$", '<a href="'.$url.'" target="_blank">aktywuj konto</a>', $template);
         $swiftMessage = $this->emailFactory->create(
             'Pomyślna rejestracja',
             nl2br($template),

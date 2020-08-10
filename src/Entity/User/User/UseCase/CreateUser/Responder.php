@@ -15,5 +15,4 @@ interface Responder
 {
     public function CreateUser(User $user);
     public function emailExists();
-    public function UserNameExists();
 }

@@ -3,7 +3,6 @@
 
 namespace App\Controller\Register\User;
 
-use App\Adapter\User\Users;
 use App\Entity\User\User\UseCase\CreateUser;
 use App\Entity\User\User\UseCase\CreateUser\Responder as RegisterResponder;
 use App\Entity\User\User;
@@ -30,10 +29,12 @@ class UserController extends AbstractController implements RegisterResponder
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
+            $role = ["candidate"];
+
             $command = new CreateUser\Command(
                 $data['login'],
                 $data['email'],
-                [$data['role']],
+                $role,
                 $form->get('plainPassword')->getData()
             );
 
@@ -55,11 +56,6 @@ class UserController extends AbstractController implements RegisterResponder
 
     public function emailExists()
     {
-        // TODO: Implement emailExists() method.
-    }
-
-    public function UserNameExists()
-    {
-        // TODO: Implement UserNameExists() method.
+        $this->addFlash('success', 'Account with this email already exists, please type another email');
     }
 }

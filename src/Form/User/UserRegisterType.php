@@ -19,17 +19,6 @@ class UserRegisterType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('role', ChoiceType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => 'Role',
-                'choices' => [
-                    'Candidate' => 'Candidate',
-                    'Business' => 'Business',
-                    'Groupe' => 'Groupe'
-                ]
-            ])
             ->add('email', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
@@ -54,6 +43,7 @@ class UserRegisterType extends AbstractType{
                         'max' => 4096,
                     ]),
                 ],
+                'label' => 'Password'
             ])
             ->add('save', SubmitType::class, [
                 'attr' => [

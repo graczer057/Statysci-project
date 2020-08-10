@@ -15,11 +15,6 @@ class RegisterController extends AbstractController
      * @Route("/", name="homepage")
      */
     public function Homepage(): Response{
-        $user = $this->getUser();
-        if ($user == null){
-            return $this->render('Homepage/registerType.html.twig');
-        } else {
-            return $this->render('homepage.html.twig');
-        }
+        return $this->render('homepage.html.twig');
     }
 }
