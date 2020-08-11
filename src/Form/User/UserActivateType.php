@@ -31,7 +31,6 @@ class UserActivateType extends AbstractType{
                     'Zielone' => 'Zielone',
                     'Piwne' => 'Piwne'
                 ]
-            ])
-            ->
+            ]);
     }
 }
