@@ -31,6 +31,41 @@ class UserActivateType extends AbstractType{
                     'Zielone' => 'Zielone',
                     'Piwne' => 'Piwne'
                 ]
-            ]);
+            ])
+            ->add('hair', ChoiceType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Kolor włosów',
+                'choices' => [
+                    'Brązowe' => 'Brązowe',
+                    'Czarne' => 'Czarne',
+                    'Blond' => 'Blond'
+                ]
+            ])
+            ->add('weight', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Waga'
+            ])
+            ->add('gender', ChoiceType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Płeć',
+                'choices' => [
+                    'Mężczyzna' => 'Mężczyzna',
+                    'Kobieta' => 'Kobieta',
+                    'Chłopiec'
+                ]
+            ])
+            ->add('activate', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-success waves-effect mid'
+                ],
+                'label' => 'Activate'
+            ])
+        ;
     }
 }

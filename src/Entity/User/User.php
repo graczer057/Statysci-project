@@ -74,27 +74,27 @@ class User implements UserInterface
     private $login;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $height;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $eyes;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $hair;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $weight;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $gender;
 
@@ -119,6 +119,11 @@ class User implements UserInterface
         string $email,
         string $password,
         array $roles,
+        ?string $height,
+        ?string $eyes,
+        ?string $hair,
+        ?string $weight,
+        ?string $gender,
         bool $is_active=false
     )
     {
@@ -129,6 +134,11 @@ class User implements UserInterface
         $this->is_active = $is_active;
         $this->token = md5(uniqid(time()));
         $this->token_expire = new DateTime('+60 minutes');
+        $this->height = $height;
+        $this->eyes = $eyes;
+        $this->hair = $hair;
+        $this->weight = $weight;
+        $this->gender = $gender;
     }
 
 
@@ -136,11 +146,11 @@ class User implements UserInterface
         ?string $token,
         ?\DateTime $token_expire,
         ?bool $is_active,
-        string $height,
-        string $eyes,
-        string $hair,
-        string $weight,
-        string $gender
+        ?string $height,
+        ?string $eyes,
+        ?string $hair,
+        ?string $weight,
+        ?string $gender
     ){
         $activeUser = true;
         $nullToken = null;
@@ -349,7 +359,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getHeight()
+    public function getHeight(): ?string
     {
         return $this->height;
     }
@@ -365,7 +375,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getEyes()
+    public function getEyes(): ?string
     {
         return $this->eyes;
     }
@@ -381,7 +391,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getHair()
+    public function getHair(): ?string
     {
         return $this->hair;
     }
@@ -397,7 +407,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getWeight()
+    public function getWeight(): ?string
     {
         return $this->weight;
     }
@@ -413,7 +423,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getGender()
+    public function getGender(): ?string
     {
         return $this->gender;
     }
