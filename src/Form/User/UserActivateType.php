@@ -2,6 +2,7 @@
 
 namespace App\Form\User;
 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -18,8 +19,19 @@ class UserActivateType extends AbstractType{
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Height'
+                'label' => 'Wzrost'
             ])
-            ->add('eyes', )
+            ->add('eyes', ChoiceType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Kolor oczu',
+                'choices' => [
+                    'Niebieskie' => 'Niebieskie',
+                    'Zielone' => 'Zielone',
+                    'Piwne' => 'Piwne'
+                ]
+            ])
+            ->
     }
 }

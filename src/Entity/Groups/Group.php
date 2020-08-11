@@ -76,23 +76,20 @@ class Group
         string $password,
         string $description,
         array $roles,
-        string $token,
-        \DateTime $token_expire,
-        bool $is_active,
-        ?string $photoPath
+        bool $is_active=false,
+        ?string $photoPath=null
+
     ){
-        $non_active = false;
-        $nullPhoto = null;
         $this->name = $name;
         $this->nip = $nip;
         $this->email = $email;
         $this->password = password_hash($password, PASSWORD_BCRYPT);
         $this->roles = $roles;
         $this->description = $description;
-        $this->is_active = $non_active;
+        $this->is_active = $is_active;
         $this->token = md5(uniqid());
-        $this->token_expire = new \DateTime('+60 minutes');
-        $this->photoPath = $nullPhoto;
+        $this->date = new \DateTime("+60 minutes");
+        $this->photoPath = $photoPath;
     }
 
     public function getId(): ?int
