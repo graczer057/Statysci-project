@@ -110,23 +110,13 @@ class User implements UserInterface
     public function activateUser(
         ?string $token,
         ?\DateTime $token_expire,
-        ?bool $is_active,
-        string $height,
-        string $eyes,
-        string $hair,
-        string $weight,
-        string $gender
+        ?bool $is_active
     ){
         $activeUser = true;
         $nullToken = null;
         $this->token = $nullToken;
         $this->token_expire = $nullToken;
         $this->is_active = $activeUser;
-        $this->height = $height;
-        $this->eyes = $eyes;
-        $this->hair = $hair;
-        $this->weight = $weight;
-        $this->gender = $gender;
     }
 
     public function getId(): ?int
