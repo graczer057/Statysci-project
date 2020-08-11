@@ -7,17 +7,18 @@ namespace App\Entity\User\User\UseCase;
 use App\Adapter\Core\EmailFactory;
 use App\Adapter\Core\Transaction;
 use App\Adapter\User\Users;
-use App\Entity\User\User\UseCase\PasswordReset\Command;
+use App\Entity\User\User\UseCase\PasswordChange\Command;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 
-class PasswordReset extends AbstractController
+class PasswordChange extends AbstractController
 {
 
     private $transaction;
     private $emailFactory;
     private $mailer;
+    private $Users;
 
 
     public function __construct(Users $users, Transaction $transaction,
@@ -25,7 +26,7 @@ class PasswordReset extends AbstractController
                                 EntityManagerInterface $entityManager,
                                 \Swift_Mailer $mailer )
     {
-        $this->users = $users;
+        $this->Users = $users;
         $this->transaction = $transaction;
         $this->emailFactory = $emailFactory;
         $this->entityManager = $entityManager;
@@ -35,10 +36,15 @@ class PasswordReset extends AbstractController
     public function execute(Command $command)
     {
         $this->transaction->begin();
+        $date = new \DateTime("now");
 
         $User = $command->getUser();
-
-        $User->TokenExpire(
+        if($this->Users->findbyToken($User->getToken())->getTokenExpire()->getTimestamp()<$date->getTimestamp()){
+            $command->getResponder()->LostToken();
+            return;
+        }
+        $User->PasswordChange(
+            $command->getPassword(),
             $command->getToken(),
             $command->getTokenExpire()
         );
@@ -50,11 +56,9 @@ class PasswordReset extends AbstractController
             throw $e;
         }
 
-        $template = $this->renderView("mail/PasswordReset.html.twig");
+        $template = $this->renderView("mail/PasswordChange.html.twig");
         $this->createNotFoundException();
-        $url = $this->generateUrl('app_password_change', array('token' => $command->getToken()), UrlGenerator::ABSOLUTE_URL);
         $template = str_replace("$.name.$", $User->getUsername(), $template);
-        $template = str_replace("$.LINK.$", '<a href="' . $url . '" target="_blank">zmień <hasło></hasło></a>', $template);
         $swiftMessage = $this->emailFactory->create(
             'Nowy Link',
             nl2br($template),
@@ -64,6 +68,6 @@ class PasswordReset extends AbstractController
         );
         $this->mailer->send($swiftMessage);
 
-        $command->getResponder()->passwordreset($User);
+        $command->getResponder()->PasswordChange();
     }
 }

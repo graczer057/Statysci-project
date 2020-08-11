@@ -63,7 +63,7 @@ class CreateUser extends AbstractController
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email'=>$command->getEmail()]);
         $template = $this->renderView("mail/Register.html.twig");
         $this->createNotFoundException();
-        $url = $this->generateUrl('activate', array('token'=>$user->getToken()), UrlGenerator::ABSOLUTE_URL);
+        $url = $this->generateUrl('user_activate', array('token'=>$user->getToken()), UrlGenerator::ABSOLUTE_URL);
         $template = str_replace("$.name.$", $command->getLogin(), $template);
         $template = str_replace("$.LINK.$", '<a href="'.$url.'" target="_blank">aktywuj konto</a>', $template);
         $swiftMessage = $this->emailFactory->create(

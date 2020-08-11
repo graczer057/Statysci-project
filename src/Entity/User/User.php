@@ -74,31 +74,6 @@ class User implements UserInterface
     private $login;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $height;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $eyes;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $hair;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $weight;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $gender;
-
-    /**
      * @ORM\OneToOne(targetEntity=Business::class, mappedBy="User", cascade={"persist", "remove"})
      */
     private $business;
@@ -119,11 +94,6 @@ class User implements UserInterface
         string $email,
         string $password,
         array $roles,
-        ?string $height,
-        ?string $eyes,
-        ?string $hair,
-        ?string $weight,
-        ?string $gender,
         bool $is_active=false
     )
     {
@@ -134,11 +104,6 @@ class User implements UserInterface
         $this->is_active = $is_active;
         $this->token = md5(uniqid(time()));
         $this->token_expire = new DateTime('+60 minutes');
-        $this->height = $height;
-        $this->eyes = $eyes;
-        $this->hair = $hair;
-        $this->weight = $weight;
-        $this->gender = $gender;
     }
 
 
@@ -146,11 +111,11 @@ class User implements UserInterface
         ?string $token,
         ?\DateTime $token_expire,
         ?bool $is_active,
-        ?string $height,
-        ?string $eyes,
-        ?string $hair,
-        ?string $weight,
-        ?string $gender
+        string $height,
+        string $eyes,
+        string $hair,
+        string $weight,
+        string $gender
     ){
         $activeUser = true;
         $nullToken = null;
@@ -356,85 +321,6 @@ class User implements UserInterface
         return self::Role($this->getRoleName());
     }
 
-    /**
-     * @return mixed
-     */
-    public function getHeight(): ?string
-    {
-        return $this->height;
-    }
-
-    /**
-     * @param mixed $height
-     */
-    public function setHeight($height): void
-    {
-        $this->height = $height;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEyes(): ?string
-    {
-        return $this->eyes;
-    }
-
-    /**
-     * @param mixed $eyes
-     */
-    public function setEyes($eyes): void
-    {
-        $this->eyes = $eyes;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getHair(): ?string
-    {
-        return $this->hair;
-    }
-
-    /**
-     * @param mixed $hair
-     */
-    public function setHair($hair): void
-    {
-        $this->hair = $hair;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getWeight(): ?string
-    {
-        return $this->weight;
-    }
-
-    /**
-     * @param mixed $weight
-     */
-    public function setWeight($weight): void
-    {
-        $this->weight = $weight;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getGender(): ?string
-    {
-        return $this->gender;
-    }
-
-    /**
-     * @param mixed $gender
-     */
-    public function setGender($gender): void
-    {
-        $this->gender = $gender;
-    }
 
     public function TokenExpire(
         ?string $Token,
@@ -442,5 +328,15 @@ class User implements UserInterface
     ){
         $this->Token = $Token;
         $this->Token_Expire = $Token_Expire;
+    }
+
+    public function PasswordChange(
+        string $password,
+        ?string $Token,
+        ?\DateTime $Token_Expire
+    ){
+        $this->password=password_hash($password, PASSWORD_BCRYPT);
+        $this->Token=$Token;
+        $this->Token_Expire=$Token_Expire;
     }
 }

@@ -11,16 +11,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomePageController extends AbstractController
 {    /**
  * @return Response
- * @Route("/", name="homepage")
+ * @Route("/", name="locals")
  */
     public function main(): Response{
-        return $this->redirectToRoute('locales');    }
+        return $this->redirectToRoute('homepage');    }
 
 
 
     /**
      * @return Response
-     * @Route("/{_locale}/homepage", name="locales", defaults={"_locale":"%locale%"}, requirements={"_locale":"%app_locales%"})
+     * @Route("/{_locale}/homepage", name="homepage", defaults={"_locale":"%locale%"}, requirements={"_locale":"%app_locales%"})
      */
     public function Homepage(): Response{
         return $this->render('homepage.html.twig');

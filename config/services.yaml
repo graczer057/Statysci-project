@@ -63,17 +63,16 @@ services:
             - "@Users"
             - "@doctrine_application_transaction"
 
-    Groups:
-        class: App\Adapter\Group\Groups
+    App\Entity\User\User\UseCase\PasswordReset:
         arguments:
-            - "@doctrine.orm.entity_manager"
+            - "@Users"
+            - "@application_transaction"
+            - "@email_factory"
         public: true
 
-    App\Entity\Groups\UseCase\CreateGroup:
+    App\Entity\User\User\UseCase\PasswordChange:
         arguments:
-            - "@Groups"
+            - "@Users"
             - "@application_transaction"
-            - "@doctrine.orm.entity_manager"
             - "@email_factory"
-            - "@Swift_Mailer"
-
+        public: true
