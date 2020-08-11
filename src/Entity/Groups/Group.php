@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=GroupsRepository::class)
+ * @ORM\Table("groupUser")
  */
 class Group
 {
