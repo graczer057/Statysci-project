@@ -46,6 +46,7 @@ class ActivateController extends AbstractController implements ActivateResponder
 
     public function ActivateUser(User $user)
     {
+
         $this->addFlash('succes', 'Activation complete congratulationsbaja');
     }
 
