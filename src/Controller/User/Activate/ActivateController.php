@@ -47,11 +47,11 @@ class ActivateController extends AbstractController implements ActivateResponder
     public function ActivateUser(User $user)
     {
 
-        $this->addFlash('succes', 'Activation complete congratulationsbaja');
+        $this->addFlash('success', 'Twoje konto zostało aktywowane');
     }
 
     public function linkExpired()
     {
-        $this->addFlash('error', 'Sorry, but your activation link was expired');
+        $this->addFlash('error', 'Przepraszamy, ale twój link aktywacyjny wygasł');
     }
 }
