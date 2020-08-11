@@ -17,6 +17,9 @@ class GroupRegisterType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
                 'label' => 'Name of the group*'
             ])
             ->add('email', TextType::class, [
@@ -41,6 +44,9 @@ class GroupRegisterType extends AbstractType
                 'label' => 'NIP if you are a company (optional)'
             ])
             ->add('plainPassword', PasswordType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([

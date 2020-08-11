@@ -19,7 +19,7 @@ class Command
 
     public function __construct(
         string $name,
-        int $nip,
+        ?int $nip,
         string $email,
         string $password,
         array $roles,

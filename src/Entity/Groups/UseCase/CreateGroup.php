@@ -9,7 +9,6 @@ use App\Adapter\Group\Groups;
 use App\Entity\Groups\UseCase\CreateGroup\Command;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 
 class CreateGroup extends AbstractController
 {
@@ -50,11 +49,6 @@ class CreateGroup extends AbstractController
             $command->getIsActive(),
             $command->getPhotoPath()
         );
-
-        if($this->groups->findByName($command->getName())){
-            $command->getResponder()->NameOfGroupExists();
-            return $this->redirectToRoute('homepage');
-        }
 
         $this->groups->add($group);
 

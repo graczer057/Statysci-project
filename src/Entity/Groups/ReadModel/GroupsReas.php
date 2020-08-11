@@ -16,6 +16,32 @@ class GroupsReas
     private $description;
     private $photoPath;
 
+    public function __construct(
+        int $id,
+        string $name,
+        int $nip,
+        string $email,
+        string $password,
+        array $roles,
+        string $token,
+        \DateTime $token_expire,
+        bool $is_active,
+        string $description,
+        string $photoPath
+    ){
+        $this->id = $id;
+        $this->name = $name;
+        $this->nip = $nip;
+        $this->email = $email;
+        $this->password = $password;
+        $this->roles = $roles;
+        $this->token = $token;
+        $this->token_expire = $token_expire;
+        $this->is_active = $is_active;
+        $this->description = $description;
+        $this->photoPath = $photoPath;
+    }
+
     public function getId(): ?int {
         return $this->id;
     }

@@ -4,7 +4,6 @@ namespace App\Entity\User\User\UseCase\CreateUser;
 
 class Command
 {
-
     private $email;
     private $roles = [];
     private $password;

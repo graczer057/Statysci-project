@@ -4,7 +4,6 @@ namespace App\Entity\Groups;
 
 use App\Repository\GroupsRepository;
 use Doctrine\ORM\Mapping as ORM;
-use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=GroupsRepository::class)
@@ -72,14 +71,14 @@ class Group
     public function __construct(
         string $name,
         string $email,
-        int $nip,
+        ?int $nip,
         string $password,
         string $description,
         array $roles,
         string $token,
         \DateTime $token_expire,
         bool $is_active,
-        string $photoPath
+        ?string $photoPath
     ){
         $non_active = false;
         $nullPhoto = null;

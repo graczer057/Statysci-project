@@ -12,8 +12,7 @@ class UsersQuery implements UsersQueryInterface
 
     public function __construct(
         Connection $connection
-    )
-    {
+    ){
         $this->connection = $connection;
     }
 

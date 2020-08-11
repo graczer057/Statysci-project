@@ -2,7 +2,7 @@
 
 namespace App\Adapter\Group;
 
-use App\Entity\Groups\Group;
+use App\Entity\Groups\ReadModel\GroupsReas;
 use App\Entity\Groups\ReadModel\GroupsQueryInterface;
 use Doctrine\DBAL\Connection;
 
@@ -29,17 +29,18 @@ class GroupsQuery implements GroupsQueryInterface
             [
                 'token' => $token
             ],
-            function($result){
-                return new Group(
+            function($result) {
+                return new GroupsReas(
+                    (int)$result['id'],
                     (string)$result['name'],
                     (int)$result['nip'],
                     (string)$result['email'],
                     (string)$result['password'],
-                    (string)$result['description'],
                     (array)$result['roles'],
                     (string)$result['token'],
                     (new \DateTime($result['tokenExpire'])),
                     (bool)$result['isActive'],
+                    (string)$result['description'],
                     (string)$result['photoPath']
                 );
             }
@@ -56,16 +57,17 @@ class GroupsQuery implements GroupsQueryInterface
                 'email' => $email
             ],
             function($result){
-                return new Group(
+                return new GroupsReas(
+                    (int)$result['id'],
                     (string)$result['name'],
                     (string)$result['email'],
                     (int)$result['nip'],
                     (string)$result['password'],
-                    (string)$result['description'],
                     (array)$result['roles'],
                     (string)$result['token'],
                     (new \DateTime($result['tokenExpire'])),
                     (bool)$result['isActive'],
+                    (string)$result['description'],
                     (string)$result['photoPath']
                 );
             }
