@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: patry
- * Date: 06.08.2020
- * Time: 15:44
- */
 
 namespace App\Entity\User\User\ReadModel;
-
 
 class UserReas
 {

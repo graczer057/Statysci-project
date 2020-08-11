@@ -2,9 +2,8 @@
 
 namespace App\Adapter\User;
 
-use App\Entity\User\ReadModel\Users;
-use App\Entity\User\ReadModel\UsersQueryInterface;
 use App\Entity\User\User;
+use App\Entity\User\User\ReadModel\UsersQueryInterface;
 use Doctrine\DBAL\Connection;
 
 class UsersQuery implements UsersQueryInterface
@@ -13,8 +12,7 @@ class UsersQuery implements UsersQueryInterface
 
     public function __construct(
         Connection $connection
-    )
-    {
+    ){
         $this->connection = $connection;
     }
 
@@ -32,7 +30,7 @@ class UsersQuery implements UsersQueryInterface
                 'token' => $token
             ],
             function ($result) {
-                return new Users(
+                return new User(
                     (int)$result['id'],
                     (string)$result['email'],
                     (string)$result['password'],
@@ -55,7 +53,7 @@ class UsersQuery implements UsersQueryInterface
                 'email' => $email
             ],
             function ($result) {
-                return new Users(
+                return new User(
                     (int)$result['id'],
                     (string)$result['email'],
                     (string)$result['password'],

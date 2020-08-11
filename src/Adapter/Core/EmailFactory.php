@@ -23,7 +23,7 @@ final class EmailFactory
 
         $swiftMessage
             ->setBody(nl2br($template), 'text/html')
-            ->setFrom($this->from, 'Statysta+')
+            ->setFrom($this->from, 'bartlomiej.szyszkowski@yellows.eu')
             ->setTo($users);
         $this->mailer->send($swiftMessage);
         return $swiftMessage;

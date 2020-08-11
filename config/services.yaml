@@ -4,7 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    mailer_from: 'patryk.pogorzelski@yellows.eu'
+    mailer_from: 'bartlomiej.szyszkowski@yellows.eu'
     locale: 'pl'
     app_locales: pl|en|
 
@@ -53,6 +53,20 @@ services:
         arguments:
             - "@Users"
             - "@doctrine_application_transaction"
+
+    Groups:
+        class: App\Adapter\Group\Groups
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        public: true
+
+    App\Entity\Groups\UseCase\CreateGroup:
+        arguments:
+            - "@Groups"
+            - "@application_transaction"
+            - "@doctrine.orm.entity_manager"
+            - "@email_factory"
+            - "@Swift_Mailer"
 
     App\Adapter\Core\EmailFactory:
         arguments:
