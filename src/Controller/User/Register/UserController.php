@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController implements RegisterResponder
 {
     /**
-     * @Route("/{_locale}/users/register", name="user_register")
+     * @Route("/{_locale}/homepage/users/register", name="user_register")
      * @param Request $request
      * @param CreateUser $createUser
      * @return Response
@@ -29,7 +29,7 @@ class UserController extends AbstractController implements RegisterResponder
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            $role = ["candidate"];
+            $role = ["ROLE_CANDIDATE"];
 
             $command = new CreateUser\Command(
                 $data['login'],

@@ -39,20 +39,18 @@ class CreateUser extends AbstractController
     {
         $this->transaction->begin();
 
-        $user = new User(
-            $command->getLogin(),
-            $command->getEmail(),
-            $command->getPassword(),
-            $command->getRoles(),
-            $command->getIsActive(),
-            $command->getToken(),
-            $command->getTokenExpire()
-        );
+
 
         if($this->users->findByEmail($command->getEmail())){
             $command->getResponder()->emailExists();
             return $this->redirectToRoute('homepage');
         }
+        $user = new User(
+            $command->getLogin(),
+            $command->getEmail(),
+            $command->getPassword(),
+            $command->getRoles()
+        );
 
         $this->users->add($user);
 
@@ -62,9 +60,8 @@ class CreateUser extends AbstractController
             $this->transaction->rollback();
             throw $e;
         }
-
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email'=>$command->getEmail()]);
-        $template = $this->renderView("homepage.html.twig");
+        $template = $this->renderView("mail/Register.html.twig");
         $this->createNotFoundException();
         $url = $this->generateUrl('activate', array('token'=>$user->getToken()), UrlGenerator::ABSOLUTE_URL);
         $template = str_replace("$.name.$", $command->getLogin(), $template);
@@ -79,5 +76,7 @@ class CreateUser extends AbstractController
         $this->mailer->send($swiftMessage);
 
         $command->getResponder()->CreateUser($user);
+
+
     }
 }

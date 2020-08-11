@@ -25,20 +25,12 @@ class Command
         array $roles,
         string $description
     ){
-        $falseActive = false;
-        $nullVariable = null;
         $this->name = $name;
         $this->nip = $nip;
         $this->email = $email;
         $this->password = $password;
         $this->description = $description;
-        $this->photoPath = $nullVariable;
         $this->roles = $roles;
-        $this->token = md5(uniqid());
-        $this->date = new \DateTime("now");
-        $this->date->modify('+60 minutes');
-        $this->tokenExpire = $this->date;
-        $this->isActive = $falseActive;
         $this->responder = new NullResponder();
     }
 

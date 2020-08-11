@@ -21,16 +21,10 @@ class Command
         string $password
     )
     {
-        $falseActive = false;
         $this->login = $login;
         $this->email = $email;
         $this->roles = $roles;
         $this->password = $password;
-        $this->token = md5(uniqid());
-        $this->date = new \DateTime("now");
-        $this->date->modify('+60 minutes');
-        $this->token_expire = $this->date;
-        $this->is_active = $falseActive;
         $this->responder = new NullResponder();
     }
 

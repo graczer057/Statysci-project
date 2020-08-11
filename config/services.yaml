@@ -33,6 +33,15 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    App\Adapter\Core\EmailFactory:
+        arguments:
+            - '%mailer_from%'
+        public: true
+
+    email_factory:
+        alias: App\Adapter\Core\EmailFactory
+        public: true
+
     doctrine_application_transaction:
         class: App\Adapter\Core\Transaction
         arguments:
@@ -68,11 +77,3 @@ services:
             - "@email_factory"
             - "@Swift_Mailer"
 
-    App\Adapter\Core\EmailFactory:
-        arguments:
-            - '%mailer_from%'
-        public: true
-
-    email_factory:
-        alias: App\Adapter\Core\EmailFactory
-        public: true

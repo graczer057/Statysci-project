@@ -25,7 +25,6 @@ final class EmailFactory
             ->setBody(nl2br($template), 'text/html')
             ->setFrom($this->from, 'bartlomiej.szyszkowski@yellows.eu')
             ->setTo($users);
-        $this->mailer->send($swiftMessage);
         return $swiftMessage;
     }
 }

@@ -50,36 +50,54 @@
 </nav>
 
 
-    {% block body %}
-        <div class="container h-100">
-            <div class="row align-items-center h-50">
-                <div class="col-6 mx-auto text-center">
-                    <a href="{{ path('app_login') }}">
+{% block body %}{% if not app.User %}
+    <div class="container h-100">
+        <div class="row align-items-center h-50">
+            <div class="col-6 mx-auto text-center">
+                <a href="{{ path('app_login') }}">
                     <div class="card w-75 text-light bg-dark">
                         <div class="card-body ">
-                            <h5 class="card-title"></h5>
-                            <h5 class="card-title">{{ "Zaloguj się"|trans }}</h5>
-
+                            <h2 class="card-title">{{ "Zaloguj się"|trans }}</h2>
                         </div>
                     </div>
-                    </a>
-                </div>
+                </a>
             </div>
-            <div class="row align-items-center h-25">
-                <div class="col-6 mx-auto">
-                    <a href="{{ path('Register')}}">
-                    <div class="card w-75 text-light bg-dark text-center">
-                        <div class="card-body">
-                            <h5 class="card-title"></h5>
+        </div>
 
-                            <h5 class="card-title">{{ "Zarejestruj się"|trans }}</h5>
-                        </div>
+        <div class="row align-items-center h-25">
+            <div class="col-6 mx-auto">
+                <div class="card w-75 text-light bg-dark text-center">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ "Zarejestruj się"|trans }}</h2>
                     </div>
-                    </a>
                 </div>
             </div>
         </div>
-{%  endblock %}
+        <div class="row h-25 ">
+            <div class="col-5 offset-1">
+                <a href="{{ path('user_register')}}">
+                    <div class="card w-75 text-light bg-dark text-center">
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <h5 class="card-title">{{ "Jestem kandydatem"|trans }}</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-5">
+                <a href="{{ path('groups_register')}}">
+                    <div class="card w-75 text-light bg-dark text-center">
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <h5 class="card-title">{{ "Jestem grupą"|trans }}</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endif %}{%  endblock %}
 </div>
 </body>
 </html>

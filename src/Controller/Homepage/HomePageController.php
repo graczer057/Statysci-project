@@ -20,7 +20,7 @@ class HomePageController extends AbstractController
 
     /**
      * @return Response
-     * @Route("/{_locale}/", name="locales", defaults={"_locale":"%locale%"}, requirements={"_locale":"%app_locales%"})
+     * @Route("/{_locale}/homepage", name="locales", defaults={"_locale":"%locale%"}, requirements={"_locale":"%app_locales%"})
      */
     public function Homepage(): Response{
         return $this->render('homepage.html.twig');

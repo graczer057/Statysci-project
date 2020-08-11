@@ -94,17 +94,14 @@ class User implements UserInterface
         string $email,
         string $password,
         array $roles,
-        bool $is_active,
-        string $token,
-        \DateTime $token_expire
+        bool $is_active=false
     )
     {
-        $non_active = false;
         $this->login = $login;
         $this->email = $email;
         $this->password =  password_hash($password, PASSWORD_BCRYPT);
         $this->roles = $roles;
-        $this->is_active = $non_active;
+        $this->is_active = $is_active;
         $this->token = md5(uniqid(time()));
         $this->token_expire = new DateTime('+60 minutes');
     }

@@ -27,6 +27,9 @@ class UserRegisterType extends AbstractType{
                 'label' => 'Login'
             ])
             ->add('plainPassword', PasswordType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([

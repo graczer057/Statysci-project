@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ActivateController
 {
     /**
-     * @Route("/activate/{token}", name="activate")
+     * @Route("/{_locale}/activate/{token}", name="activate")
      */
     public function Activate(){
 
