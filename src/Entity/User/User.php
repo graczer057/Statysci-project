@@ -425,4 +425,12 @@ class User implements UserInterface
     {
         $this->gender = $gender;
     }
+
+    public function TokenExpire(
+        ?string $Token,
+        ?\DateTime $Token_Expire
+    ){
+        $this->Token = $Token;
+        $this->Token_Expire = $Token_Expire;
+    }
 }
