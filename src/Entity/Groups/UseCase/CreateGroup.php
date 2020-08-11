@@ -43,11 +43,7 @@ class CreateGroup extends AbstractController
             $command->getNip(),
             $command->getPassword(),
             $command->getDescription(),
-            $command->getRoles(),
-            $command->getToken(),
-            $command->getTokenExpire(),
-            $command->getIsActive(),
-            $command->getPhotoPath()
+            $command->getRoles()
         );
 
         $this->groups->add($group);
@@ -58,6 +54,21 @@ class CreateGroup extends AbstractController
             $this->transaction->rollback();
             throw $e;
         }
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email'=>$command->getEmail()]);
+        $template = $this->renderView("mail/Register.html.twig");
+        $this->createNotFoundException();
+        $url = $this->generateUrl('activate', array('token'=>$user->getToken()), UrlGenerator::ABSOLUTE_URL);
+        $template = str_replace("$.name.$", $command->getLogin(), $template);
+        $template = str_replace("$.LINK.$", '<a href="'.$url.'" target="_blank">aktywuj konto</a>', $template);
+        $swiftMessage = $this->emailFactory->create(
+            'Pomyślna rejestracja',
+            nl2br($template),
+            [
+                $command->getEmail()
+            ]
+        );
+        $this->mailer->send($swiftMessage);
+
 
         $command->getResponder()->CreateGroup($group);
     }
