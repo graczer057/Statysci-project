@@ -23,7 +23,7 @@ class GroupsQuery implements GroupsQueryInterface
     public function getByToken(string $token)
     {
         return $this->connection->project(
-            'SELECT g.id as id, g.name as name, g.nip as nip, g.email as email, g.password as password, g.description as description, g.roles as roles, g.token as token, g.tokenExpire as tokenExpire, g.isActive as isActive
+            'SELECT g.id as id, g.name as name, g.nip as nip, g.email as email, g.password as password, g.description as description, g.roles as roles, g.token as token, g.tokenExpire as tokenExpire, g.isActive as isActive, g.photoPath as photoPath
                     FROM group as g 
                     WHERE g.token = :token',
             [
@@ -31,7 +31,6 @@ class GroupsQuery implements GroupsQueryInterface
             ],
             function($result){
                 return new Group(
-                    (int)$result['id'],
                     (string)$result['name'],
                     (int)$result['nip'],
                     (string)$result['email'],
@@ -40,7 +39,8 @@ class GroupsQuery implements GroupsQueryInterface
                     (array)$result['roles'],
                     (string)$result['token'],
                     (new \DateTime($result['tokenExpire'])),
-                    (bool)$result['isActive']
+                    (bool)$result['isActive'],
+                    (string)$result['photoPath']
                 );
             }
         );
@@ -49,7 +49,7 @@ class GroupsQuery implements GroupsQueryInterface
     public function getByEmail(string $email)
     {
         return $this->connection->project(
-            'SELECT g.id as id, g.name as name, g.nip as nip, g.email as email, g.password as password, g.description as description, g.photoPath as photoPath, g.roles as roles, g.token as token, g.tokenExpire as tokenExpire, g.isActive as isActive
+            'SELECT g.id as id, g.name as name,g.email as email, g.nip as nip, g.password as password, g.description as description, g.photoPath as photoPath, g.roles as roles, g.token as token, g.tokenExpire as tokenExpire, g.isActive as isActive, g.photoPath as photoPath
                     FROM group as g 
                     WHERE g.email = :email',
             [
@@ -57,16 +57,16 @@ class GroupsQuery implements GroupsQueryInterface
             ],
             function($result){
                 return new Group(
-                    (int)$result['id'],
                     (string)$result['name'],
-                    (int)$result['nip'],
                     (string)$result['email'],
+                    (int)$result['nip'],
                     (string)$result['password'],
                     (string)$result['description'],
                     (array)$result['roles'],
                     (string)$result['token'],
                     (new \DateTime($result['tokenExpire'])),
-                    (bool)$result['isActive']
+                    (bool)$result['isActive'],
+                    (string)$result['photoPath']
                 );
             }
         );

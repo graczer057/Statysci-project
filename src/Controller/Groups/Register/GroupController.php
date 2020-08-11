@@ -72,11 +72,6 @@ class GroupController extends AbstractController implements RegisterResponder
         $this->addFlash('success', 'Registration complete, now please check your email');
     }
 
-    public function CreateBusiness(Group $group)
-    {
-        $this->addFlash('success', 'Registration complete, now please check your email');
-    }
-
     public function NameOfGroupExists()
     {
         $this->addFlash('error', 'Company with this name already exists, please type another email');

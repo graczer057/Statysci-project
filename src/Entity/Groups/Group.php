@@ -4,11 +4,12 @@ namespace App\Entity\Groups;
 
 use App\Repository\GroupsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=GroupsRepository::class)
  */
-class Group implements GroupsInterface
+class Group
 {
     /**
      * @ORM\Id()
@@ -77,9 +78,11 @@ class Group implements GroupsInterface
         array $roles,
         string $token,
         \DateTime $token_expire,
-        bool $is_active
+        bool $is_active,
+        string $photoPath
     ){
         $non_active = false;
+        $nullPhoto = null;
         $this->name = $name;
         $this->nip = $nip;
         $this->email = $email;
@@ -89,6 +92,7 @@ class Group implements GroupsInterface
         $this->is_active = $non_active;
         $this->token = md5(uniqid());
         $this->token_expire = new \DateTime('+60 minutes');
+        $this->photoPath = $nullPhoto;
     }
 
     public function getId(): ?int
@@ -206,20 +210,5 @@ class Group implements GroupsInterface
         $this->is_active = $is_active;
 
         return $this;
-    }
-
-    public function add(Group $groups)
-    {
-        // TODO: Implement add() method.
-    }
-
-    public function findByToken(string $token)
-    {
-        // TODO: Implement findByToken() method.
-    }
-
-    public function findByName(string $name)
-    {
-        // TODO: Implement findByName() method.
     }
 }

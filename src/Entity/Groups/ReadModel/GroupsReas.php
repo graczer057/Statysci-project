@@ -14,6 +14,7 @@ class GroupsReas
     private $is_active;
     private $nip;
     private $description;
+    private $photoPath;
 
     public function getId(): ?int {
         return $this->id;
@@ -53,5 +54,9 @@ class GroupsReas
 
     public function getNip(): ?int {
         return $this->nip;
+    }
+
+    public function getPhotoPath(): ?string {
+        return $this->photoPath;
     }
 }

@@ -47,7 +47,8 @@ class CreateGroup extends AbstractController
             $command->getRoles(),
             $command->getToken(),
             $command->getTokenExpire(),
-            $command->getIsActive()
+            $command->getIsActive(),
+            $command->getPhotoPath()
         );
 
         if($this->groups->findByName($command->getName())){

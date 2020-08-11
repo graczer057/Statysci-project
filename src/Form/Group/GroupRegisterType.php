@@ -29,6 +29,7 @@ class GroupRegisterType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
+                'required' => false,
                 'constraints' => [
                     new Length([
                         'min' => 10,

@@ -11,11 +11,6 @@ class NullResponder implements Responder
         // TODO: Implement CreateGroup() method.
     }
 
-    public function CreateBusiness(Group $group)
-    {
-        // TODO: Implement CreateBusiness() method.
-    }
-
     public function NameOfGroupExists()
     {
         // TODO: Implement NameOfGroupExists() method.
