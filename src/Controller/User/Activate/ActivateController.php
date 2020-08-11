@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ActivateController extends AbstractController implements ActivateResponder
 {
     /**
-     * @Route("/{_locale}/activate/{token}", name="user_activate")
+     * @Route("/{_locale}/homepage/activate/{token}", name="user_activate")
      */
     public function Activate(Request $request, ActivateUser $activateUser, User $user): Response{
         $form = $this->createForm(UserActivateType::class, []);
