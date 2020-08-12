@@ -5,34 +5,46 @@ namespace App\Form\User;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserActivateType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('height', TextType::class, [
+            ->add('growth', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
                 'label' => 'Wzrost'
             ])
-            ->add('eyes', ChoiceType::class, [
+            ->add('physique', ChoiceType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Kolor oczu',
+                'label' => 'Sylwetka',
                 'choices' => [
-                    'Niebieskie' => 'Niebieskie',
-                    'Zielone' => 'Zielone',
-                    'Piwne' => 'Piwne'
+                    'Wysportowana' => 'Wysportowana',
+                    'Przeciętna' => 'Przeciętna',
+                    'Szczupła' => 'Szczupła',
+                    'Nadwaga' => 'Nadwaga'
                 ]
             ])
-            ->add('hair', ChoiceType::class, [
+            ->add('hair_length', ChoiceType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Włosy',
+                'choices' => [
+                    'Krótkie' => 'Krótkie',
+                    'Długie' => 'Długie',
+                    'Z grzywką' => 'Z grzywką',
+                    'Loczki' => 'Loczki',
+                    'Warkoczyki' => 'Warkoczyki',
+                    'Brak' => 'Brak'
+                ]
+            ])
+            ->add('hair_color', ChoiceType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
@@ -40,31 +52,34 @@ class UserActivateType extends AbstractType{
                 'choices' => [
                     'Brązowe' => 'Brązowe',
                     'Czarne' => 'Czarne',
-                    'Blond' => 'Blond'
+                    'Blond' => 'blond',
+                    'Kolorowe' => 'Kolorowe',
+                    'Siwe' => 'Siwe',
+                    'Brak' => 'Brak'
                 ]
             ])
-            ->add('weight', TextType::class, [
+            ->add('eye_color', ChoiceType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Waga'
-            ])
-            ->add('gender', ChoiceType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => 'Płeć',
+                'label' => 'Kolor oczu',
                 'choices' => [
-                    'Mężczyzna' => 'Mężczyzna',
-                    'Kobieta' => 'Kobieta',
-                    'Chłopiec'
+                    'Niebieskie' => 'Niebieskie',
+                    'Zielone' => 'Zielone',
+                    'Piwne' => 'Piwne',
+                    'Inne' => 'Inne'
                 ]
+            ])
+            ->add('age', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Wiek',
             ])
             ->add('activate', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success waves-effect mid'
                 ],
-                'label' => 'Activate'
             ])
         ;
     }

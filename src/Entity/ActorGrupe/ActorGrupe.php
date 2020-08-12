@@ -52,8 +52,19 @@ class ActorGrupe
      */
     private $description;
 
-    public function __construct()
+    public function __construct(
+        User $user,
+        string $Name,
+        string $Adres,
+        int $Phone,
+        string $description
+    )
     {
+        $this->User = $user;
+        $this->Name = $Name;
+        $this->Adres = $Adres;
+        $this->Phone = $Phone;
+        $this->description = $description;
         $this->sendOfferGrupes = new ArrayCollection();
     }
 

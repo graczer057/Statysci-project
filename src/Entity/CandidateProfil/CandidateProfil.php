@@ -68,8 +68,23 @@ class CandidateProfil
      */
     private $sendOfferGrupes;
 
-    public function __construct()
+    public function __construct(
+        User $user,
+        int $growth,
+        string $physique,
+        string $Hair_Length,
+        string $Hair_Color,
+        string $Eye_Color,
+        int $Age
+    )
     {
+        $this->User = $user;
+        $this->Growth = $growth;
+        $this->physique = $physique;
+        $this->Hair_Length = $Hair_Length;
+        $this->Hair_Color = $Hair_Color;
+        $this->Eye_Color = $Eye_Color;
+        $this->Age = $Age;
         $this->sendOfferGrupes = new ArrayCollection();
     }
 

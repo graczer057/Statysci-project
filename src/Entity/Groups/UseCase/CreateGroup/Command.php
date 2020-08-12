@@ -5,9 +5,6 @@ namespace App\Entity\Groups\UseCase\CreateGroup;
 class Command
 {
     private $name;
-    private $nip;
-    private $email;
-    private $password;
     private $description;
     private $photoPath;
     private $roles = [];
@@ -19,7 +16,6 @@ class Command
 
     public function __construct(
         string $name,
-        ?int $nip,
         string $email,
         string $password,
         array $roles,

@@ -107,11 +107,7 @@ class User implements UserInterface
     }
 
 
-    public function activateUser(
-        ?string $token,
-        ?\DateTime $token_expire,
-        ?bool $is_active
-    ){
+    public function activateUser(){
         $activeUser = true;
         $nullToken = null;
         $this->token = $nullToken;
@@ -207,7 +203,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getTokenExpire(): ?\DateTimeInterface
+    public function getTokenExpire(): ?\DateTime
     {
         return $this->token_expire;
     }

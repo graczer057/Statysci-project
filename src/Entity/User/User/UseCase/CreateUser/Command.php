@@ -11,7 +11,6 @@ class Command
     private $token;
     private $token_expire;
     private $is_active;
-    private $date;
     private $responder;
 
     public function __construct(
