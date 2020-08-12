@@ -15,51 +15,52 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CandidateProfil
 {
+
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
-
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
+
      */
     private $Growth;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $physique;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Hair_Length;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Hair_Color;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Eye_Color;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $Age;
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="candidateProfil", cascade={"persist", "remove"})
      */
-    private $User;
+        private $User;
 
     /**
      * @ORM\OneToMany(targetEntity=SendOfferBusiness::class, mappedBy="Candidate")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $sendOfferBusiness;
 
@@ -68,9 +69,23 @@ class CandidateProfil
      */
     private $sendOfferGrupes;
 
-    public function __construct()
+    public function __construct(
+        User $User,
+        int $Growth=null,
+        string $physique=null,
+        string $Hair_Length=null,
+        string $Hair_Color=null,
+        string $Eye_Color=null,
+        int $Age=null
+    )
     {
-        $this->sendOfferGrupes = new ArrayCollection();
+        $this->User = $User;
+        $this->Growth = $Growth;
+        $this->physique = $physique;
+        $this->Hair_Length = $Hair_Length;
+        $this->Hair_Color = $Hair_Color;
+        $this->Eye_Color = $Eye_Color;
+        $this->Age = $Age;
     }
 
     public function getId(): ?int
@@ -204,4 +219,51 @@ class CandidateProfil
 
         return $this;
     }
+
+
+    public function physiques(): array {
+        $physique=["ektomorfik","mezomorfik","endomorfik"];
+        return array_unique($physique);
+    }
+
+    public function HairLengths() : array{
+        $HairLengths=["krótkir","średnie","Długie"];
+        return array_unique($HairLengths);
+
+    }
+    public function HairColors() : array{
+        $HairColors=["białe","jasny blond","blond","ciemno blond","rude","rudoblond","szatyn","czarnobrunatne","czarne","siwe"];
+        return array_unique($HairColors);
+    }
+    public function EyeColors(): array{
+        $EyeColors=["czarnobrązowe",
+            "ciemnobrązowe",
+            "brązowe (piwne)",
+            "jasnobrązowe",
+            "zielonawopiwne",
+            "jasnozielone"
+            ,"ciemnoszare"
+            ,"jasnoszare",
+            "niebieskie",
+            "jasnoniebieskie"];
+        return array_unique($EyeColors);
+    }
+
+    public function edit(
+        int $Growth,
+        string $physique,
+        string $Hair_Length,
+        string $Hair_Color,
+        string $Eye_Color,
+        int $Age)
+    {
+        $this->Growth = $Growth;
+        $this->physique = $physique;
+        $this->Hair_Length = $Hair_Length;
+        $this->Hair_Color = $Hair_Color;
+        $this->Eye_Color = $Eye_Color;
+        $this->Age = $Age;
+
+    }
+
 }

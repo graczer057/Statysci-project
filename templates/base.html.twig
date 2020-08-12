@@ -37,7 +37,7 @@
                 </li>
                 {% if not is_granted ('IS_ANONYMOUS')%}
                     <li class="nav-item">
-                        <a class="nav-link" href="{#{{ path('app_logout') }}#}">{% trans %}Wyloguj{% endtrans %}</a>
+                        <a class="nav-link" href="{{ path('app_logout') }}">{% trans %}Wyloguj{% endtrans %}</a>
                     </li>
                 {% endif %}
             </ul>

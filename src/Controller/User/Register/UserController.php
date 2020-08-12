@@ -3,6 +3,9 @@
 
 namespace App\Controller\User\Register;
 
+use App\Adapter\User\Users;
+use App\Entity\CandidateProfil\UseCase\CreateCandidateProfile;
+use App\Entity\CandidateProfil\UseCase\CreateCandidateProfile\Command;
 use App\Entity\User\User\UseCase\CreateUser;
 use App\Entity\User\User\UseCase\CreateUser\Responder as RegisterResponder;
 use App\Entity\User\User;
@@ -21,7 +24,7 @@ class UserController extends AbstractController implements RegisterResponder
      * @return Response
      * @throws \Throwable
      */
-    public function register(Request $request, CreateUser $createUser): Response{
+    public function register(Request $request, CreateUser $createUser,Users $users,CreateCandidateProfile $createCandidateProfile): Response{
         $form = $this->createForm(UserRegisterType::class, []);
 
         $form->handleRequest($request);
@@ -41,7 +44,13 @@ class UserController extends AbstractController implements RegisterResponder
             $command->setResponder($this);
 
             $createUser->execute($command);
-
+            $User=$users->findByEmail( $data['email']);
+            if ($User!=null){
+                if ($User->getLogin()==$data['login']){
+                    $command=new Command($User);
+                    $createCandidateProfile->execute($command);
+                }
+            }
             return $this->render('homepage.html.twig', []);
         }
         return $this->render('User/UserRegister.html.twig', [

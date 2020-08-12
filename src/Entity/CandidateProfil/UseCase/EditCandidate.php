@@ -6,11 +6,11 @@ namespace App\Entity\CandidateProfil\UseCase;
 
 use App\Adapter\Candidate\Candidate;
 use App\Adapter\Core\Transaction;
-use App\Entity\CandidateProfil\CandidateProfil;
-use App\Entity\CandidateProfil\UseCase\CreateCandidateProfile\Command;
+use App\Entity\CandidateProfil\UseCase\EditCandidate\Command;
 
-class CreateCandidateProfile
+class EditCandidate
 {
+
 
     /**
      * @var Candidate
@@ -23,23 +23,28 @@ class CreateCandidateProfile
 
     public function __construct(Candidate $candidate, Transaction $transaction)
     {
-
         $this->candidate = $candidate;
         $this->transaction = $transaction;
     }
-    public function execute(Command $command){
-        $this->transaction->begin();
-        $Candidate=new CandidateProfil(
-            $command->getUser()
-        );
 
-        $this->candidate->add($Candidate);
-        try {
+
+    public function execute(Command $command)
+    {
+        $this->transaction->begin();
+        $Candidate=$command->getCandidateProfil();
+        $Candidate->edit(
+            $command->getGrowth(),
+            $command->getPhysique(),
+            $command->getHairLength(),
+            $command->getHairColor(),
+            $command->getEyeColor(),
+            $command->getAge()
+        );
+        try{
             $this->transaction->commit();
-        } catch (\Throwable $e) {
+        } catch (\Throwable $e){
             $this->transaction->rollback();
             throw $e;
         }
     }
-
 }

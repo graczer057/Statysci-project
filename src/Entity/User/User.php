@@ -94,7 +94,8 @@ class User implements UserInterface
         string $email,
         string $password,
         array $roles,
-        bool $is_active=false
+        bool $is_active=false,
+        string $photo="user/image/Brak-zdjęcia-500x500.jpg"
     )
     {
         $this->login = $login;
@@ -328,5 +329,9 @@ class User implements UserInterface
         $this->password=password_hash($password, PASSWORD_BCRYPT);
         $this->Token=$Token;
         $this->Token_Expire=$Token_Expire;
+    }
+
+    public function ChangePhoto(string $Photo){
+        $this->photo=$Photo;
     }
 }
