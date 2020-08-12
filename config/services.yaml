@@ -7,7 +7,7 @@ parameters:
     mailer_from: 'bartlomiej.szyszkowski@yellows.eu'
     locale: 'pl'
     app_locales: pl|en|
-    uploads_directory: '%kernel.project_dir%/public/user/image'
+    uploads_directory: 'user/image'
 
 services:
     # default configuration for services in *this* file
