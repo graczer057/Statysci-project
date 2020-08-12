@@ -48,6 +48,6 @@ class PasswordResetController extends AbstractController implements PasswordRese
 
     public function passwordreset(User $user)
     {
-        // TODO: Implement passwordreset() method.
+        $this->addFlash('success','na adres:'.$user->getEmail().' został wysłany link do zmiany hasła');
     }
 }

@@ -22,6 +22,8 @@
     {% endblock %}
 </head>
 <body>
+{% set flashesbag = app.flashes %}
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" >{{ "Statyści"|trans }}</a>
@@ -50,8 +52,19 @@
 </nav>
 
 
-{% block body %}{% if not app.User %}
+{% block body %}
     <div class="container h-100">
+        {% if flashesbag.success is defined %}
+            <div class="col-8 mx-auto bg-success border border-dark shadow rounded">
+                <p>{{ flashesbag.success[0] }}</p>
+            </div>
+        {% endif %}
+
+        {% if flashesbag.error is defined %}
+            <div class="col-8 mx-auto bg-success border border-dark shadow rounded">
+                <p>{{ flashesbag.error[0] }}</p>
+            </div>
+        {% endif %}
         <div class="row align-items-center h-50">
             <div class="col-6 mx-auto text-center">
                 <a href="{{ path('app_login') }}">
@@ -97,7 +110,7 @@
             </div>
         </div>
     </div>
-{% endif %}{%  endblock %}
+{%  endblock %}
 </div>
 </body>
 </html>

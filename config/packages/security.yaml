@@ -25,6 +25,7 @@ security:
                 path: app_logout
                 # where to redirect after logout
                 # target: app_any_route
+            access_denied_handler: App\Controller\Security\AccessDeniedHandlerController
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -38,4 +39,4 @@ security:
         - { path: '/admin', roles: ROLE_ADMIN }
         - { path: '/group', roles: [ROLE_GROUP, ROLE_BUSINESS] }
         - { path: '/candidate', roles: ROLE_CANDIDATE }
-        - { path: '/homepage', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '/homepage', roles: IS_ANONYMOUS }

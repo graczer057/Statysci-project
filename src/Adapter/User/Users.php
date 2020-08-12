@@ -4,14 +4,14 @@ namespace App\Adapter\User;
 
 use App\Entity\User\User;
 use App\Entity\User\UsersInterface;
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 
 class Users implements UsersInterface
 {
     private $manager;
 
     public function __construct(
-        ObjectManager $manager
+        EntityManagerInterface $manager
     ){
         $this->manager = $manager;
     }

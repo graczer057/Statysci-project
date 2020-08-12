@@ -17,17 +17,12 @@ class Command
     private $password;
 
 
-    /**
-     * Command constructor.
-     * @param bool $Is_active
-     * @param string $Token
-     * @param DateTime $Token_Expire
-     */
+
     public function __construct(
         User $user,
         string $password,
         ?string $Token,
-        ?\DateTime $Token_Expire
+        ?\DateTimeInterface $Token_Expire
     )
     {
         $this->user = $user;
