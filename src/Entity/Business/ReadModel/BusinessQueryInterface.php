@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Entity\CandidateProfil\ReadModel;
+namespace App\Entity\Business\ReadModel;
 
 use App\Entity\User\User;
 
-interface CandidateProfileQueryInterface
+interface BusinessQueryInterface
 {
     public function getById(int $id);
     public function getByUser(User $user);

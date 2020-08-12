@@ -2,6 +2,10 @@
 
 namespace App\Entity\User\User\ReadModel;
 
+use App\Entity\ActorGrupe\ActorGrupe;
+use App\Entity\Business\Business;
+use App\Entity\CandidateProfil\CandidateProfil;
+
 class UserReas
 {
 

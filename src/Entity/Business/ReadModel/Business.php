@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Entity\ActorGrupe\ReadModel;
+namespace App\Entity\Business\ReadModel;
 
 use App\Entity\User\User;
 
-class ActorGroups
+class Business
 {
     private $id;
     private $user;
     private $name;
+    private $nip;
     private $adres;
     private $phone;
     private $description;
@@ -23,6 +24,10 @@ class ActorGroups
 
     public function getName(): ?string {
         return $this->name;
+    }
+
+    public function getNip(): ?int {
+        return $this->nip;
     }
 
     public function getAdres(): ?string {
