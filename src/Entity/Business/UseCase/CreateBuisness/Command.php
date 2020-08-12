@@ -1,68 +1,67 @@
 <?php
 
-
 namespace App\Entity\Business\UseCase\CreateBuisness;
 
-
-use App\Entity\SendOfferBusiness\SendOfferBusiness;
-use App\Entity\User\User;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use http\Env\Response;
 
 class Command
 {
-
-    private $Name;
-    private $NIP;
-    private $Adres;
-    private $Phone;
-    private $User;
-    private $sendOfferBusinesses;
+    private $token;
+    private $name;
+    private $nip;
+    private $adres;
+    private $phone;
     private $description;
+    private $responder;
 
-
-
-
-
-    public function getName(): ?string
-    {
-        return $this->Name;
+    public function __construct(
+        string $token,
+        string $name,
+        int $nip,
+        string $adres,
+        int $phone,
+        string $description
+    ){
+        $this->token = $token;
+        $this->name = $name;
+        $this->nip = $nip;
+        $this->adres = $adres;
+        $this->phone = $phone;
+        $this->description = $description;
+        $this->responder = new NullResponder();
     }
 
-
-    public function getNIP(): ?int
-    {
-        return $this->NIP;
+    public function getToken(): string{
+        return $this->token;
     }
 
-    public function getAdres(): ?string
-    {
-        return $this->Adres;
+    public function getName(): string{
+        return $this->name;
     }
 
-
-
-    public function getPhone(): ?int
-    {
-        return $this->Phone;
+    public function getNip(): int{
+        return $this->nip;
     }
 
-
-    public function getUser(): ?User
-    {
-        return $this->User;
+    public function getAdres(): string{
+        return $this->adres;
     }
 
-    public function getSendOfferBusinesses(): Collection
-    {
-        return $this->sendOfferBusinesses;
+    public function getPhone(): int{
+        return $this->phone;
     }
 
-
-    public function getDescription(): ?string
-    {
+    public function getDescription(): string{
         return $this->description;
     }
 
+    public function getResponder(): Responder{
+        return $this->responder;
+    }
 
+    public function setResponder(Responder $responder) {
+        $this->responder = $responder;
+
+        return $this;
+    }
 }

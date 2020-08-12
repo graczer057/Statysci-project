@@ -53,6 +53,11 @@ services:
             alias: doctrine_application_transaction
             public: true
 
+    App\Adapter\User\Users:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        public: true
+
     Users:
         class: App\Adapter\User\Users
         arguments:
@@ -77,16 +82,69 @@ services:
             - "@application_transaction"
             - "@email_factory"
         public: true
-    Candidate:
-        class: App\Adapter\Candidate\Candidate
+
+    App\Adapter\CandidateProfile\Candidates:
         arguments:
             - "@doctrine.orm.entity_manager"
         public: true
 
+    Candidates:
+        class: App\Adapter\CandidateProfile\Candidates
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+        public: true
+
     App\Entity\CandidateProfil\UseCase\CreateCandidateProfile:
         arguments:
-            - "@Candidate"
+            - "@Candidates"
+            - "@Users"
             - "@application_transaction"
+            - "@email_factory"
+            - "@Swift_Mailer"
+        public: true
+
+    App\Adapter\Group\Groups:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        public: true
+
+    Groups:
+        class: App\Adapter\Group\Groups
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+        public: true
+
+    App\Entity\ActorGrupe\UseCase\CreateActorGroup:
+        arguments:
+            - "@Groups"
+            - "@Users"
+            - "@application_transaction"
+            - "@email_factory"
+            - "@Swift_Mailer"
+        public: true
+
+    App\Adapter\BusinessGroupe\BusinessGroup:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        public: true
+
+    BusinessGroup:
+        class: App\Adapter\BusinessGroupe\BusinessGroup
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+        public: true
+
+    App\Entity\Business\UseCase\CreateBuisness:
+        arguments:
+            - "@BusinessGroup"
+            - "@Users"
+            - "@application_transaction"
+            - "@email_factory"
+            - "@Swift_Mailer"
+    Candidate:
+        class: App\Adapter\Candidate\Candidate
+        arguments:
+            - "@doctrine.orm.entity_manager"
         public: true
 
     App\Entity\CandidateProfil\UseCase\EditCandidate:

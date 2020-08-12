@@ -3,39 +3,44 @@
 
 namespace App\Controller\User\Activate;
 
-use App\Entity\User\User\UseCase\ActivateUser;
+use App\Adapter\User\Users;
+use App\Entity\CandidateProfil\UseCase\CreateCandidateProfile;
 use App\Entity\User\User\UseCase\ActivateUser\Responder as ActivateResponder;
+use App\Entity\CandidateProfil\UseCase\CreateCandidateProfile\Responder as CandidateResponder;
 use App\Entity\User\User;
+use App\Entity\CandidateProfil\CandidateProfil;
 use App\Form\User\UserActivateType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ActivateController extends AbstractController implements ActivateResponder
+class ActivateController extends AbstractController implements ActivateResponder, CandidateResponder
 {
     /**
-     * @Route("/{_locale}/homepage/activate/{token}", name="user_activate")
+     * @Route("/{_locale}/candidate/homepage/activate/{token}", name="candidate_activate")
      */
-    public function Activate(Request $request, ActivateUser $activateUser, User $user): Response{
-        $form = $this->createForm(UserActivateType::class, []);
+    public function Activate(Request $request, Users $users, string $token, CreateCandidateProfile $createCandidate){
+        $form = $this->createForm(UserActivateType::class);
         $form->handleRequest($request);
+
+        $user = $users->findByToken($token);
 
         if($form->isSubmitted() && $form->isValid()){
             $data = $form->getData();
 
-            $command = new ActivateUser\Command(
-                $user,
-                $data['height'],
-                $data['eyes'],
-                $data['hair'],
-                $data['weight'],
-                $data['gender']
+            $command = new CreateCandidateProfile\Command(
+                $token,
+                $data['growth'],
+                $data['physique'],
+                $data['hair_length'],
+                $data['hair_color'],
+                $data['eye_color'],
+                $data['age']
             );
 
             $command->setResponder($this);
 
-            $activateUser->execute($command);
+            $createCandidate->execute($command);
 
             return $this->render('homepage.html.twig', []);
         }
@@ -53,5 +58,10 @@ class ActivateController extends AbstractController implements ActivateResponder
     public function linkExpired()
     {
         $this->addFlash('error', 'Przepraszamy, ale twój link aktywacyjny wygasł');
+    }
+
+    public function createCandidate(CandidateProfil $candidate)
+    {
+        $this->addFlash('success', 'Twój profil został pomyślnie uzupełniony');
     }
 }

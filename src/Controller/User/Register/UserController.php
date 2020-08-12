@@ -3,9 +3,6 @@
 
 namespace App\Controller\User\Register;
 
-use App\Adapter\User\Users;
-use App\Entity\CandidateProfil\UseCase\CreateCandidateProfile;
-use App\Entity\CandidateProfil\UseCase\CreateCandidateProfile\Command;
 use App\Entity\User\User\UseCase\CreateUser;
 use App\Entity\User\User\UseCase\CreateUser\Responder as RegisterResponder;
 use App\Entity\User\User;
@@ -24,34 +21,64 @@ class UserController extends AbstractController implements RegisterResponder
      * @return Response
      * @throws \Throwable
      */
-    public function register(Request $request, CreateUser $createUser,Users $users,CreateCandidateProfile $createCandidateProfile): Response{
+    public function register(Request $request, CreateUser $createUser): Response{
         $form = $this->createForm(UserRegisterType::class, []);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+            if($form->get('role')->getData() == 1){
+                $data = $form->getData();
 
-            $role = ["ROLE_CANDIDATE"];
+                $role = ["ROLE_CANDIDATE"];
 
-            $command = new CreateUser\Command(
-                $data['login'],
-                $data['email'],
-                $role,
-                $form->get('plainPassword')->getData()
-            );
+                $command = new CreateUser\Command(
+                    $data['login'],
+                    $data['email'],
+                    $role,
+                    $form->get('plainPassword')->getData()
+                );
 
-            $command->setResponder($this);
+                $command->setResponder($this);
 
-            $createUser->execute($command);
-            $User=$users->findByEmail( $data['email']);
-            if ($User!=null){
-                if ($User->getLogin()==$data['login']){
-                    $command=new Command($User);
-                    $createCandidateProfile->execute($command);
-                }
+                $createUser->candidate($command);
+
+                return $this->render('homepage.html.twig', []);
+            }else if($form->get('role')->getData() == 2) {
+                $data = $form->getData();
+
+                $role = ["ROLE_GROUP"];
+
+                $command = new CreateUser\Command(
+                    $data['login'],
+                    $data['email'],
+                    $role,
+                    $form->get('plainPassword')->getData()
+                );
+
+                $command->setResponder($this);
+
+                $createUser->group($command);
+
+                return $this->render('homepage.html.twig', []);
+            }else if($form->get('role')->getData() == 3){
+                $data = $form->getData();
+
+                $role = ["ROLE_BUSINESS"];
+
+                $command = new CreateUser\Command(
+                    $data['login'],
+                    $data['email'],
+                    $role,
+                    $form->get('plainPassword')->getData()
+                );
+
+                $command->setResponder($this);
+
+                $createUser->business($command);
+
+                return $this->render('homepage.html.twig', []);
             }
-            return $this->render('homepage.html.twig', []);
         }
         return $this->render('User/UserRegister.html.twig', [
             'form' => $form->createView(),
