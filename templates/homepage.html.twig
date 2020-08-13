@@ -77,7 +77,35 @@
             </div>
         </div>
     </div>
-{% endif %}{%  endblock %}
+    {% endif %}
+    {% if app.User %}
+    <div class="container h-100">
+        <div class="row align-items-center h-50">
+            <div class="col-6 mx-auto text-center">
+                <a href="{{ path('list_candidate') }}">
+                    <div class="card w-75 text-light bg-dark">
+                        <div class="card-body ">
+                            <h2 class="card-title">{{ "Zobacz swoich potencjalych pracowników" }}</h2>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="row align-items-center h-25">
+        <div class="col-6 mx-auto">
+            <a href="{{ path('homepage')}}">
+                <div class="card w-75 text-light bg-dark text-center">
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <h2 class="card-title">{{ "Zobacz oferty pracy" }}</h2>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    </div>
+    {% endif %}{% endblock %}
 </div>
 </body>
 </html>

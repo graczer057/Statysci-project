@@ -27,7 +27,8 @@ class ActivateController extends AbstractController implements ActivateResponder
 
         $user = $users->findByToken($token);
 
-            if($form->isSubmitted() && $form->isValid()){
+        if($user->getTokenExpire()->getTimestamp() > $date->getTimestamp()) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 $data = $form->getData();
 
                 $command = new CreateCandidateProfile\Command(
@@ -49,6 +50,9 @@ class ActivateController extends AbstractController implements ActivateResponder
             return $this->render('User/UserActivate.html.twig', [
                 'form' => $form->createView(),
             ]);
+        } else {
+            return $this->redirectToRoute('token_expire');
+        }
     }
 
     public function ActivateUser(User $user)

@@ -38,32 +38,8 @@ class ExpireUser extends AbstractController
     ){
         $this->transaction->begin();
 
-        $user = $this->users->findByToken($command->getToken());
-        $user->TokenExpire(
-            $command->getToken(),
-            $command->getTokenExpire()
-        );
-
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $command->getUser()->getEmail()]);
-
-        $template = $this->renderView("mail/Register.html.twig");
-
-        $this->createNotFoundException();
-
-        $url = $this->generateUrl('candidate_activate', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
-
-        $template = str_replace("$.name.$", $command->getUser()->getLogin(), $template);
-        $template = str_replace("$.LINK.$", '<a href="' . $url . '" target="_blank">aktywuj konto</a>', $template);
-
-        $swiftMessage = $this->emailFactory->create(
-            'Nowy link',
-            nl2br($template),
-            [
-                $command->getUser()->getEmail()
-            ]
-        );
-
-        $this->mailer->send($swiftMessage);
+        $user = $this->users->findByToken($command->getUser()->getToken());
+        $user->TokenExpire();
 
         try {
             $this->transaction->commit();
@@ -71,6 +47,20 @@ class ExpireUser extends AbstractController
             $this->transaction->rollback();
             throw $e;
         }
+
+        $template = $this->renderView("mail/Register.html.twig");
+        $this->createNotFoundException();
+        $url = $this->generateUrl('candidate_activate', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
+        $template = str_replace("$.name.$", $command->getUser()->getLogin(), $template);
+        $template = str_replace("$.LINK.$", '<a href="' . $url . '" target="_blank">aktywuj konto</a>', $template);
+        $swiftMessage = $this->emailFactory->create(
+            'Nowy link',
+            nl2br($template),
+            [
+                $command->getUser()->getEmail()
+            ]
+        );
+        $this->mailer->send($swiftMessage);
 
         $command->getResponder()->UserTokenExpire($user);
     }
@@ -80,32 +70,8 @@ class ExpireUser extends AbstractController
     ){
         $this->transaction->begin();
 
-        $user = $this->users->findByToken($command->getToken());
-        $user->TokenExpire(
-            $command->getToken(),
-            $command->getTokenExpire()
-        );
-
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $command->getUser()->getEmail()]);
-
-        $template = $this->renderView("mail/Register.html.twig");
-
-        $this->createNotFoundException();
-
-        $url = $this->generateUrl('business_activate', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
-
-        $template = str_replace("$.name.$", $command->getUser()->getLogin(), $template);
-        $template = str_replace("$.LINK.$", '<a href="' . $url . '" target="_blank">aktywuj konto</a>', $template);
-
-        $swiftMessage = $this->emailFactory->create(
-            'Nowy link',
-            nl2br($template),
-            [
-                $command->getUser()->getEmail()
-            ]
-        );
-
-        $this->mailer->send($swiftMessage);
+        $user = $this->users->findByToken($command->getUser()->getToken());
+        $user->TokenExpire();
 
         try {
             $this->transaction->commit();
@@ -113,6 +79,20 @@ class ExpireUser extends AbstractController
             $this->transaction->rollback();
             throw $e;
         }
+
+        $template = $this->renderView("mail/Register.html.twig");
+        $this->createNotFoundException();
+        $url = $this->generateUrl('business_activate', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
+        $template = str_replace("$.name.$", $command->getUser()->getLogin(), $template);
+        $template = str_replace("$.LINK.$", '<a href="' . $url . '" target="_blank">aktywuj konto</a>', $template);
+        $swiftMessage = $this->emailFactory->create(
+            'Nowy link',
+            nl2br($template),
+            [
+                $command->getUser()->getEmail()
+            ]
+        );
+        $this->mailer->send($swiftMessage);
 
         $command->getResponder()->UserTokenExpire($user);
     }
@@ -123,20 +103,18 @@ class ExpireUser extends AbstractController
         $this->transaction->begin();
 
         $user = $this->users->findByToken($command->getUser()->getToken());
+        $user->TokenExpire();
 
-        $user->TokenExpire(
-            $command->getToken(),
-            $command->getTokenExpire()
-        );
-
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $command->getUser()->getEmail()]);
+        try {
+            $this->transaction->commit();
+        } catch (\Throwable $e) {
+            $this->transaction->rollback();
+            throw $e;
+        }
 
         $template = $this->renderView("mail/Register.html.twig");
-
         $this->createNotFoundException();
-
         $url = $this->generateUrl('actor_activate', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
-
         $template = str_replace("$.name.$", $command->getUser()->getLogin(), $template);
         $template = str_replace("$.LINK.$", '<a href="' . $url . '" target="_blank">aktywuj konto</a>', $template);
 
@@ -149,13 +127,6 @@ class ExpireUser extends AbstractController
         );
 
         $this->mailer->send($swiftMessage);
-
-        try {
-            $this->transaction->commit();
-        } catch (\Throwable $e) {
-            $this->transaction->rollback();
-            throw $e;
-        }
 
         $command->getResponder()->UserTokenExpire($user);
     }
