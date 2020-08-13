@@ -140,3 +140,12 @@ services:
             - "@application_transaction"
             - "@email_factory"
             - "@Swift_Mailer"
+        public: true
+
+    App\Entity\User\User\UseCase\ExpireUser:
+        arguments:
+            - "@application_transaction"
+            - "@email_factory"
+            - "@Swift_Mailer"
+            - "@doctrine.orm.entity_manager"
+        public: true

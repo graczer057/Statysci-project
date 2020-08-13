@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% set flashesbag = app.flashes %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+
+            {% if flashesbag.success is defined %}
+                <div class="col-8 mx-auto bg-success border border-dark shadow rounded">
+                    <p>{{ flashesbag.success[0] }}</p>
+                </div>
+            {% endif %}
+
+            {% for candidate in candidates %}
+                <div class="col-5 mx-auto bg-dark border border-dark shadow my-3 p-2">
+                    <div class="d-inline-block">
+                        <strong>Imię: {{ candidate.user.login}}</strong>
+                        <p>Wzrost: {{ candidate.growth }}</p>
+                        <p>Sylwetka: {{ candidate.physique }}</p>
+                        <p>Rodzaj włosów: {{ candidate.hairLength}}</p>
+                        <p>Kolor włosów: {{ candidate.hairColor }}</p>
+                        <p>Kolor oczu: {{ candidate.eyeColor }}</p>
+                        <p>Wiek: {{ candidate.age }}</p>
+                    </div>
+                </div>
+                <div class="d-inline-block float-right">
+
+                    {#<a class="btn btn-outline-primary my-2" href="{{ path('see', {'id': post.id}) }}"><i class="fa-edit"></i></a>#}
+
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}

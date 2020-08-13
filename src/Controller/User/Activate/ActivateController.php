@@ -23,30 +23,32 @@ class ActivateController extends AbstractController implements ActivateResponder
         $form = $this->createForm(UserActivateType::class);
         $form->handleRequest($request);
 
+        $date = new \DateTime("now");
+
         $user = $users->findByToken($token);
 
-        if($form->isSubmitted() && $form->isValid()){
-            $data = $form->getData();
+            if($form->isSubmitted() && $form->isValid()){
+                $data = $form->getData();
 
-            $command = new CreateCandidateProfile\Command(
-                $token,
-                $data['growth'],
-                $data['physique'],
-                $data['hair_length'],
-                $data['hair_color'],
-                $data['eye_color'],
-                $data['age']
-            );
+                $command = new CreateCandidateProfile\Command(
+                    $token,
+                    $data['growth'],
+                    $data['physique'],
+                    $data['hair_length'],
+                    $data['hair_color'],
+                    $data['eye_color'],
+                    $data['age']
+                );
 
-            $command->setResponder($this);
+                $command->setResponder($this);
 
-            $createCandidate->execute($command);
+                $createCandidate->execute($command);
 
-            return $this->render('homepage.html.twig', []);
-        }
-        return $this->render('User/UserActivate.html.twig', [
-            'form' => $form->createView(),
-        ]);
+                return $this->render('homepage.html.twig', []);
+            }
+            return $this->render('User/UserActivate.html.twig', [
+                'form' => $form->createView(),
+            ]);
     }
 
     public function ActivateUser(User $user)

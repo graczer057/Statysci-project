@@ -2,7 +2,7 @@
 
 namespace App\Adapter\User;
 
-use App\Entity\User\User;
+use App\Entity\User\User\ReadModel\UserReas;
 use App\Entity\User\User\ReadModel\UsersQueryInterface;
 use Doctrine\DBAL\Connection;
 
@@ -23,14 +23,14 @@ class UsersQuery implements UsersQueryInterface
     public function getByToken(string $token)
     {
         return $this->connection->project(
-            'SELECT u.id as id, u.email as email, u.password as password, u.is_active as is_active, u.token as token, u.token_expire as token_expire, u.roles as roles
+            'SELECT u.id as id, u.email as email, u.roles as roles, u.password as password, u.is_active as is_active, u.token as token, u.token_expire as token_expire, u.roles as roles
                     FROM user as u 
                     WHERE u.token = :token',
             [
                 'token' => $token
             ],
             function ($result) {
-                return new User(
+                return new UserReas(
                     (int)$result['id'],
                     (string)$result['email'],
                     (string)$result['password'],
@@ -53,7 +53,7 @@ class UsersQuery implements UsersQueryInterface
                 'email' => $email
             ],
             function ($result) {
-                return new User(
+                return new User\ReadModel\UserReas(
                     (int)$result['id'],
                     (string)$result['email'],
                     (string)$result['password'],
