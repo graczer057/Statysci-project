@@ -102,13 +102,13 @@ services:
             - "@Swift_Mailer"
         public: true
 
-    App\Adapter\Group\Groups:
+    App\Adapter\ActorGroupe\Groups:
         arguments:
             - "@doctrine.orm.entity_manager"
         public: true
 
     Groups:
-        class: App\Adapter\Group\Groups
+        class: App\Adapter\ActorGroupe\Groups
         arguments:
             - "@doctrine.orm.default_entity_manager"
         public: true
@@ -144,6 +144,7 @@ services:
 
     App\Entity\User\User\UseCase\ExpireUser:
         arguments:
+            - "@Users"
             - "@application_transaction"
             - "@email_factory"
             - "@Swift_Mailer"

@@ -2,7 +2,7 @@
 
 namespace App\Entity\ActorGrupe\UseCase;
 
-use App\Adapter\Group\Groups;
+use App\Adapter\ActorGroupe\Groups;
 use App\Adapter\Core\EmailFactory;
 use App\Adapter\Core\Transaction;
 use App\Adapter\User\Users;
@@ -25,7 +25,7 @@ class CreateActorGroup extends AbstractController
         EmailFactory $emailFactory,
         \Swift_Mailer $mailer
     ){
-        $this->groups = $groups;
+        $this->Groups = $groups;
         $this->users = $users;
         $this->transaction = $transaction;
         $this->emailFactory = $emailFactory;
@@ -40,7 +40,7 @@ class CreateActorGroup extends AbstractController
         $user = $this->users->findByToken($command->getToken());
         $user->activateUser();
 
-        $business = new ActorGrupe(
+        $actor = new ActorGrupe(
             $user,
             $command->getName(),
             $command->getAdres(),
@@ -48,14 +48,7 @@ class CreateActorGroup extends AbstractController
             $command->getDescription()
         );
 
-        $this->Groups->add($business);
-
-        try {
-            $this->transaction->commit();
-        } catch (\Throwable $e) {
-            $this->transaction->rollback();
-            throw $e;
-        }
+        $this->Groups->add($actor);
 
         $template = $this->render("Mail/Activate.html.twig");
         $this->createNotFoundException();
@@ -69,6 +62,13 @@ class CreateActorGroup extends AbstractController
         );
         $this->mailer->send($swiftMessage);
 
-        $command->getResponder()->createGroup($business);
+        $command->getResponder()->createGroup($actor);
+
+        try {
+            $this->transaction->commit();
+        } catch (\Throwable $e) {
+            $this->transaction->rollback();
+            throw $e;
+        }
     }
 }

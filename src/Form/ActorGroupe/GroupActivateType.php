@@ -32,12 +32,6 @@ class GroupActivateType extends AbstractType
                     'class' => 'form-control'
                 ],
                 'label' => 'Numer telefony firmy',
-                new Length([
-                    'min' => 9,
-                    'max' => 9,
-                    'minMessage' => 'Podaj numer z 9 znakami bez spacji',
-                    'maxMessage' => 'Podaj numer z 9 znakami bez spacji'
-                ])
             ])
             ->add('description', TextareaType::class, [
                 'attr' => [

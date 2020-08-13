@@ -17,7 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class ActivateController extends AbstractController implements GroupResponder, ActivateResponder
 {
     /**
-     * @Route("/{_locale}/business/homepage/activate/{token}", name="business_activate")
+     * @Route("/{_locale}/actor/homepage/activate/{token}", name="actor_activate")
+     * @throws \Throwable
      */
     public function Activate(Request $request, Users $users, string $token, CreateActorGroup $createActorGroup){
         $form = $this->createForm(GroupActivateType::class, []);

@@ -29,16 +29,40 @@ class ExpireController extends AbstractController implements TokenExpireResponde
         $date = new DateTime('+60 minutes');
 
         if($form->isSubmitted() && $form->isValid()){
+
             $formData = $form->getData();
 
             $user = $users->findByEmail($formData['email']);
 
-            $commandData = new Command($user, $tokenValue, $date);
-            $commandData->setResponder($this);
+            $isNotActive = false;
 
-            $expireUser->candidate($commandData);
+            if($user->getIsActive() == $isNotActive && $user->getRoles() == ['ROLE_CANDIDATE']){
 
-            return $this->redirectToRoute('homepage');
+                $commandData = new Command($user, $tokenValue, $date);
+                $commandData->setResponder($this);
+
+                $expireUser->candidate($commandData);
+
+                return $this->redirectToRoute('homepage');
+
+            }else if ($user->getIsActive() == $isNotActive && $user->getRoles() == ['ROLE_GROUP']) {
+
+                $commandData = new Command($user, $tokenValue, $date);
+                $commandData->setResponder($this);
+
+                $expireUser->Group($commandData);
+
+                return $this->redirectToRoute('homepage');
+
+            } else if($user->getIsActive() == $isNotActive && $user->getRoles() == ['ROLE_BUSINESS']) {
+
+                $commandData = new Command($user, $tokenValue, $date);
+                $commandData->setResponder($this);
+
+                $expireUser->Business($commandData);
+
+                return $this->redirectToRoute('homepage');
+            }
         }
         return $this->render('User/Expire.html.twig', [
             'form' => $form->createView(),
