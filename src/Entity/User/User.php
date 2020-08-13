@@ -105,6 +105,7 @@ class User implements UserInterface
         $this->is_active = $is_active;
         $this->token = md5(uniqid(time()));
         $this->token_expire = new DateTime('+60 minutes');
+        $this->photo = $photo;
     }
 
 

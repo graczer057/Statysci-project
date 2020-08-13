@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class GroupController extends AbstractController implements RegisterResponder
 {
     /**
-     * @Route("/{_locale}/homepage/groups/register", name="groups_register")
+     * @Route("/{_locale}/groups/register", name="groups_register")
      * @throws \Throwable
      */
     public function register(Request $request, CreateGroup $createGroup): Response{
