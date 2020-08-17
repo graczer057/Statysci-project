@@ -17,7 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class ActivateController extends AbstractController implements GroupResponder, ActivateResponder
 {
     /**
-     * @Route("/{_locale}/business/homepage/activate/{token}", name="business_activate")
+     * @Route("/{_locale}/actor/homepage/activate/{token}", name="actor_activate")
+     * @throws \Throwable
      */
     public function Activate(Request $request, Users $users, string $token, CreateActorGroup $createActorGroup){
         $form = $this->createForm(GroupActivateType::class, []);
@@ -25,26 +26,33 @@ class ActivateController extends AbstractController implements GroupResponder, A
 
         $user = $users->findByToken($token);
 
-        if($form->isSubmitted() && $form->isValid()){
-            $data = $form->getData();
+        $date = new \DateTime("now");
 
-            $command = new Command(
-                $token,
-                $data['name'],
-                $data['adres'],
-                $data['telefon'],
-                $data['description']
-            );
+        if($user->getTokenExpire()->getTimestamp() > $date->getTimestamp()){
+            if($form->isSubmitted() && $form->isValid()){
+                $data = $form->getData();
 
-            $command->setResponder($this);
+                $command = new Command(
+                    $token,
+                    $data['name'],
+                    $data['adres'],
+                    $data['telefon'],
+                    $data['description']
+                );
 
-            $createActorGroup->execute($command);
+                $command->setResponder($this);
 
-            return $this->render('homepage.html.twig', []);
+                $createActorGroup->execute($command);
+
+                return $this->render('homepage.html.twig', []);
+            }
+            return $this->render('ActorGroupe/GroupActivate.html.twig', [
+                'form' => $form->createView(),
+            ]);
+        } else {
+            return $this->redirectToRoute('token_expire');
         }
-        return $this->render('ActorGroupe/GroupActivate.html.twig', [
-            'form' => $form->createView(),
-        ]);
+
     }
 
     public function ActivateUser(User $user)

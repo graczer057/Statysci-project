@@ -7,7 +7,6 @@ parameters:
     mailer_from: 'bartlomiej.szyszkowski@yellows.eu'
     locale: 'pl'
     app_locales: pl|en|
-    uploads_directory: 'user/image'
 
 services:
     # default configuration for services in *this* file
@@ -61,7 +60,7 @@ services:
     Users:
         class: App\Adapter\User\Users
         arguments:
-            - "@doctrine.orm.entity_manager"
+            - "@doctrine.orm.default_entity_manager"
         public: true
 
     App\Entity\User\User\UseCase\CreateUser:
@@ -103,13 +102,13 @@ services:
             - "@Swift_Mailer"
         public: true
 
-    App\Adapter\Group\Groups:
+    App\Adapter\ActorGroupe\Groups:
         arguments:
             - "@doctrine.orm.entity_manager"
         public: true
 
     Groups:
-        class: App\Adapter\Group\Groups
+        class: App\Adapter\ActorGroupe\Groups
         arguments:
             - "@doctrine.orm.default_entity_manager"
         public: true
@@ -141,20 +140,13 @@ services:
             - "@application_transaction"
             - "@email_factory"
             - "@Swift_Mailer"
-    Candidate:
-        class: App\Adapter\Candidate\Candidate
-        arguments:
-            - "@doctrine.orm.entity_manager"
         public: true
 
-    App\Entity\CandidateProfil\UseCase\EditCandidate:
-        arguments:
-            - "@Candidate"
-            - "@application_transaction"
-        public: true
-
-    App\Entity\CandidateProfil\UseCase\ChangePhoto:
+    App\Entity\User\User\UseCase\ExpireUser:
         arguments:
             - "@Users"
             - "@application_transaction"
+            - "@email_factory"
+            - "@Swift_Mailer"
+            - "@doctrine.orm.entity_manager"
         public: true

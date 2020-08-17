@@ -117,6 +117,13 @@ class User implements UserInterface
         $this->is_active = $activeUser;
     }
 
+    public function TokenExpire(){
+        $tokenValue = md5(uniqid());
+        $dateToken = new \DateTime(('+60 minutes'));
+        $this->token = $tokenValue;
+        $this->token_expire = $dateToken;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -307,15 +314,6 @@ class User implements UserInterface
 
     public function getRoleName(): ?int{
         return self::Role($this->getRoleName());
-    }
-
-
-    public function TokenExpire(
-        ?string $Token,
-        ?\DateTime $Token_Expire
-    ){
-        $this->Token = $Token;
-        $this->Token_Expire = $Token_Expire;
     }
 
     public function PasswordChange(

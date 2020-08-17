@@ -24,27 +24,34 @@ class ActivateController extends AbstractController implements BusinessResponder
 
         $user = $users->findByToken($token);
 
-        if($form->isSubmitted() && $form->isValid()){
-            $data = $form->getData();
+        $date = new \DateTime("now");
 
-            $command = new CreateBuisness\Command(
-                $token,
-                $data['name'],
-                $data['nip'],
-                $data['adres'],
-                $data['telefon'],
-                $data['description']
-            );
+        if($user->getTokenExpire()->getTimestamp() > $date->getTimestamp()){
+            if($form->isSubmitted() && $form->isValid()){
+                $data = $form->getData();
 
-            $command->setResponder($this);
+                $command = new CreateBuisness\Command(
+                    $token,
+                    $data['name'],
+                    $data['nip'],
+                    $data['adres'],
+                    $data['telefon'],
+                    $data['description']
+                );
 
-            $createBuisness->execute($command);
+                $command->setResponder($this);
 
-            return $this->render('homepage.html.twig', []);
+                $createBuisness->execute($command);
+
+                return $this->render('homepage.html.twig', []);
+            }
+            return $this->render('BusinessGroupe/BusinessActivate.html.twig', [
+                'form' => $form->createView(),
+            ]);
+        } else {
+            return $this->redirectToRoute('token_expire');
         }
-        return $this->render('BusinessGroupe/BusinessActivate.html.twig', [
-            'form' => $form->createView(),
-        ]);
+
     }
 
     public function ActivateUser(User $user)

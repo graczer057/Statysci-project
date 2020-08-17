@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Expire{% endblock %}
+
+{% block body %}
+
+    <h1>Twój link aktywacyjny wygasł, podaj swój mail jeszcze raz w celu uzyskania kolejnego linka aktywacyjnego</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.email) }}
+
+    {{ form_end(form) }}
+{% endblock %}
