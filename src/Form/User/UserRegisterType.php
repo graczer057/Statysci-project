@@ -19,13 +19,13 @@ class UserRegisterType extends AbstractType{
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Email'
+                'label' => 'Adres email'
             ])
             ->add('login', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Login'
+                'label' => 'Nazwa użytkownika'
             ])
             ->add('plainPassword', PasswordType::class, [
                 'attr' => [
@@ -42,7 +42,7 @@ class UserRegisterType extends AbstractType{
                         'max' => 4096,
                     ]),
                 ],
-                'label' => 'Password'
+                'label' => 'Hasło'
             ])
             ->add('role', ChoiceType::class, [
                 'attr' => [
@@ -53,13 +53,13 @@ class UserRegisterType extends AbstractType{
                     'Grupa aktorska' => 2,
                     'Firma' => 3
                 ],
-                'label' => 'Rejestruję się jako: '
+                'label' => 'Rejestruję się jako'
             ])
-            ->add('save', SubmitType::class, [
+            ->add('Register', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success waves-effect mid'
                 ],
-                'label' => 'Register'
+                'label' => 'Zarejestruj się'
             ])
         ;
     }

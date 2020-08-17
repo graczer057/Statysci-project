@@ -1,11 +1,10 @@
 <?php
 
-
-namespace App\Form\User;
-
+namespace App\Form\User\PasswordReset;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -16,8 +15,9 @@ class PasswordChange extends AbstractType
     {
         $builder
             ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
+                'attr' => [
+                    'class' => 'form-control'
+                ],
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
@@ -30,6 +30,13 @@ class PasswordChange extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+                'label' => 'Nowe hasło'
+            ])
+            ->add('change', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-success waves-effect mid'
+                ],
+                'label' => 'Zmień hasło'
             ])
         ;
     }

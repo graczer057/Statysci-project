@@ -38,7 +38,7 @@ class PasswordReset extends AbstractController
 
         $User = $command->getUser();
 
-        $User->TokenExpire(
+        $User->TokenExpires(
             $command->getToken(),
             $command->getTokenExpire()
         );

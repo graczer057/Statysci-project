@@ -15,15 +15,23 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    public const ROLE_CANDIDATE = ['ROLE_CANDIDATE'];
+    public const ROLE_GROUP = ['ROLE_GROUP'];
+    public const ROLE_BUSINESS = ['ROLE_BUSINESS'];
 
-
-    public function Role(int $id){
-        $role[1]=['Candidate'];
-        $role[2]=['Business'];
-        $role[3]=['Groupe'];
-        return $role[$id];
+    public function Role(){
+        switch ($this->roles){
+            case 'candidate':
+                self::ROLE_CANDIDATE;
+                break;
+            case 'group':
+                self::ROLE_GROUP;
+                break;
+            case 'business':
+                self::ROLE_BUSINESS;
+                break;
+        }
     }
-
 
     /**
      * @ORM\Id()
@@ -215,7 +223,7 @@ class User implements UserInterface
         return $this->token_expire;
     }
 
-    public function setTokenExpire(?\DateTimeInterface $token_expire): self
+    public function setTokenExpire(?\DateTime $token_expire): self
     {
         $this->token_expire = $token_expire;
 
@@ -312,6 +320,14 @@ class User implements UserInterface
 
     public function getRoleName(): ?int{
         return self::Role($this->getRoleName());
+    }
+
+    public function TokenExpires(
+        string $Token,
+        \DateTime $Token_Expire
+    ){
+        $this->token = $Token;
+        $this->token_expire = $Token_Expire;
     }
 
     public function PasswordChange(

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Entity\User\User\UseCase\PasswordReset;
-
 
 use App\Entity\User\User;
 use DateTime;
@@ -45,7 +43,7 @@ class Command
     }
 
 
-    public function getTokenExpire(): ?\DateTimeInterface
+    public function getTokenExpire(): ?\DateTime
     {
         return $this->Token_Expire;
     }

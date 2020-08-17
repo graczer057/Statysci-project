@@ -41,7 +41,7 @@ class UserController extends AbstractController implements RegisterResponder
 
                 $command->setResponder($this);
 
-                $createUser->candidate($command);
+                $createUser->execute($command);
 
                 return $this->render('homepage.html.twig', []);
             }else if($form->get('role')->getData() == 2) {
@@ -58,7 +58,7 @@ class UserController extends AbstractController implements RegisterResponder
 
                 $command->setResponder($this);
 
-                $createUser->group($command);
+                $createUser->execute($command);
 
                 return $this->render('homepage.html.twig', []);
             }else if($form->get('role')->getData() == 3){
@@ -75,7 +75,7 @@ class UserController extends AbstractController implements RegisterResponder
 
                 $command->setResponder($this);
 
-                $createUser->business($command);
+                $createUser->execute($command);
 
                 return $this->render('homepage.html.twig', []);
             }

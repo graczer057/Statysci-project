@@ -80,6 +80,7 @@ class UserActivateType extends AbstractType{
                 'attr' => [
                     'class' => 'btn btn-success waves-effect mid'
                 ],
+                'label' => 'Aktywuj'
             ])
         ;
     }
