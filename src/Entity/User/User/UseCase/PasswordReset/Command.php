@@ -45,7 +45,7 @@ class Command
     }
 
 
-    public function getTokenExpire(): ?\DateTimeInterface
+    public function getTokenExpire(): ?\DateTime
     {
         return $this->Token_Expire;
     }

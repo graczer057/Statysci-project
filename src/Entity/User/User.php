@@ -94,7 +94,7 @@ class User implements UserInterface
         string $email,
         string $password,
         array $roles,
-        bool $is_active=false,
+        bool $is_active=true,
         string $photo="user/image/Brak-zdjęcia-500x500.jpg"
     )
     {
@@ -217,7 +217,7 @@ class User implements UserInterface
         return $this->token_expire;
     }
 
-    public function setTokenExpire(?\DateTimeInterface $token_expire): self
+    public function setTokenExpire(?\DateTime $token_expire): self
     {
         $this->token_expire = $token_expire;
 
@@ -328,5 +328,13 @@ class User implements UserInterface
 
     public function ChangePhoto(string $Photo){
         $this->photo=$Photo;
+    }
+
+    public function TokenExpires(
+        string $Token,
+        \DateTime $Token_Expire
+    ){
+        $this->token = $Token;
+        $this->token_expire = $Token_Expire;
     }
 }

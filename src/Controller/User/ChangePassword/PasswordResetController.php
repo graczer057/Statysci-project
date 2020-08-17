@@ -31,9 +31,8 @@ class PasswordResetController extends AbstractController implements PasswordRese
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
-            $user=$User->findbyEmail($formData['email']);
-            $commendData = new PasswordResetCommand( $user, md5(uniqid(time())), new DateTime('+15 minutes'));
-            $commendData->setResponder($this);
+            $commendData = new PasswordResetCommand( $User->findbyEmail($formData['email']), md5(uniqid(time())), new DateTime('+15 minutes'));
+
 
             $passwordReset->execute($commendData);
 

@@ -44,7 +44,7 @@ class ActivateController extends AbstractController implements GroupResponder, A
 
                 $createActorGroup->execute($command);
 
-                return $this->render('homepage.html.twig', []);
+                return $this->redirectToRoute('app_login');
             }
             return $this->render('ActorGroupe/GroupActivate.html.twig', [
                 'form' => $form->createView(),

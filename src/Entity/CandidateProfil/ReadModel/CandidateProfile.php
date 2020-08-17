@@ -7,6 +7,7 @@ use App\Entity\User\User;
 class CandidateProfile
 {
     private $id;
+    private $user;
     private $growth;
     private $physique;
     private $hair_length;
@@ -16,6 +17,7 @@ class CandidateProfile
 
     public function __construct(
         int $id,
+        int $user,
         int $growth,
         string $physique,
         string $hair_length,
@@ -55,5 +57,10 @@ class CandidateProfile
 
     public function getAge(): ?int {
         return $this->age;
+    }
+
+    public function getUser(): ?int
+    {
+        return $this->user;
     }
 }

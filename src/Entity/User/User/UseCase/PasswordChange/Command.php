@@ -22,7 +22,7 @@ class Command
         User $user,
         string $password,
         ?string $Token,
-        ?\DateTimeInterface $Token_Expire
+        ?\DateTime $Token_Expire
     )
     {
         $this->user = $user;
@@ -49,7 +49,7 @@ class Command
     }
 
 
-    public function getTokenExpire(): ?\DateTimeInterface
+    public function getTokenExpire(): ?\DateTime
     {
         return $this->Token_Expire;
     }
