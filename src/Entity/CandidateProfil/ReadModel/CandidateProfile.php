@@ -17,7 +17,7 @@ class CandidateProfile
 
     public function __construct(
         int $id,
-        int $user,
+        $user,
         int $growth,
         string $physique,
         string $hair_length,
@@ -43,7 +43,7 @@ class CandidateProfile
         return $this->physique;
     }
 
-    public function getHairLength(): ?int {
+    public function getHairLength(): ?string {
         return $this->hair_length;
     }
 

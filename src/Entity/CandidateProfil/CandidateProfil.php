@@ -25,7 +25,6 @@ class CandidateProfil
     private $id;
     /**
      * @ORM\Column(type="integer", nullable=true)
-
      */
     private $Growth;
 
@@ -57,7 +56,7 @@ class CandidateProfil
     /**
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="candidateProfil", cascade={"persist", "remove"})
      */
-        private $User;
+    private $User;
 
     /**
      * @ORM\OneToMany(targetEntity=SendOfferBusiness::class, mappedBy="Candidate")
@@ -71,12 +70,12 @@ class CandidateProfil
 
     public function __construct(
         User $User,
-        int $Growth=null,
-        string $physique=null,
-        string $Hair_Length=null,
-        string $Hair_Color=null,
-        string $Eye_Color=null,
-        int $Age=null
+        int $Growth = null,
+        string $physique = null,
+        string $Hair_Length = null,
+        string $Hair_Color = null,
+        string $Eye_Color = null,
+        int $Age = null
     )
     {
         $this->User = $User;
@@ -221,33 +220,76 @@ class CandidateProfil
     }
 
 
-    public function physiques(): array {
-        $physique=["ektomorfik","mezomorfik","endomorfik"];
-        return array_unique($physique);
-    }
+    public const PHYSIQUES_EKTOMORFIK = "ektomorfik";
+    public const PHYSIQUES_MEZOMORFIK = "mezomorfik";
+    public const PHYSIQUES_ENDOMORFIK = "endomorfik";
 
-    public function HairLengths() : array{
-        $HairLengths=["krótkir","średnie","Długie"];
-        return array_unique($HairLengths);
+    public const PHYSIQUES = [
+        self::PHYSIQUES_EKTOMORFIK => "ektomorfik",
+        self::PHYSIQUES_MEZOMORFIK => "mezomorfik",
+        self::PHYSIQUES_ENDOMORFIK => "endomorfik"
+    ];
 
-    }
-    public function HairColors() : array{
-        $HairColors=["białe","jasny blond","blond","ciemno blond","rude","rudoblond","szatyn","czarnobrunatne","czarne","siwe"];
-        return array_unique($HairColors);
-    }
-    public function EyeColors(): array{
-        $EyeColors=["czarnobrązowe",
-            "ciemnobrązowe",
-            "brązowe (piwne)",
-            "jasnobrązowe",
-            "zielonawopiwne",
-            "jasnozielone"
-            ,"ciemnoszare"
-            ,"jasnoszare",
-            "niebieskie",
-            "jasnoniebieskie"];
-        return array_unique($EyeColors);
-    }
+    public const HAIRLENGTHS_SHORT = "krótkie";
+    public const HAIRLENGTHS_MEDIUM = "średnie";
+    public const HAIRLENGTHS_LONG = "Długie";
+
+    public const HAIRLENGTHS = [
+        self::HAIRLENGTHS_SHORT => "krótkie",
+        self::HAIRLENGTHS_MEDIUM => 'średnie',
+        self::HAIRLENGTHS_LONG => 'Długie'
+    ];
+
+    public const HAIRCOLORS_WHITE = "białe";
+    public const HAIRCOLORS_LIGHTBLONDE = "jasny blond";
+    public const HAIRCOLORS_BLOND = 'blond';
+    public const HAIRCOLORS_DARKBLOND = 'ciemny blond';
+    public const HAIRCOLORS_RED = 'RUDE';
+    public const HAIRCOLORS_REDBLOND = 'rudoblond';
+    public const HAIRCOLORS_CHESTNUT = 'szatyn';
+    public const HAIRCOLORS_DARK = 'czarnobrunatne';
+    public const HAIRCOLORS_BLACK = 'czarne';
+    public const HAIRCOLORS_GRAY = 'siwe';
+
+
+    public const HAIRCOLORS = [
+        self::HAIRCOLORS_WHITE => "białe",
+        self::HAIRCOLORS_LIGHTBLONDE => "jasny blond",
+        self::HAIRCOLORS_BLOND => "blond",
+        self::HAIRCOLORS_DARKBLOND => "ciemno blond",
+        self::HAIRCOLORS_RED => "rude",
+        self::HAIRCOLORS_REDBLOND => "rudoblond",
+        self::HAIRCOLORS_CHESTNUT => "szatyn",
+        self::HAIRCOLORS_DARK => "czarnobrunatne",
+        self::HAIRCOLORS_BLACK => "czarne",
+        self::HAIRCOLORS_GRAY => "siwe"
+    ];
+
+
+    public const EYRCOLORS_BLACK_BROWN = "czarnobrązowe";
+    public const EYRCOLORS_DARK_BROWN = 'ciemnobrązowe';
+    public const EYRCOLORS_BROWN = 'brązowe (piwne)';
+    public const EYRCOLORS_BRIGHT_BROWN = 'jasnobrązowe';
+    public const EYRCOLORS_GREEN = 'zielonawopiwne';
+    public const EYRCOLORS_LIGHT_GREEN = 'jasnozielone';
+    public const EYRCOLORS_DARK = 'ciemnoszare';
+    public const EYRCOLORS_LIGHT_GRAY = 'jasnoszare';
+    public const EYRCOLORS_BLUE = 'niebieskie';
+    public const EYRCOLORS_LIGHT_BLUE = 'jasnoniebieskie';
+
+
+    public const EYRCOLORS=[
+        self::EYRCOLORS_BLACK_BROWN=>"czarnobrązowe",
+        self::EYRCOLORS_DARK_BROWN=>"ciemnobrązowe",
+        self::EYRCOLORS_BROWN=>"brązowe (piwne)",
+        self::EYRCOLORS_BRIGHT_BROWN=>"jasnobrązowe",
+        self::EYRCOLORS_GREEN=>"zielonawopiwne",
+        self::EYRCOLORS_LIGHT_GREEN=>"jasnozielone",
+        self::EYRCOLORS_DARK=>"ciemnoszare",
+        self::EYRCOLORS_LIGHT_GRAY=>"jasnoszare",
+        self::EYRCOLORS_BLUE=>"niebieskie",
+        self::EYRCOLORS_LIGHT_BLUE=>"jasnoniebieskie"
+    ];
 
     public function edit(
         int $Growth,

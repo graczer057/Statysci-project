@@ -34,13 +34,11 @@ class ListCandidates extends AbstractController
     }
 
     /**
-     * @Route("/{_locale}/group/list/candidate", name="list_candidate", methods={"GET"})
+     * @Route("/{_locale}/group/list/candidate/{candidates}", name="list_candidate", methods={"GET"})
      */
-    public function Home()
+    public function Home(array $candidates)
     {
-        $candidates = $this->candidateRepository->findBy([], [
-            'id' => 'DESC'
-        ]);
+    dd($candidates);
 
         return $this->render('Candidates/listCandidate.html.twig', [
             'candidates' => $candidates

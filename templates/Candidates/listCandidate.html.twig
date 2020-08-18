@@ -14,20 +14,21 @@
             {% for candidate in candidates %}
                 <div class="col-5 mx-auto bg-dark border border-dark shadow my-3 p-2">
                     <div class="d-inline-block">
-                        <div class="col-md-4">
+                        {#<div class="col-md-4">
                             <div class="profile-img">
+                                {% dump(candidate) %}
                                 <img src="{{ asset(candidate.user.photo) }}" alt=""/>
                                 </div>
-                            </div>
-                        </div>
-                        <strong>Imię: {{ candidate.user.login}}</strong>
-                        <p>Wzrost: {{ candidate.growth }}</p>
-                        <p>Sylwetka: {{ candidate.physique }}</p>
-                        <p>Rodzaj włosów: {{ candidate.hairLength}}</p>
-                        <p>Kolor włosów: {{ candidate.hairColor }}</p>
-                        <p>Kolor oczu: {{ candidate.eyeColor }}</p>
-                        <p>Wiek: {{ candidate.age }}</p>
+                            </div>#}
                     </div>
+                   {# <strong>Imię: {{ candidate.user.login }}</strong>#}
+                    <p>Wzrost: {{ candidate.growth }}</p>
+                    <p>Sylwetka: {{ candidate.physique }}</p>
+                    <p>Rodzaj włosów: {{ candidate.hairLength }}</p>
+                    <p>Kolor włosów: {{ candidate.hairColor }}</p>
+                    <p>Kolor oczu: {{ candidate.eyeColor }}</p>
+                    <p>Wiek: {{ candidate.age }}</p>
+                </div>
 
             {% endfor %}
 

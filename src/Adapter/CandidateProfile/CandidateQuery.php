@@ -50,25 +50,24 @@ class CandidateQuery implements CandidateProfileQueryInterface
     }
     public function getfilter(int $growthmin, int $growthmax, string $physique, string $hairLength, string $hairColor, string $eyeColor, int $agemin, int $agemax)
     {
+
+
+
+
+        $query='SELECT c.id as id, c.user_id as user_id, c.growth as growth, c.physique as physique, c.hair_length as hair_length, c.hair_color as hair_color, c.eye_color as eye_color, c.age as age
+                    From candidate_profil as c
+                    WHERE  
+                    c.growth > '.$growthmin.' and c.growth < '.$growthmax.' and c.physique '.$physique.' and c.hair_length '.$hairLength.' and c.hair_color '.$hairLength.' and c.eye_color '.$eyeColor.' and c.age >'.$agemin.' and c.age <'.$agemax;
+
         return $this->connection->project(
-            'SELECT c.id as id, c.user_id as user_id, c.growth as growth, c.physique as physique, c.hair_length as hair_length, c.hair_color as hair_color, c.eye_color as eye_color, c.age as age
-                    From CandidateProfil as c
-                    WHERE c.growth > :growthMin and c.growth < :growthMax and c.physique :physique and c.hair_length :hairLength and c.hair_color :hairColor 
-                    and c.eye_color :eyeColor and c.age > :ageMin c.age< :ageMax',
+            $query,
             [
-                'growthMin' => $growthmin,
-                'growthMax' => $growthmax,
-                'physique'=> $physique,
-                'hairLength'=>$hairLength,
-                'hairColor'=>$hairColor,
-                'eyeColor'=>$eyeColor,
-                'ageMin'=>$agemin,
-                'ageMax'=>$agemax
+
             ],
             function (array $result){
                 return new CandidateProfile(
                     (int)$result['id'],
-                    (int)$result['user_id'],
+                    $result['user_id'],
                     (int)$result['growth'],
                     (string)$result['physique'],
                     (string)$result['hair_length'],
