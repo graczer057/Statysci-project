@@ -27,12 +27,11 @@ class PasswordResetController extends AbstractController implements PasswordRese
             return $this->redirectToRoute('homepage');
         }
 
-        $form = $this->createForm(\App\Form\User\PasswordReset::class);
+        $form = $this->createForm(\App\Form\User\PasswordReset\PasswordReset::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
-            $commendData = new PasswordResetCommand( $User->findbyEmail($formData['email']), md5(uniqid(time())), new DateTime('+15 minutes'));
-
+            $commendData = new PasswordResetCommand($User->findByEmail($formData['email']), md5(uniqid()), new DateTime('+15 minutes'));
 
             $passwordReset->execute($commendData);
 
@@ -47,6 +46,6 @@ class PasswordResetController extends AbstractController implements PasswordRese
 
     public function passwordreset(User $user)
     {
-        $this->addFlash('success','na adres:'.$user->getEmail().' został wysłany link do zmiany hasła');
+        // TODO: Implement passwordreset() method.
     }
 }

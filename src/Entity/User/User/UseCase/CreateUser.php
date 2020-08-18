@@ -34,9 +34,7 @@ class CreateUser extends AbstractController
         $this->mailer = $mailer;
     }
 
-    public function candidate(
-        Command $command
-    )
+    public function execute(Command $command)
     {
         $this->transaction->begin();
 
@@ -63,95 +61,7 @@ class CreateUser extends AbstractController
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $command->getEmail()]);
         $template = $this->renderView("mail/Register.html.twig");
         $this->createNotFoundException();
-        $url = $this->generateUrl('candidate_activate', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
-        $template = str_replace("$.name.$", $command->getLogin(), $template);
-        $template = str_replace("$.LINK.$", '<a href="' . $url . '" target="_blank">aktywuj konto</a>', $template);
-        $swiftMessage = $this->emailFactory->create(
-            'Pomyślna rejestracja',
-            nl2br($template),
-            [
-                $command->getEmail()
-            ]
-        );
-        $this->mailer->send($swiftMessage);
-
-        $command->getResponder()->CreateUser($user);
-    }
-
-    public function group(
-        Command $command
-    )
-    {
-        $this->transaction->begin();
-
-        if ($this->users->findByEmail($command->getEmail())) {
-            $command->getResponder()->emailExists();
-            return $this->redirectToRoute('homepage');
-        }
-
-        $user = new User(
-            $command->getLogin(),
-            $command->getEmail(),
-            $command->getPassword(),
-            $command->getRoles()
-        );
-
-        $this->users->add($user);
-
-        try {
-            $this->transaction->commit();
-        } catch (\Throwable $e) {
-            $this->transaction->rollback();
-            throw $e;
-        }
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $command->getEmail()]);
-        $template = $this->renderView("mail/Register.html.twig");
-        $this->createNotFoundException();
-        $url = $this->generateUrl('actor_activate', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
-        $template = str_replace("$.name.$", $command->getLogin(), $template);
-        $template = str_replace("$.LINK.$", '<a href="' . $url . '" target="_blank">aktywuj konto</a>', $template);
-        $swiftMessage = $this->emailFactory->create(
-            'Pomyślna rejestracja',
-            nl2br($template),
-            [
-                $command->getEmail()
-            ]
-        );
-        $this->mailer->send($swiftMessage);
-
-        $command->getResponder()->CreateUser($user);
-    }
-
-    public function business(
-        Command $command
-    )
-    {
-        $this->transaction->begin();
-
-        if ($this->users->findByEmail($command->getEmail())) {
-            $command->getResponder()->emailExists();
-            return $this->redirectToRoute('homepage');
-        }
-
-        $user = new User(
-            $command->getLogin(),
-            $command->getEmail(),
-            $command->getPassword(),
-            $command->getRoles()
-        );
-
-        $this->users->add($user);
-
-        try {
-            $this->transaction->commit();
-        } catch (\Throwable $e) {
-            $this->transaction->rollback();
-            throw $e;
-        }
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $command->getEmail()]);
-        $template = $this->renderView("mail/Register.html.twig");
-        $this->createNotFoundException();
-        $url = $this->generateUrl('business_activate', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
+        $url = $this->generateUrl('activate', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
         $template = str_replace("$.name.$", $command->getLogin(), $template);
         $template = str_replace("$.LINK.$", '<a href="' . $url . '" target="_blank">aktywuj konto</a>', $template);
         $swiftMessage = $this->emailFactory->create(

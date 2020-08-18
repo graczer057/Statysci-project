@@ -4,16 +4,14 @@
 
 {% block body %}
 
-    <h1>Zanim aktywujesz konto musisz uzupełnić parę informacji o swojej grupie</h1>
+    <h1>Zanim aktywujesz konto musisz uzupełnić parę informacji o twojej firmie</h1>
 
     {{ form_start(form) }}
     {{ form_row(form.name) }}
     {{ form_row(form.nip) }}
-    {{ form_row(form.adres) }}
-    {{ form_row(form.telefon) }}
+    {{ form_row(form.address) }}
+    {{ form_row(form.phone) }}
     {{ form_row(form.description) }}
-
-    <button type="submit" class="btn">Aktywuj</button>
 
     {{ form_end(form) }}
 

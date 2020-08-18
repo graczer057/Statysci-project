@@ -69,17 +69,9 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator implements P
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
 
-
-
         if (!$user) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
-        }
-        if ($user->getIsActive() == false)
-        {
-            throw new CustomUserMessageAuthenticationException('konto nie aktywne');
-            // return new RedirectResponse($this->urlGenerator->generate('token_expire'));
-
         }
 
         return $user;
@@ -104,11 +96,7 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
 
-
-
-
-        return new RedirectResponse($this->urlGenerator->generate('app_login'));
-        //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('list_candidate'));
     }
 
     protected function getLoginUrl()

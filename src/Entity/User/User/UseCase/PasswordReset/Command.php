@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Entity\User\User\UseCase\PasswordReset;
-
 
 use App\Entity\User\User;
 use DateTime;

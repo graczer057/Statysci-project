@@ -20,18 +20,18 @@ class GroupActivateType extends AbstractType
                 ],
                 'label' => 'Nazwa firmy'
             ])
-            ->add('adres', TextType::class, [
+            ->add('address', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
                 'label' => 'Adres firmy',
 
             ])
-            ->add('telefon', TextType::class, [
+            ->add('phone', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Numer telefony firmy',
+                'label' => 'Numer telefonu firmy',
             ])
             ->add('description', TextareaType::class, [
                 'attr' => [
@@ -42,7 +42,8 @@ class GroupActivateType extends AbstractType
             ->add('activate', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success waves-effect mid'
-                ]
+                ],
+                'label' => 'Aktywuj'
             ])
         ;
     }

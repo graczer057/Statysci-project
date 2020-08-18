@@ -2,8 +2,6 @@
 
 namespace App\Entity\Business\UseCase\CreateBuisness;
 
-use http\Env\Response;
-
 class Command
 {
     private $token;

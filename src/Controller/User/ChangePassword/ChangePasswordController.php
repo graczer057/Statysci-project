@@ -25,7 +25,7 @@ class ChangePasswordController extends AbstractController
         }
 
 
-        $form=$this->createForm(\App\Form\User\PasswordChange::class);
+        $form=$this->createForm(\App\Form\User\PasswordReset\PasswordChange::class);
         $form->handleRequest($request);
         if($form->isSubmitted()&&$form->isValid()) {
             $user=$User->findbyToken($token);

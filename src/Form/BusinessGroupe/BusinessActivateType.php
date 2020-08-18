@@ -26,14 +26,14 @@ class BusinessActivateType extends AbstractType
                 ],
                 'label' => 'NIP'
             ])
-            ->add('adres', TextType::class, [
+            ->add('address', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
                 'label' => 'Adres firmy',
 
             ])
-            ->add('telefon', TextType::class, [
+            ->add('phone', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
@@ -48,7 +48,8 @@ class BusinessActivateType extends AbstractType
             ->add('activate', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success waves-effect mid'
-                ]
+                ],
+                'label' => 'Aktywuj'
             ])
         ;
     }

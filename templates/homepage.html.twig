@@ -30,20 +30,30 @@
     <div class="col-3 col-sm-2 col-md-1 col-lg-1">
         <div class="language-switcher">
 
-            {% set route = app.request.attributes.get('_route') %}
-            {% set route_params = app.request.attributes.get('_route_params') %}
-            {% set params = route_params|merge(app.request.query.all) %}
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    {% if not is_granted ('IS_ANONYMOUS')%}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_logout') }}">{% trans %}Wyloguj{% endtrans %}</a>
+                        </li>
+                    {% endif %}
+                        <li>
+                            {% set route = app.request.attributes.get('_route') %}
+                            {% set route_params = app.request.attributes.get('_route_params') %}
+                            {% set params = route_params|merge(app.request.query.all) %}
 
-            {% if app.request.get('_locale') == 'en' %}
-                <a class="language-switcher__btn" href="{{ path(route, params|merge({ _locale: 'pl'})) }}">
-                    <img src="{{ asset('assets/images/general/flags/poland.svg') }}" alt="pl">
-                </a>
-            {% else %}
-                <a class="language-switcher__btn" href="{{ path(route, params|merge({ _locale: 'en' })) }}">
-                    <img src="{{ asset('assets/images/general/flags/united-kingdom.svg') }}" alt="en">
-                </a>
-            {% endif %}
-
+                            {% if app.request.get('_locale') == 'en' %}
+                                <a class="language-switcher__btn" href="{{ path(route, params|merge({ _locale: 'pl'})) }}">
+                                    <img src="{{ asset('assets/images/general/flags/poland.svg') }}" alt="pl">
+                                </a>
+                            {% else %}
+                                <a class="language-switcher__btn" href="{{ path(route, params|merge({ _locale: 'en' })) }}">
+                                    <img src="{{ asset('assets/images/general/flags/united-kingdom.svg') }}" alt="en">
+                                </a>
+                            {% endif %}
+                        </li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -77,35 +87,6 @@
             </div>
         </div>
     </div>
-    {% endif %}
-    {% if app.User %}
-    <div class="container h-100">
-        <div class="row align-items-center h-50">
-            <div class="col-6 mx-auto text-center">
-                <a href="{{ path('list_candidate') }}">
-                    <div class="card w-75 text-light bg-dark">
-                        <div class="card-body ">
-                            <h2 class="card-title">{{ "Zobacz swoich potencjalych pracowników" }}</h2>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <div class="row align-items-center h-25">
-        <div class="col-6 mx-auto">
-            <a href="{{ path('homepage')}}">
-                <div class="card w-75 text-light bg-dark text-center">
-                    <div class="card-body">
-                        <h5 class="card-title"></h5>
-                        <h2 class="card-title">{{ "Zobacz oferty pracy" }}</h2>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-    </div>
-    {% endif %}{% endblock %}
-</div>
+{% endif %}{% endblock %}
 </body>
 </html>

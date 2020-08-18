@@ -26,14 +26,13 @@
             You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
-    <h1>Dear Candidate please type some information about your new profile on our website.</h1>
+    <h1>Drogi użytkowniku, w celu założenia konta na naszym portalu musisz uzepełnić dane poniżej</h1>
 
     {{ form_start(form) }}
     {{ form_row(form.email) }}
     {{ form_row(form.login)}}
     {{ form_row(form.plainPassword) }}
 
-    <button type="submit" class="btn"></button>
     {{ form_end(form) }}
 
     </div>    <div class="col">
