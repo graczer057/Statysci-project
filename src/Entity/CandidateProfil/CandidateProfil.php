@@ -15,40 +15,41 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CandidateProfil
 {
+
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
-
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $Growth;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $physique;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Hair_Length;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Hair_Color;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Eye_Color;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $Age;
 
@@ -59,7 +60,6 @@ class CandidateProfil
 
     /**
      * @ORM\OneToMany(targetEntity=SendOfferBusiness::class, mappedBy="Candidate")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $sendOfferBusiness;
 
@@ -69,23 +69,22 @@ class CandidateProfil
     private $sendOfferGrupes;
 
     public function __construct(
-        User $user,
-        int $growth,
-        string $physique,
-        string $Hair_Length,
-        string $Hair_Color,
-        string $Eye_Color,
-        int $Age
+        User $User,
+        int $Growth = null,
+        string $physique = null,
+        string $Hair_Length = null,
+        string $Hair_Color = null,
+        string $Eye_Color = null,
+        int $Age = null
     )
     {
-        $this->User = $user;
-        $this->Growth = $growth;
+        $this->User = $User;
+        $this->Growth = $Growth;
         $this->physique = $physique;
         $this->Hair_Length = $Hair_Length;
         $this->Hair_Color = $Hair_Color;
         $this->Eye_Color = $Eye_Color;
         $this->Age = $Age;
-        $this->sendOfferGrupes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -219,4 +218,94 @@ class CandidateProfil
 
         return $this;
     }
+
+
+    public const PHYSIQUES_EKTOMORFIK = "ektomorfik";
+    public const PHYSIQUES_MEZOMORFIK = "mezomorfik";
+    public const PHYSIQUES_ENDOMORFIK = "endomorfik";
+
+    public const PHYSIQUES = [
+        self::PHYSIQUES_EKTOMORFIK => "ektomorfik",
+        self::PHYSIQUES_MEZOMORFIK => "mezomorfik",
+        self::PHYSIQUES_ENDOMORFIK => "endomorfik"
+    ];
+
+    public const HAIRLENGTHS_SHORT = "krótkie";
+    public const HAIRLENGTHS_MEDIUM = "średnie";
+    public const HAIRLENGTHS_LONG = "Długie";
+
+    public const HAIRLENGTHS = [
+        self::HAIRLENGTHS_SHORT => "krótkie",
+        self::HAIRLENGTHS_MEDIUM => 'średnie',
+        self::HAIRLENGTHS_LONG => 'Długie'
+    ];
+
+    public const HAIRCOLORS_WHITE = "białe";
+    public const HAIRCOLORS_LIGHTBLONDE = "jasny blond";
+    public const HAIRCOLORS_BLOND = 'blond';
+    public const HAIRCOLORS_DARKBLOND = 'ciemny blond';
+    public const HAIRCOLORS_RED = 'RUDE';
+    public const HAIRCOLORS_REDBLOND = 'rudoblond';
+    public const HAIRCOLORS_CHESTNUT = 'szatyn';
+    public const HAIRCOLORS_DARK = 'czarnobrunatne';
+    public const HAIRCOLORS_BLACK = 'czarne';
+    public const HAIRCOLORS_GRAY = 'siwe';
+
+
+    public const HAIRCOLORS = [
+        self::HAIRCOLORS_WHITE => "białe",
+        self::HAIRCOLORS_LIGHTBLONDE => "jasny blond",
+        self::HAIRCOLORS_BLOND => "blond",
+        self::HAIRCOLORS_DARKBLOND => "ciemno blond",
+        self::HAIRCOLORS_RED => "rude",
+        self::HAIRCOLORS_REDBLOND => "rudoblond",
+        self::HAIRCOLORS_CHESTNUT => "szatyn",
+        self::HAIRCOLORS_DARK => "czarnobrunatne",
+        self::HAIRCOLORS_BLACK => "czarne",
+        self::HAIRCOLORS_GRAY => "siwe"
+    ];
+
+
+    public const EYRCOLORS_BLACK_BROWN = "czarnobrązowe";
+    public const EYRCOLORS_DARK_BROWN = 'ciemnobrązowe';
+    public const EYRCOLORS_BROWN = 'brązowe (piwne)';
+    public const EYRCOLORS_BRIGHT_BROWN = 'jasnobrązowe';
+    public const EYRCOLORS_GREEN = 'zielonawopiwne';
+    public const EYRCOLORS_LIGHT_GREEN = 'jasnozielone';
+    public const EYRCOLORS_DARK = 'ciemnoszare';
+    public const EYRCOLORS_LIGHT_GRAY = 'jasnoszare';
+    public const EYRCOLORS_BLUE = 'niebieskie';
+    public const EYRCOLORS_LIGHT_BLUE = 'jasnoniebieskie';
+
+
+    public const EYRCOLORS=[
+        self::EYRCOLORS_BLACK_BROWN=>"czarnobrązowe",
+        self::EYRCOLORS_DARK_BROWN=>"ciemnobrązowe",
+        self::EYRCOLORS_BROWN=>"brązowe (piwne)",
+        self::EYRCOLORS_BRIGHT_BROWN=>"jasnobrązowe",
+        self::EYRCOLORS_GREEN=>"zielonawopiwne",
+        self::EYRCOLORS_LIGHT_GREEN=>"jasnozielone",
+        self::EYRCOLORS_DARK=>"ciemnoszare",
+        self::EYRCOLORS_LIGHT_GRAY=>"jasnoszare",
+        self::EYRCOLORS_BLUE=>"niebieskie",
+        self::EYRCOLORS_LIGHT_BLUE=>"jasnoniebieskie"
+    ];
+
+    public function edit(
+        int $Growth,
+        string $physique,
+        string $Hair_Length,
+        string $Hair_Color,
+        string $Eye_Color,
+        int $Age)
+    {
+        $this->Growth = $Growth;
+        $this->physique = $physique;
+        $this->Hair_Length = $Hair_Length;
+        $this->Hair_Color = $Hair_Color;
+        $this->Eye_Color = $Eye_Color;
+        $this->Age = $Age;
+
+    }
+
 }

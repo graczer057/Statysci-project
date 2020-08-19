@@ -4,14 +4,14 @@ namespace App\Adapter\User;
 
 use App\Entity\User\User;
 use App\Entity\User\UsersInterface;
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 
 class Users implements UsersInterface
 {
     private $manager;
 
     public function __construct(
-        ObjectManager $manager
+        EntityManagerInterface $manager
     ){
         $this->manager = $manager;
     }
@@ -29,5 +29,14 @@ class Users implements UsersInterface
     public function findByEmail(string $email)
     {
         return $this->manager->getRepository(User::class)->findOneBy(['email' => $email]);
+    }
+
+    public function findById(int $id)
+    {
+        return $this->manager->getRepository(User::class)->findOneBy(['id' => $id]);
+    }
+    public function findByUserName(string $UserName)
+    {
+        return $this->manager->getRepository(User::class)->findOneBy(['login' => $UserName]);
     }
 }

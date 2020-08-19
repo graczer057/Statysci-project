@@ -14,23 +14,68 @@
             {% for candidate in candidates %}
                 <div class="col-5 mx-auto bg-dark border border-dark shadow my-3 p-2">
                     <div class="d-inline-block">
-                        <strong>Imię: {{ candidate.user.login}}</strong>
-                        <p>Wzrost: {{ candidate.growth }}</p>
-                        <p>Sylwetka: {{ candidate.physique }}</p>
-                        <p>Rodzaj włosów: {{ candidate.hairLength}}</p>
-                        <p>Kolor włosów: {{ candidate.hairColor }}</p>
-                        <p>Kolor oczu: {{ candidate.eyeColor }}</p>
-                        <p>Wiek: {{ candidate.age }}</p>
+                        <div class="col-md-4">
+                            <div class="profile-img">
+                                <img src="{{ asset(candidate.user.photo) }}" alt=""/>
+                                </div>
+                            </div>
                     </div>
-                </div>
-                <div class="d-inline-block float-right">
+                   <strong>Imię: {{ candidate.user.login }}</strong>
+                    <p>Wzrost: {{ candidate.growth }}</p>
+                    <p>Sylwetka: {{ candidate.physique }}</p>
+                    <p>Rodzaj włosów: {{ candidate.hairLength }}</p>
+                    <p>Kolor włosów: {{ candidate.hairColor }}</p>
+                    <p>Kolor oczu: {{ candidate.eyeColor }}</p>
+                    <p>Wiek: {{ candidate.age }}</p>
+                    <button id="Button{{ candidate.user.login }}" onclick="myAction( '{{ candidate.user.login }}' )" >Wyślij</button>
 
-                    {#<a class="btn btn-outline-primary my-2" href="{{ path('see', {'id': post.id}) }}"><i class="fa-edit"></i></a>#}
-
                 </div>
+
             {% endfor %}
 
         </div>
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+
+    <script>
+        function myAction(valu){
+            $.ajax({
+                url: "{{ path('send_candidate_mail') }}",
+                method: "post",
+                dataType:"json",
+                data: {
+                    valu
+                },
+                success: function (buttonn) {
+                    document.getElementById(buttonn).disabled = true;
+                }
+
+                });
+        }
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                url: "{{ path('loadButton') }}",
+                success: function (Buttonlist){
+
+                    Array.prototype.forEach.call(Buttonlist, entry => {
+                        document.getElementById(entry).disabled = true;
+                    });
+
+                }
+            });
+        });
+        function disable(element, index, array) {
+            document.getElementById("element").disabled = true;
+            console.log("element");
+
+        }
+    </script>
+    
 {% endblock %}

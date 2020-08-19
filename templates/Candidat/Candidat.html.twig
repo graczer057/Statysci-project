@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+{% set flashesbag = app.flashes %}
+
+{% block body %}
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container emp-profile text-black-50">
+    <form method="post" id="form_id" action="{{ path('addCandidat') }}" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img src="{{ asset(user.photo) }}" alt=""/>
+                    <div class="file btn btn-lg btn-primary">
+                        {{ "zmień zdjęcie"|trans }}
+                        <input type="file" name="file" id="file"
+                               accept=".jpg, .jpeg, .png" >
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5>
+                        {{ user.login }}
+                    </h5>
+                </div>
+            </div>
+        </div>
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Login</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {{ user.login }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ user.getemail }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>{{ "wzrost"|trans }}</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" name="growth" min="0" step="1" max="250" value="{{ user.getCandidateProfil.Growth }}"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label> {{"budowa ciała"|trans}}</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select id="specialization" name="physique" class="form__input">
+                                    <option {% if user.candidateProfil.physique is null %}value="null">{{ "Wybierz"|trans }}{% else %}value="{{ user.candidateProfil.physique }}">{{ user.candidateProfil.physique }}{% endif %}</option>
+                                    {% for physique in physiques %}
+                                        <option value="{{ physique }}">{{ physique }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>{{ "długość włosów"|trans }}</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select id="specialization" name="HairLength" class="form__input">
+                                    <option {% if user.candidateProfil.HairLength is null %}value="null">{{ "Wybierz"|trans }}{% else %}value="{{ user.candidateProfil.HairLength }}">{{ user.candidateProfil.HairLength }}{% endif %}</option>
+                                    {% for HairLength in HairLengths %}
+                                        <option value="{{ HairLength }}">{{ HairLength }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>{{ "kolor włosów"|trans }}</label>
+                            </div>
+                            <div class="col-md-6">
+                                    <select id="specialization" name="HairColor" class="form__input">
+                                        <option {% if user.candidateProfil.HairColor is null %}value="null">{{ "Wybierz"|trans }}{% else %}value="{{ user.candidateProfil.HairColor }}">{{ user.candidateProfil.HairColor }}{% endif %}</option>
+                                        {% for HairColor in HairColors %}
+                                            <option value="{{ HairColor }}">{{ HairColor }}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>{{ "kolor oczu"|trans }}</label>
+                            </div>
+                                <div class="col-md-6">
+                                    <select id="specialization" name="EyeColor" class="form__input">
+                                        <option {% if user.candidateProfil.EyeColor is null %}value="null">{{ "Wybierz"|trans }}{% else %}value="{{ user.candidateProfil.EyeColor }}">{{ user.candidateProfil.EyeColor }}{% endif %}</option>
+                                        {% for EyeColor in EyeColors %}
+                                            <option value="{{ EyeColor }}">{{ EyeColor }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div><div class="row">
+                            <div class="col-md-6">
+                                <label>{{ "wiek"|trans }}</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" name="age" min="0" step="1" max="100" value="{{ user.getCandidateProfil.Age }}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="col align-self-end">
+                    <input type="submit" class="profile-edit-btn" name="btnAddMore" value="{{ "Zapisz zmiany"|trans }}"/>
+                </div>
+    </form>
+</div>
+{% endblock %}

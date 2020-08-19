@@ -150,3 +150,31 @@ services:
             - "@Swift_Mailer"
             - "@doctrine.orm.entity_manager"
         public: true
+
+    SendOfferBusiness:
+        class: App\Adapter\SendOfferBusiness\SendOfferBusiness
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+        public: true
+
+    SendOfferGroupe:
+        class: App\Adapter\SendOfferGroup\SendOfferGroup
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+        public: true
+
+    App\Entity\SendOfferBusiness\UseCase\CreateSendOfferBuisness:
+        arguments:
+            - "@SendOfferBusiness"
+            - "@application_transaction"
+            - "@email_factory"
+            - "@Swift_Mailer"
+        public: true
+
+    App\Entity\SendOfferGrupe\UseCase\CreateSendOfferGroup:
+        arguments:
+            - "@application_transaction"
+            - "@email_factory"
+            - "@Swift_Mailer"
+            - "@SendOfferGroupe"
+        public: true

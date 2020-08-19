@@ -17,12 +17,7 @@ class Command
     private $password;
 
 
-    /**
-     * Command constructor.
-     * @param bool $Is_active
-     * @param string $Token
-     * @param DateTime $Token_Expire
-     */
+
     public function __construct(
         User $user,
         string $password,
@@ -54,7 +49,7 @@ class Command
     }
 
 
-    public function getTokenExpire(): ?\DateTimeInterface
+    public function getTokenExpire(): ?\DateTime
     {
         return $this->Token_Expire;
     }
