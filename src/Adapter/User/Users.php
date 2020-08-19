@@ -35,4 +35,8 @@ class Users implements UsersInterface
     {
         return $this->manager->getRepository(User::class)->findOneBy(['id' => $id]);
     }
+    public function findByUserName(string $UserName)
+    {
+        return $this->manager->getRepository(User::class)->findOneBy(['login' => $UserName]);
+    }
 }

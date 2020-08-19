@@ -346,11 +346,4 @@ class User implements UserInterface
         $this->photo=$Photo;
     }
 
-    public function TokenExpires(
-        string $Token,
-        \DateTime $Token_Expire
-    ){
-        $this->token = $Token;
-        $this->token_expire = $Token_Expire;
-    }
 }

@@ -4,7 +4,7 @@ namespace App\Entity\CandidateProfil\ReadModel;
 
 use App\Entity\User\User;
 
-class CandidateProfile
+class CandidateProfileandUser
 {
     private $id;
     private $user;
@@ -17,7 +17,7 @@ class CandidateProfile
 
     public function __construct(
         int $id,
-        $user,
+        User $user,
         int $growth,
         string $physique,
         string $hair_length,
@@ -33,11 +33,6 @@ class CandidateProfile
         $this->hair_color = $hair_color;
         $this->eye_color = $eye_color;
         $this->age = $age;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     public function getGrowth(): ?string {
@@ -64,7 +59,7 @@ class CandidateProfile
         return $this->age;
     }
 
-    public function getUser(): ?int
+    public function getUser(): ?User
     {
         return $this->user;
     }

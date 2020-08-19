@@ -22,8 +22,5 @@ class Candidates implements CandidateProfilesInterface
         $this->manager->persist($candidate);
     }
 
-    public function findByUser(User $user)
-    {
-        return $this->manager->getRepository(CandidateProfil::class)->findOneBy(['user' => $user]);
-    }
+
 }

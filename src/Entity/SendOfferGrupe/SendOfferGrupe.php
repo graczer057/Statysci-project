@@ -5,6 +5,7 @@ namespace App\Entity\SendOfferGrupe;
 use App\Entity\ActorGrupe\ActorGrupe;
 use App\Entity\CandidateProfil\CandidateProfil;
 use App\Repository\SendOfferGrupe\SendOfferGrupeRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +41,18 @@ class SendOfferGrupe
      * @ORM\Column(type="boolean")
      */
     private $Is_send;
+
+    public function __construct(
+        ActorGrupe $Grupe,
+        CandidateProfil $Candidat,
+        bool $Is_send= true
+    )
+    {
+        $this->Grupe = $Grupe;
+        $this->Candidat = $Candidat;
+        $this->SendDate =new DateTime('now');
+        $this->Is_send = $Is_send;
+    }
 
     public function getId(): ?int
     {

@@ -1,20 +1,20 @@
 <?php
 
 
-namespace App\Entity\SendOfferBusiness\UseCase;
+namespace App\Entity\SendOfferGrupe\UseCase;
 
-use App\Adapter\Candidate\Candidate;
+
 use App\Adapter\Core\EmailFactory;
 use App\Adapter\Core\Transaction;
-use App\Entity\SendOfferBusiness\SendOfferBusiness;
-use App\Entity\SendOfferBusiness\UseCase\CreateSendOfferBuisness\Command;
+use App\Adapter\SendOfferBusiness\SendOfferBusiness;
+use App\Adapter\SendOfferGroup\SendOfferGroup;
+use App\Entity\CandidateProfil\CandidateProfil;
+use App\Entity\SendOfferGrupe\SendOfferGrupe;
+use App\Entity\SendOfferGrupe\UseCase\CreateSendOfferGroup\Command;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 
-
-class CreateSendOfferBuisness extends AbstractController
+class CreateSendOfferGroup extends AbstractController
 {
-
     /**
      * @var Transaction
      */
@@ -28,38 +28,33 @@ class CreateSendOfferBuisness extends AbstractController
      */
     private $mailer;
     /**
-     * @var \App\Adapter\SendOfferBusiness\SendOfferBusiness
+     * @var SendOfferGroup
      */
-    private $business;
-    /**
-     * @var Candidate
-     */
-    private $candidate;
-
+    private $group;
 
     public function __construct(
-        \App\Adapter\SendOfferBusiness\SendOfferBusiness $business,
         Transaction $transaction,
         EmailFactory $emailFactory,
-        \Swift_Mailer $mailer
+        \Swift_Mailer $mailer,
+        SendOfferGroup $group
     )
     {
         $this->transaction = $transaction;
         $this->emailFactory = $emailFactory;
         $this->mailer = $mailer;
-        $this->business = $business;
+        $this->group = $group;
     }
 
     public function execute(Command $command)
     {
         $this->transaction->begin();
 
-        $message= new SendOfferBusiness(
-            $command->getBusiness(),
+        $message= new SendOfferGrupe(
+            $command->getActorGrupe(),
             $command->getCandidateProfil()
         );
 
-        $this->business->add($message);
+        $this->group->add($message);
 
         try {
             $this->transaction->commit();
@@ -69,11 +64,11 @@ class CreateSendOfferBuisness extends AbstractController
         }
 
 
-        $template = $this->renderView("mail/SendOfferBusiness.html.twig");
+        $template = $this->renderView("mail/SendOfferGroup.html.twig");
         $this->createNotFoundException();
-        $template = str_replace("$.name.$", $command->getBusiness()->getName(), $template);
-        $template = str_replace("$.mail.$", $command->getBusiness()->getUser()->getEmail(), $template);
-        $template = str_replace("$.tel.$", $command->getBusiness()->getPhone(), $template);
+        $template = str_replace("$.name.$", $command->getActorGrupe()->getName(), $template);
+        $template = str_replace("$.mail.$", $command->getActorGrupe()->getUser()->getEmail(), $template);
+        $template = str_replace("$.tel.$", $command->getActorGrupe()->getPhone(), $template);
         $swiftMessage = $this->emailFactory->create(
             'Nowa oferta współpracy',
             nl2br($template),

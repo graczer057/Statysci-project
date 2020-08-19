@@ -5,6 +5,7 @@ namespace App\Entity\SendOfferBusiness;
 use App\Entity\Business\Business;
 use App\Entity\CandidateProfil\CandidateProfil;
 use App\Repository\SendOfferBusiness\SendOfferBusinessRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -42,9 +43,16 @@ class SendOfferBusiness
      */
     private $is_send;
 
-    public function __construct()
+    public function __construct(
+        Business $Business,
+        CandidateProfil $Candidate,
+        bool $is_send=true
+    )
     {
-        $this->Candidate = new ArrayCollection();
+        $this->Business = $Business;
+        $this->Candidate = $Candidate;
+        $this->SendData =  new DateTime('now');
+        $this->is_send = $is_send;
     }
 
     public function getId(): ?int
