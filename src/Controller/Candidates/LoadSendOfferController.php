@@ -34,21 +34,26 @@ class LoadSendOfferController extends AbstractController
      * @Route("/{_locale}/group/loadbutton", name="loadButton")
      */
     public function main()
-    {
+    {   $date = new \DateTime("-15 day");
         if ($this->getUser()->getRoles() == ['ROLE_GROUP']) {
             $Groups = $this->group->LoadAllByIdGroup($this->getUser()->getActorGrupe()->getId());
-        } else if ($this->getUser()->getRoles() == ["ROLE_BUSINESS"]) {
+            foreach ($Groups as $Group) {
+                if ($Group->getSendDate()->getTimestamp() > $date->getTimestamp()) {
+                    $groups[] = "Button" . $Group->getCandidat()->getUser()->getLogin();
+
+                }
+            }
+        } else if ($this->getUser()->getRoles() == ['ROLE_BUSINESS']) {
             $Groups = $this->business->LoadAllByIdBusiness($this->getUser()->getBusiness()->getId());
-        }
+            foreach ($Groups as $Group) {
+                if ($Group->getSendData()->getTimestamp() > $date->getTimestamp()) {
+                    $groups[] = "Button" . $Group->getCandidate()->getUser()->getLogin();
 
-        $date = new \DateTime("-15 day");
-
-        foreach ($Groups as $Group) {
-            if ($Group->getSendDate() > $date) {
-                $groups[] = "Button" . $Group->getCandidat()->getUser()->getLogin();
-
+                }
             }
         }
+
+
 
         return new JsonResponse($groups);
     }

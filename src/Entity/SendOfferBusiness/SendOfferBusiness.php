@@ -73,9 +73,9 @@ class SendOfferBusiness
     }
 
     /**
-     * @return Collection|CandidateProfil[]
+     * @return CandidateProfil
      */
-    public function getCandidate(): Collection
+    public function getCandidate(): CandidateProfil
     {
         return $this->Candidate;
     }
