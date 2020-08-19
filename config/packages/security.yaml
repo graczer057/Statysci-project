@@ -40,3 +40,4 @@ security:
         - { path: '/group', roles: [ROLE_GROUP, ROLE_BUSINESS] }
         - { path: '/Candidat', roles: ROLE_CANDIDATE }
         - { path: '/homepage', roles: IS_ANONYMOUS }
+        - { path: '/activate', roles: IS_ANONYMOUS }

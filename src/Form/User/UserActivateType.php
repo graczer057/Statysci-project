@@ -2,7 +2,9 @@
 
 namespace App\Form\User;
 
+use App\Entity\CandidateProfil\CandidateProfil;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -12,67 +14,53 @@ class UserActivateType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('growth', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
+            ->add('growth', IntegerType::class,[
+                'attr' =>[
+                    'step'=>1,
+                    'min' =>0,
+                    'max'=>250,
+                    'value'=>0
                 ],
                 'label' => 'Wzrost'
             ])
             ->add('physique', ChoiceType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => CandidateProfil::class
                 ],
                 'label' => 'Sylwetka',
-                'choices' => [
-                    'Wysportowana' => 'Wysportowana',
-                    'Przeciętna' => 'Przeciętna',
-                    'Szczupła' => 'Szczupła',
-                    'Nadwaga' => 'Nadwaga'
-                ]
+                'choices' => [array_flip(CandidateProfil::PHYSIQUES),'Dowolna'=>'default'],
+                'data'=>'default'
             ])
             ->add('hair_length', ChoiceType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => CandidateProfil::class
                 ],
                 'label' => 'Włosy',
-                'choices' => [
-                    'Krótkie' => 'Krótkie',
-                    'Długie' => 'Długie',
-                    'Z grzywką' => 'Z grzywką',
-                    'Loczki' => 'Loczki',
-                    'Warkoczyki' => 'Warkoczyki',
-                    'Brak' => 'Brak'
-                ]
+                'choices' => [CandidateProfil::HAIRLENGTHS,'Dowolna'=>'default'],
+                'data'=>'default'
             ])
             ->add('hair_color', ChoiceType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => CandidateProfil::class
                 ],
                 'label' => 'Kolor włosów',
-                'choices' => [
-                    'Brązowe' => 'Brązowe',
-                    'Czarne' => 'Czarne',
-                    'Blond' => 'blond',
-                    'Kolorowe' => 'Kolorowe',
-                    'Siwe' => 'Siwe',
-                    'Brak' => 'Brak'
-                ]
+                'choices' => [CandidateProfil::HAIRCOLORS,'Dowolna'=>'default'],
+                'data'=>'default'
             ])
             ->add('eye_color', ChoiceType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => CandidateProfil::class
                 ],
                 'label' => 'Kolor oczu',
-                'choices' => [
-                    'Niebieskie' => 'Niebieskie',
-                    'Zielone' => 'Zielone',
-                    'Piwne' => 'Piwne',
-                    'Inne' => 'Inne'
-                ]
+                'choices' => [CandidateProfil::EYRCOLORS,'Dowolna'=>'default'],
+                'data'=>'default'
             ])
-            ->add('age', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
+            ->add('age',IntegerType::class,[
+                'attr' =>[
+                    'step'=>1,
+                    'min' =>0,
+                    'max'=>100,
+                    'value'=>0
                 ],
                 'label' => 'Wiek',
             ])

@@ -30,78 +30,83 @@ class ActivateController extends AbstractController implements ActivateResponder
 
         $user = $users->findByToken($token);
 
-        if($user->getTokenExpire()->getTimestamp() > $date->getTimestamp()) {
-            if($user->getRoles() == ["ROLE_CANDIDATE"]){
-                $form = $this->createForm(UserActivateType::class);
-                $form->handleRequest($request);
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $data = $form->getData();
+        if($user!=null) {
+            if ($user->getTokenExpire()->getTimestamp() > $date->getTimestamp()) {
+                if ($user->getRoles() == ["ROLE_CANDIDATE"]) {
+                    $form = $this->createForm(UserActivateType::class);
+                    $form->handleRequest($request);
+                    if ($form->isSubmitted() && $form->isValid()) {
+                        $data = $form->getData();
 
-                    $command = new CreateCandidateProfile\Command(
-                        $token,
-                        $data['growth'],
-                        $data['physique'],
-                        $data['hair_length'],
-                        $data['hair_color'],
-                        $data['eye_color'],
-                        $data['age']
-                    );
+                        $command = new CreateCandidateProfile\Command(
+                            $token,
+                            $data['growth'],
+                            $data['physique'],
+                            $data['hair_length'],
+                            $data['hair_color'],
+                            $data['eye_color'],
+                            $data['age']
+                        );
 
-                    $createCandidate->execute($command);
+                        $createCandidate->execute($command);
 
-                    return $this->render('homepage.html.twig', []);
+                        return $this->redirectToRoute('homepage');
+                    }
+                    return $this->render('User/UserActivate.html.twig', [
+                        'form' => $form->createView(),
+                    ]);
+                } else if ($user->getRoles() == ["ROLE_GROUP"]) {
+                    $form = $this->createForm(GroupActivateType::class);
+                    $form->handleRequest($request);
+                    if ($form->isSubmitted() && $form->isValid()) {
+                        $data = $form->getData();
+
+                        $command = new CreateActorGroup\Command(
+                            $token,
+                            $data['name'],
+                            $data['address'],
+                            $data['phone'],
+                            $data['description']
+                        );
+
+                        $createGroup->execute($command);
+
+                        return $this->redirectToRoute('homepage');
+                    }
+                    return $this->render('ActorGroupe/GroupActivate.html.twig', [
+                        'form' => $form->createView(),
+                    ]);
+                } else if ($user->getRoles() == ["ROLE_BUSINESS"]) {
+                    $form = $this->createForm(BusinessActivateType::class);
+                    $form->handleRequest($request);
+                    if ($form->isSubmitted() && $form->isValid()) {
+                        $data = $form->getData();
+
+                        $command = new CreateBuisness\Command(
+                            $token,
+                            $data['name'],
+                            $data['nip'],
+                            $data['address'],
+                            $data['phone'],
+                            $data['description']
+                        );
+
+                        $createBuisness->execute($command);
+
+                        return $this->redirectToRoute('homepage');
+                    }
+                    return $this->render('BusinessGroupe/BusinessActivate.html.twig', [
+                        'form' => $form->createView(),
+                    ]);
+                } else {
+                    return $this->redirectToRoute('homepage');
                 }
-                return $this->render('User/UserActivate.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            } else if ($user->getRoles() == ["ROLE_GROUP"]) {
-                $form = $this->createForm(GroupActivateType::class);
-                $form->handleRequest($request);
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $data = $form->getData();
-
-                    $command = new CreateActorGroup\Command(
-                        $token,
-                        $data['name'],
-                        $data['address'],
-                        $data['phone'],
-                        $data['description']
-                    );
-
-                    $createGroup->execute($command);
-
-                    return $this->render('homepage.html.twig', []);
-                }
-                return $this->render('ActorGroupe/GroupActivate.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            } else if ($user->getRoles() == ["ROLE_BUSINESS"]) {
-                $form = $this->createForm(BusinessActivateType::class);
-                $form->handleRequest($request);
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $data = $form->getData();
-
-                    $command = new CreateBuisness\Command(
-                        $token,
-                        $data['name'],
-                        $data['nip'],
-                        $data['address'],
-                        $data['phone'],
-                        $data['description']
-                    );
-
-                    $createBuisness->execute($command);
-
-                    return $this->render('homepage.html.twig', []);
-                }
-                return $this->render('BusinessGroupe/BusinessActivate.html.twig', [
-                    'form' => $form->createView(),
-                ]);
             } else {
-                return $this->redirectToRoute('homepage');
+                return $this->redirectToRoute('token_expire');
             }
-        } else {
-            return $this->redirectToRoute('token_expire');
+        }
+        else{
+            return $this->redirectToRoute('homepage');
         }
     }
 

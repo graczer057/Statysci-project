@@ -29,7 +29,17 @@
     </div>
     <div class="col-3 col-sm-2 col-md-1 col-lg-1">
         <div class="language-switcher">
+            {% if flashesbag.success is defined %}
+                <div class="col-8 mx-auto bg-success border border-dark shadow rounded">
+                    <p>{{ flashesbag.success[0] }}</p>
+                </div>
+            {% endif %}
 
+            {% if flashesbag.error is defined %}
+                <div class="col-8 mx-auto bg-success border border-dark shadow rounded">
+                    <p>{{ flashesbag.error[0] }}</p>
+                </div>
+            {% endif %}
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     {% if not is_granted ('IS_ANONYMOUS')%}
