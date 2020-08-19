@@ -4,6 +4,7 @@
 namespace App\Controller\Candidat;
 
 
+use App\Entity\CandidateProfil\CandidateProfil;
 use App\Entity\CandidateProfil\UseCase\ChangePhoto;
 use App\Entity\CandidateProfil\UseCase\EditCandidate;
 use App\Entity\User\User;
@@ -23,17 +24,16 @@ class CandidatController extends AbstractController
          }
 
         return $this->render('Candidat/Candidat.html.twig',['user'=>$this->getUser(),
-            'physiques'=>$this->getUser()->getCandidateProfil()->physiques(),
-            'HairLengths'=>$this->getUser()->getCandidateProfil()->HairLengths(),
-            'HairColors'=>$this->getUser()->getCandidateProfil()->HairColors(),
-            'EyeColors'=>$this->getUser()->getCandidateProfil()->EyeColors()]);
+            'physiques'=>CandidateProfil::PHYSIQUES,
+            'HairLengths'=>CandidateProfil::HAIRLENGTHS,
+            'HairColors'=>CandidateProfil::HAIRCOLORS,
+            'EyeColors'=>CandidateProfil::EYRCOLORS]);
     }
 
     /**
      * @Route("/{_locale}/Candidat/addCandidat", name="addCandidat")
      */
     public function addCandidat(Request $request,EditCandidate $editCandidate,ChangePhoto $photo){
-
 
         $formData =$request->request->all();
         $command= new EditCandidate\Command($this->getUser()->getCandidateProfil(),$formData['growth'],$formData['physique'],$formData['HairLength'],$formData['HairColor'],$formData['EyeColor'],$formData['age']);

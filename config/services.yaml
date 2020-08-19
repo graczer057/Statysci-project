@@ -82,13 +82,15 @@ services:
             - "@email_factory"
         public: true
 
-    App\Adapter\CandidateProfile\Candidates:
-        arguments:
-            - "@doctrine.orm.entity_manager"
-        public: true
 
     Candidates:
         class: App\Adapter\CandidateProfile\Candidates
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+        public: true
+
+    Candidate:
+        class: App\Adapter\Candidate\Candidate
         arguments:
             - "@doctrine.orm.default_entity_manager"
         public: true
@@ -177,4 +179,18 @@ services:
             - "@email_factory"
             - "@Swift_Mailer"
             - "@SendOfferGroupe"
+        public: true
+
+
+
+    App\Entity\CandidateProfil\UseCase\EditCandidate:
+        arguments:
+            - "@Candidate"
+            - "@application_transaction"
+        public: true
+
+    App\Entity\CandidateProfil\UseCase\ChangePhoto:
+        arguments:
+            - "@Users"
+            - "@application_transaction"
         public: true
