@@ -160,7 +160,8 @@ class AppFixtures extends Fixture
             array_rand(CandidateProfil::HAIRLENGTHS,1),
             array_rand(CandidateProfil::HAIRCOLORS,1),
             array_rand(CandidateProfil::EYRCOLORS,1),
-            rand(1,100)
+            rand(1,100),
+            array_rand(CandidateProfil::SEX,1)
         );
         $manager->persist($profil);
         $user->setCandidateProfil($profil);
@@ -187,7 +188,8 @@ class AppFixtures extends Fixture
             array_rand(CandidateProfil::HAIRLENGTHS,1),
             array_rand(CandidateProfil::HAIRCOLORS,1),
             array_rand(CandidateProfil::EYRCOLORS,1),
-            rand(1,100)
+            rand(1,100),
+            array_rand(CandidateProfil::SEX,1)
             );
             $manager->persist($profil);
             $user->setCandidateProfil($profil);

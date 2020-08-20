@@ -41,7 +41,7 @@ class UserController extends AbstractController implements RegisterResponder
 
                 $createUser->execute($command);
 
-                return $this->render('homepage.html.twig', []);
+            return $this->redirectToRoute("homepage");
 
         }
         return $this->render('User/UserRegister.html.twig', [

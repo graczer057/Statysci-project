@@ -28,32 +28,35 @@ class UserActivateType extends AbstractType{
                     'class' => CandidateProfil::class
                 ],
                 'label' => 'Sylwetka',
-                'choices' => [array_flip(CandidateProfil::PHYSIQUES),'Dowolna'=>'default'],
-                'data'=>'default'
+                'choices' => array_flip(CandidateProfil::PHYSIQUES)
             ])
             ->add('hair_length', ChoiceType::class, [
                 'attr' => [
                     'class' => CandidateProfil::class
                 ],
                 'label' => 'Włosy',
-                'choices' => [CandidateProfil::HAIRLENGTHS,'Dowolna'=>'default'],
-                'data'=>'default'
+                'choices' => array_flip(CandidateProfil::HAIRLENGTHS)
             ])
             ->add('hair_color', ChoiceType::class, [
                 'attr' => [
                     'class' => CandidateProfil::class
                 ],
                 'label' => 'Kolor włosów',
-                'choices' => [CandidateProfil::HAIRCOLORS,'Dowolna'=>'default'],
-                'data'=>'default'
+                'choices' => array_flip(CandidateProfil::HAIRCOLORS)
             ])
             ->add('eye_color', ChoiceType::class, [
                 'attr' => [
                     'class' => CandidateProfil::class
                 ],
                 'label' => 'Kolor oczu',
-                'choices' => [CandidateProfil::EYRCOLORS,'Dowolna'=>'default'],
-                'data'=>'default'
+                'choices' => array_flip(CandidateProfil::EYRCOLORS)
+            ])
+            ->add('sex', ChoiceType::class, [
+                'attr' => [
+                    'class' => CandidateProfil::class
+                ],
+                'label' => 'Płeć',
+                'choices' => array_flip(CandidateProfil::SEX)
             ])
             ->add('age',IntegerType::class,[
                 'attr' =>[

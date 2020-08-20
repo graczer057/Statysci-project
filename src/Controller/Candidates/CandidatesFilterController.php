@@ -51,14 +51,23 @@ class CandidatesFilterController extends AbstractController
             } else {
                 $EyeColor = "= '" . $data['eye_color'] . "'";
             }
-            $candidates = $candidateQuery->getfilter($data['growthMin'], $data['growthMax'], $physique, $HairLength, $HairColor, $EyeColor, $data['AgeMin'], $data['AgeMax']);
+            if ($data['sex'] == 'default') {
+                $sex = 'is not null';
+            } else {
+                $sex = "= '" . $data['sex'] . "'";
+            }
+
+
+
+                $candidates = $candidateQuery->getfilter($data['growthMin'], $data['growthMax'], $physique, $HairLength, $HairColor, $EyeColor, $data['AgeMin'], $data['AgeMax'],$sex);
             foreach ($candidates as $candidate) {
                 $Candidates[] = new CandidateProfileandUser($candidate->getId(),$users->findById($candidate->getUser()),$candidate->getGrowth(),
                     $candidate->getPhysique(),
                 $candidate->getHairLength(),
                 $candidate->getHairColor(),
                 $candidate->getEyeColor(),
-                $candidate->getAge());
+                $candidate->getAge(),
+                $candidate->getSex());
 }
             return $this->render('Candidates/listCandidate.html.twig', [
                 'candidates' => $Candidates

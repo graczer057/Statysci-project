@@ -37,6 +37,10 @@ class Command
      */
     private $Age;
     private $Responder;
+    /**
+     * @var string|null
+     */
+    private $sex;
 
 
     public function __construct(
@@ -46,7 +50,9 @@ class Command
     ?string $Hair_Length,
     ?string $Hair_Color,
     ?string $Eye_Color,
-    ?int $Age)
+    ?int $Age,
+    ?string $sex
+)
 {
     $this->candidateProfil = $candidateProfil;
     $this->Growth = $Growth;
@@ -56,7 +62,7 @@ class Command
     $this->Eye_Color = $Eye_Color;
     $this->Age = $Age;
     $this->Responder=new NullResponder();
-
+    $this->sex = $sex;
 }
 
     /**
@@ -130,5 +136,13 @@ class Command
     public function setResponder(NullResponder $Responder): void
     {
         $this->Responder = $Responder;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSex(): ?string
+    {
+        return $this->sex;
     }
 }

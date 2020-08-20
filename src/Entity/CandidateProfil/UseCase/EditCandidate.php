@@ -38,7 +38,8 @@ class EditCandidate
             $command->getHairLength(),
             $command->getHairColor(),
             $command->getEyeColor(),
-            $command->getAge()
+            $command->getAge(),
+            $command->getSex()
         );
         try{
             $this->transaction->commit();

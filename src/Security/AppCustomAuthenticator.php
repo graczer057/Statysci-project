@@ -74,6 +74,10 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator implements P
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
         }
 
+        if ($user->getIsActive()==false){
+            throw new CustomUserMessageAuthenticationException('konto nie aktywne');
+        }
+
         return $user;
     }
 

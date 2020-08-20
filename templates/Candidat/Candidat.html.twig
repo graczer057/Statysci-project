@@ -56,10 +56,23 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
+                                <label> {{"Płeć"|trans}}</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select id="sex" name="sex" class="form__input">
+                                    <option {% if user.candidateProfil.Sex is null %}value="null">{{ "Wybierz"|trans }}{% else %}value="{{ user.candidateProfil.Sex }}">{{ user.candidateProfil.Sex }}{% endif %}</option>
+                                    {% for sex in SEXs %}
+                                        <option value="{{ sex }}">{{ sex }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <label> {{"budowa ciała"|trans}}</label>
                             </div>
                             <div class="col-md-6">
-                                <select id="specialization" name="physique" class="form__input">
+                                <select id="physique" name="physique" class="form__input">
                                     <option {% if user.candidateProfil.physique is null %}value="null">{{ "Wybierz"|trans }}{% else %}value="{{ user.candidateProfil.physique }}">{{ user.candidateProfil.physique }}{% endif %}</option>
                                     {% for physique in physiques %}
                                         <option value="{{ physique }}">{{ physique }}</option>
@@ -72,7 +85,7 @@
                                 <label>{{ "długość włosów"|trans }}</label>
                             </div>
                             <div class="col-md-6">
-                                <select id="specialization" name="HairLength" class="form__input">
+                                <select id="HairLength" name="HairLength" class="form__input">
                                     <option {% if user.candidateProfil.HairLength is null %}value="null">{{ "Wybierz"|trans }}{% else %}value="{{ user.candidateProfil.HairLength }}">{{ user.candidateProfil.HairLength }}{% endif %}</option>
                                     {% for HairLength in HairLengths %}
                                         <option value="{{ HairLength }}">{{ HairLength }}</option>
@@ -85,7 +98,7 @@
                                 <label>{{ "kolor włosów"|trans }}</label>
                             </div>
                             <div class="col-md-6">
-                                    <select id="specialization" name="HairColor" class="form__input">
+                                    <select id="HairColor" name="HairColor" class="form__input">
                                         <option {% if user.candidateProfil.HairColor is null %}value="null">{{ "Wybierz"|trans }}{% else %}value="{{ user.candidateProfil.HairColor }}">{{ user.candidateProfil.HairColor }}{% endif %}</option>
                                         {% for HairColor in HairColors %}
                                             <option value="{{ HairColor }}">{{ HairColor }}</option>
@@ -99,7 +112,7 @@
                                 <label>{{ "kolor oczu"|trans }}</label>
                             </div>
                                 <div class="col-md-6">
-                                    <select id="specialization" name="EyeColor" class="form__input">
+                                    <select id="EyeColor" name="EyeColor" class="form__input">
                                         <option {% if user.candidateProfil.EyeColor is null %}value="null">{{ "Wybierz"|trans }}{% else %}value="{{ user.candidateProfil.EyeColor }}">{{ user.candidateProfil.EyeColor }}{% endif %}</option>
                                         {% for EyeColor in EyeColors %}
                                             <option value="{{ EyeColor }}">{{ EyeColor }}</option>

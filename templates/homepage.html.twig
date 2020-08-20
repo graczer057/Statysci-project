@@ -27,19 +27,11 @@
         <a class="navbar-brand" >{{ "Statyści"|trans }}</a>
 
     </div>
+    {% set flashesbag = app.flashes %}
+
     <div class="col-3 col-sm-2 col-md-1 col-lg-1">
         <div class="language-switcher">
-            {% if flashesbag.success is defined %}
-                <div class="col-8 mx-auto bg-success border border-dark shadow rounded">
-                    <p>{{ flashesbag.success[0] }}</p>
-                </div>
-            {% endif %}
 
-            {% if flashesbag.error is defined %}
-                <div class="col-8 mx-auto bg-success border border-dark shadow rounded">
-                    <p>{{ flashesbag.error[0] }}</p>
-                </div>
-            {% endif %}
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     {% if not is_granted ('IS_ANONYMOUS')%}
@@ -71,6 +63,17 @@
 
 
 {% block body %}{% if not app.User %}
+    {% if flashesbag.success is defined %}
+        <div class="col-8 mx-auto bg-success border border-dark shadow rounded">
+            <p>{{ flashesbag.success[0] }}</p>
+        </div>
+    {% endif %}
+
+    {% if flashesbag.error is defined %}
+        <div class="col-8 mx-auto bg-success border border-dark shadow rounded">
+            <p>{{ flashesbag.error[0] }}</p>
+        </div>
+    {% endif %}
     <div class="container h-100">
         <div class="row align-items-center h-50">
             <div class="col-6 mx-auto text-center">

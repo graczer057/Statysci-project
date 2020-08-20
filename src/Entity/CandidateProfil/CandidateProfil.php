@@ -17,6 +17,14 @@ class CandidateProfil
 {
 
 
+    public const SEX_MAN = "man";
+    public const SEX_WOMAN = "woman";
+
+    public const SEX = [
+        self::SEX_MAN => 'mężczyzna',
+        self::SEX_WOMAN => 'kobieta'
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -68,14 +76,20 @@ class CandidateProfil
      */
     private $sendOfferGrupes;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Sex;
+
     public function __construct(
         User $User,
-        int $Growth = null,
-        string $physique = null,
-        string $Hair_Length = null,
-        string $Hair_Color = null,
-        string $Eye_Color = null,
-        int $Age = null
+        int $Growth,
+        string $physique,
+        string $Hair_Length,
+        string $Hair_Color,
+        string $Eye_Color,
+        int $Age,
+        string $Sex
     )
     {
         $this->User = $User;
@@ -85,6 +99,7 @@ class CandidateProfil
         $this->Hair_Color = $Hair_Color;
         $this->Eye_Color = $Eye_Color;
         $this->Age = $Age;
+        $this->Sex = $Sex;
     }
 
     public function getId(): ?int
@@ -278,17 +293,17 @@ class CandidateProfil
     public const EYRCOLORS_LIGHT_BLUE = 'jasnoniebieskie';
 
 
-    public const EYRCOLORS=[
-        self::EYRCOLORS_BLACK_BROWN=>"czarnobrązowe",
-        self::EYRCOLORS_DARK_BROWN=>"ciemnobrązowe",
-        self::EYRCOLORS_BROWN=>"brązowe (piwne)",
-        self::EYRCOLORS_BRIGHT_BROWN=>"jasnobrązowe",
-        self::EYRCOLORS_GREEN=>"zielonawopiwne",
-        self::EYRCOLORS_LIGHT_GREEN=>"jasnozielone",
-        self::EYRCOLORS_DARK=>"ciemnoszare",
-        self::EYRCOLORS_LIGHT_GRAY=>"jasnoszare",
-        self::EYRCOLORS_BLUE=>"niebieskie",
-        self::EYRCOLORS_LIGHT_BLUE=>"jasnoniebieskie"
+    public const EYRCOLORS = [
+        self::EYRCOLORS_BLACK_BROWN => "czarnobrązowe",
+        self::EYRCOLORS_DARK_BROWN => "ciemnobrązowe",
+        self::EYRCOLORS_BROWN => "brązowe (piwne)",
+        self::EYRCOLORS_BRIGHT_BROWN => "jasnobrązowe",
+        self::EYRCOLORS_GREEN => "zielonawopiwne",
+        self::EYRCOLORS_LIGHT_GREEN => "jasnozielone",
+        self::EYRCOLORS_DARK => "ciemnoszare",
+        self::EYRCOLORS_LIGHT_GRAY => "jasnoszare",
+        self::EYRCOLORS_BLUE => "niebieskie",
+        self::EYRCOLORS_LIGHT_BLUE => "jasnoniebieskie"
     ];
 
     public function edit(
@@ -297,7 +312,9 @@ class CandidateProfil
         string $Hair_Length,
         string $Hair_Color,
         string $Eye_Color,
-        int $Age)
+        int $Age,
+        string $sex
+    )
     {
         $this->Growth = $Growth;
         $this->physique = $physique;
@@ -305,7 +322,19 @@ class CandidateProfil
         $this->Hair_Color = $Hair_Color;
         $this->Eye_Color = $Eye_Color;
         $this->Age = $Age;
+        $this->Sex = $sex;
+    }
 
+    public function getSex(): ?string
+    {
+        return $this->Sex;
+    }
+
+    public function setSex(string $Sex): self
+    {
+        $this->Sex = $Sex;
+
+        return $this;
     }
 
 }
