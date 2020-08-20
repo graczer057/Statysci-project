@@ -36,30 +36,12 @@ class ExpireController extends AbstractController implements TokenExpireResponde
 
             $isNotActive = false;
 
-            if($user->getIsActive() == $isNotActive && $user->getRoles() == ['ROLE_CANDIDATE']){
+            if($user->getIsActive() == $isNotActive ) {
 
                 $commandData = new Command($user, $tokenValue, $date);
                 $commandData->setResponder($this);
 
                 $expireUser->candidate($commandData);
-
-                return $this->redirectToRoute('homepage');
-
-            }else if ($user->getIsActive() == $isNotActive && $user->getRoles() == ['ROLE_GROUP']) {
-
-                $commandData = new Command($user, $tokenValue, $date);
-                $commandData->setResponder($this);
-
-                $expireUser->Group($commandData);
-
-                return $this->redirectToRoute('homepage');
-
-            } else if($user->getIsActive() == $isNotActive && $user->getRoles() == ['ROLE_BUSINESS']) {
-
-                $commandData = new Command($user, $tokenValue, $date);
-                $commandData->setResponder($this);
-
-                $expireUser->Business($commandData);
 
                 return $this->redirectToRoute('homepage');
             }
