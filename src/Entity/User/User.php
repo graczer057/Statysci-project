@@ -15,9 +15,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
-    public const ROLE_CANDIDATE = ['ROLE_CANDIDATE'];
-    public const ROLE_GROUP = ['ROLE_GROUP'];
-    public const ROLE_BUSINESS = ['ROLE_BUSINESS'];
+    public const ROLE_CANDIDATE = 'ROLE_CANDIDATE';
+    public const ROLE_GROUP = 'ROLE_GROUP';
+    public const ROLE_BUSINESS = 'ROLE_BUSINESS';
+
+    public const ROLES=[
+        self::ROLE_CANDIDATE => "Kandydat",
+        self::ROLE_BUSINESS => "Firma",
+        self::ROLE_GROUP=> "Grupa aktorska"
+    ];
 
     public function Role(){
         switch ($this->roles){
@@ -102,7 +108,7 @@ class User implements UserInterface
         string $email,
         string $password,
         array $roles,
-        bool $is_active=true,
+        bool $is_active=false,
         string $photo="user/image/Brak-zdjęcia-500x500.jpg"
     )
     {

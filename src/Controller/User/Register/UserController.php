@@ -27,15 +27,13 @@ class UserController extends AbstractController implements RegisterResponder
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            if($form->get('role')->getData() == 1){
-                $data = $form->getData();
+             $data = $form->getData();
 
-                $role = ["ROLE_CANDIDATE"];
 
                 $command = new CreateUser\Command(
                     $data['login'],
                     $data['email'],
-                    $role,
+                    [$data['role']],
                     $form->get('plainPassword')->getData()
                 );
 
@@ -44,41 +42,7 @@ class UserController extends AbstractController implements RegisterResponder
                 $createUser->execute($command);
 
                 return $this->render('homepage.html.twig', []);
-            }else if($form->get('role')->getData() == 2) {
-                $data = $form->getData();
 
-                $role = ["ROLE_GROUP"];
-
-                $command = new CreateUser\Command(
-                    $data['login'],
-                    $data['email'],
-                    $role,
-                    $form->get('plainPassword')->getData()
-                );
-
-                $command->setResponder($this);
-
-                $createUser->execute($command);
-
-                return $this->render('homepage.html.twig', []);
-            }else if($form->get('role')->getData() == 3){
-                $data = $form->getData();
-
-                $role = ["ROLE_BUSINESS"];
-
-                $command = new CreateUser\Command(
-                    $data['login'],
-                    $data['email'],
-                    $role,
-                    $form->get('plainPassword')->getData()
-                );
-
-                $command->setResponder($this);
-
-                $createUser->execute($command);
-
-                return $this->render('homepage.html.twig', []);
-            }
         }
         return $this->render('User/UserRegister.html.twig', [
             'form' => $form->createView(),
