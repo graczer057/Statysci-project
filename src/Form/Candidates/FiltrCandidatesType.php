@@ -47,7 +47,7 @@ class FiltrCandidatesType extends AbstractType
     ],
                 'label' => 'Sylwetka',
 
-                'choices' => [array_flip(CandidateProfil::PHYSIQUES),'Dowolna'=>'default'],
+                'choices' => array_flip(CandidateProfil::PHYSIQUES),
                 'data'=>'default'
             ])
             ->add('hair_length', ChoiceType::class, [
@@ -55,7 +55,7 @@ class FiltrCandidatesType extends AbstractType
                     'class' => CandidateProfil::class
                 ],
                 'label' => 'Włosy',
-                'choices' => [CandidateProfil::HAIRLENGTHS,'Dowolna'=>'default'],
+                'choices' => CandidateProfil::HAIRLENGTHS,
                 'data'=>'default'
             ])
             ->add('hair_color', ChoiceType::class, [
@@ -63,7 +63,7 @@ class FiltrCandidatesType extends AbstractType
                     'class' => CandidateProfil::class
                 ],
                 'label' => 'Kolor włosów',
-                'choices' => [CandidateProfil::HAIRCOLORS,'Dowolna'=>'default'],
+                'choices' => CandidateProfil::HAIRCOLORS,
                 'data'=>'default'
             ])
             ->add('eye_color', ChoiceType::class, [
@@ -71,7 +71,7 @@ class FiltrCandidatesType extends AbstractType
                     'class' => CandidateProfil::class
                 ],
                 'label' => 'Kolor oczu',
-                'choices' => [CandidateProfil::EYRCOLORS,'Dowolna'=>'default'],
+                'choices' => CandidateProfil::EYRCOLORS,
                 'data'=>'default'
             ])
             ->add('AgeMin', IntegerType::class,[
