@@ -27,7 +27,8 @@ class CandidatController extends AbstractController
             'physiques'=>CandidateProfil::PHYSIQUES,
             'HairLengths'=>CandidateProfil::HAIRLENGTHS,
             'HairColors'=>CandidateProfil::HAIRCOLORS,
-            'EyeColors'=>CandidateProfil::EYRCOLORS]);
+            'EyeColors'=>CandidateProfil::EYRCOLORS,
+            'SEXs'=>CandidateProfil::SEX]);
     }
 
     /**
@@ -36,7 +37,7 @@ class CandidatController extends AbstractController
     public function addCandidat(Request $request,EditCandidate $editCandidate,ChangePhoto $photo){
 
         $formData =$request->request->all();
-        $command= new EditCandidate\Command($this->getUser()->getCandidateProfil(),$formData['growth'],$formData['physique'],$formData['HairLength'],$formData['HairColor'],$formData['EyeColor'],$formData['age']);
+        $command= new EditCandidate\Command($this->getUser()->getCandidateProfil(),$formData['growth'],$formData['physique'],$formData['HairLength'],$formData['HairColor'],$formData['EyeColor'],$formData['age'],$formData["sex"]);
         $editCandidate->execute($command);
 
         if ($request->files->get('file')!=null) {

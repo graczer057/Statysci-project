@@ -103,6 +103,7 @@ class User implements UserInterface
     private $actorGrupe;
 
 
+
     public function __construct(
         string $login,
         string $email,
@@ -351,5 +352,6 @@ class User implements UserInterface
     public function ChangePhoto(string $Photo){
         $this->photo=$Photo;
     }
+
 
 }

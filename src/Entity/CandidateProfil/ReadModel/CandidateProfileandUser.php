@@ -14,6 +14,10 @@ class CandidateProfileandUser
     private $hair_color;
     private $eye_color;
     private $age;
+    /**
+     * @var string
+     */
+    private $Sex;
 
     public function __construct(
         int $id,
@@ -23,7 +27,8 @@ class CandidateProfileandUser
         string $hair_length,
         string $hair_color,
         string $eye_color,
-        int $age
+        int $age,
+    string $Sex
     ){
         $this->id = $id;
         $this->user = $user;
@@ -33,6 +38,7 @@ class CandidateProfileandUser
         $this->hair_color = $hair_color;
         $this->eye_color = $eye_color;
         $this->age = $age;
+        $this->Sex = $Sex;
     }
 
     public function getGrowth(): ?string {

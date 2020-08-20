@@ -48,16 +48,16 @@ class CandidateQuery implements CandidateProfileQueryInterface
     {
         // TODO: Implement getByUser() method.
     }
-    public function getfilter(int $growthmin, int $growthmax, string $physique, string $hairLength, string $hairColor, string $eyeColor, int $agemin, int $agemax)
+    public function getfilter(int $growthmin, int $growthmax, string $physique, string $hairLength, string $hairColor, string $eyeColor, int $agemin, int $agemax,string $sex)
     {
 
 
 
 
-        $query='SELECT c.id as id, c.user_id as user_id, c.growth as growth, c.physique as physique, c.hair_length as hair_length, c.hair_color as hair_color, c.eye_color as eye_color, c.age as age
+        $query='SELECT c.id as id, c.user_id as user_id, c.growth as growth, c.physique as physique, c.hair_length as hair_length, c.hair_color as hair_color, c.eye_color as eye_color, c.age as age, c.sex as sex
                     From candidate_profil as c
                     WHERE  
-                    c.growth > '.$growthmin.' and c.growth < '.$growthmax.' and c.physique '.$physique.' and c.hair_length '.$hairLength.' and c.hair_color '.$hairColor.' and c.eye_color '.$eyeColor.' and c.age >'.$agemin.' and c.age <'.$agemax;
+                    c.growth > '.$growthmin.' and c.growth < '.$growthmax.' and c.physique '.$physique.' and c.hair_length '.$hairLength.' and c.hair_color '.$hairColor.' and c.eye_color '.$eyeColor.' and c.age >'.$agemin.' and c.age <'.$agemax.' and c.sex'.$sex;
 
         return $this->connection->project(
             $query,
@@ -73,7 +73,8 @@ class CandidateQuery implements CandidateProfileQueryInterface
                     (string)$result['hair_length'],
                     (string)$result['hair_color'],
                     (string)$result['eye_color'],
-                    (int)$result['age']
+                    (int)$result['age'],
+                    (string)$result['sex']
                 );
             }
         );
