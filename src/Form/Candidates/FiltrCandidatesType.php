@@ -27,15 +27,18 @@ class FiltrCandidatesType extends AbstractType
                     'step'=>1,
                     'min' =>0,
                     'max'=>250,
-                    'value'=>0
-                ]
+                    'value'=>0,
+                    'label'=>"Wzrost Minimalny"
+                ],
+
             ])
             ->add('growthMax', IntegerType::class,[
                 'attr' =>[
                     'step'=>1,
                     'min' =>0,
                     'max'=>250,
-                    'value'=>250
+                    'value'=>250,
+                    'label'=>"Wzrost Maxymalny"
                 ]
             ])
             ->add('physique', ChoiceType::class, [
@@ -43,6 +46,7 @@ class FiltrCandidatesType extends AbstractType
                 'class' => CandidateProfil::class,
     ],
                 'label' => 'Sylwetka',
+
                 'choices' => [array_flip(CandidateProfil::PHYSIQUES),'Dowolna'=>'default'],
                 'data'=>'default'
             ])
@@ -75,7 +79,8 @@ class FiltrCandidatesType extends AbstractType
                     'step'=>1,
                     'min' =>0,
                     'max'=>100,
-                    'value'=>0
+                    'value'=>0,
+                    'label'=>'Wiek Minimalny'
                 ]
             ])
             ->add('AgeMax', IntegerType::class,[
@@ -83,8 +88,8 @@ class FiltrCandidatesType extends AbstractType
                     'step'=>1,
                     'min' =>0,
                     'max'=>100,
-                    'value'=>100
-                ]
+                    'value'=>100,
+                    'label'=>'Wiek Maxymalny']
             ])
         ;
     }

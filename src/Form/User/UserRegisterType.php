@@ -2,6 +2,7 @@
 
 namespace App\Form\User;
 
+use App\Entity\User\User;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
@@ -48,11 +49,7 @@ class UserRegisterType extends AbstractType{
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'choices' => [
-                    'Kandydat' => 1,
-                    'Grupa aktorska' => 2,
-                    'Firma' => 3
-                ],
+                'choices' => array_flip(User::ROLES),
                 'label' => 'Rejestruję się jako'
             ])
             ->add('Register', SubmitType::class, [
