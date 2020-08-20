@@ -50,7 +50,7 @@ class ExpireUser extends AbstractController
 
         $template = $this->renderView("mail/Register.html.twig");
         $this->createNotFoundException();
-        $url = $this->generateUrl('candidate_activate', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
+        $url = $this->generateUrl('activate', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
         $template = str_replace("$.name.$", $command->getUser()->getLogin(), $template);
         $template = str_replace("$.LINK.$", '<a href="' . $url . '" target="_blank">aktywuj konto</a>', $template);
         $swiftMessage = $this->emailFactory->create(
@@ -60,72 +60,6 @@ class ExpireUser extends AbstractController
                 $command->getUser()->getEmail()
             ]
         );
-        $this->mailer->send($swiftMessage);
-
-        $command->getResponder()->UserTokenExpire($user);
-    }
-
-    public function Business(
-        Command $command
-    ){
-        $this->transaction->begin();
-
-        $user = $this->users->findByToken($command->getUser()->getToken());
-        $user->TokenExpire();
-
-        try {
-            $this->transaction->commit();
-        } catch (\Throwable $e) {
-            $this->transaction->rollback();
-            throw $e;
-        }
-
-        $template = $this->renderView("mail/Register.html.twig");
-        $this->createNotFoundException();
-        $url = $this->generateUrl('business_activate', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
-        $template = str_replace("$.name.$", $command->getUser()->getLogin(), $template);
-        $template = str_replace("$.LINK.$", '<a href="' . $url . '" target="_blank">aktywuj konto</a>', $template);
-        $swiftMessage = $this->emailFactory->create(
-            'Nowy link',
-            nl2br($template),
-            [
-                $command->getUser()->getEmail()
-            ]
-        );
-        $this->mailer->send($swiftMessage);
-
-        $command->getResponder()->UserTokenExpire($user);
-    }
-
-    public function Group(
-        Command $command
-    ){
-        $this->transaction->begin();
-
-        $user = $this->users->findByToken($command->getUser()->getToken());
-        $user->TokenExpire();
-
-        try {
-            $this->transaction->commit();
-        } catch (\Throwable $e) {
-            $this->transaction->rollback();
-            throw $e;
-        }
-
-        $template = $this->renderView("mail/Register.html.twig");
-        $this->createNotFoundException();
-        $url = $this->generateUrl('actor_activate', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
-        $template = str_replace("$.name.$", $command->getUser()->getLogin(), $template);
-        $template = str_replace("$.LINK.$", '<a href="' . $url . '" target="_blank">aktywuj konto</a>', $template);
-
-        $swiftMessage = $this->emailFactory->create(
-            'Nowy link',
-            nl2br($template),
-            [
-                $command->getUser()->getEmail()
-            ]
-        );
-
         $this->mailer->send($swiftMessage);
 
         $command->getResponder()->UserTokenExpire($user);
