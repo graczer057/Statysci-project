@@ -58,7 +58,7 @@ class CandidatesFilterController extends AbstractController
             }
 
 
-
+            $Candidates=null;
                 $candidates = $candidateQuery->getfilter($data['growthMin'], $data['growthMax'], $physique, $HairLength, $HairColor, $EyeColor, $data['AgeMin'], $data['AgeMax'],$sex);
             foreach ($candidates as $candidate) {
                 $Candidates[] = new CandidateProfileandUser($candidate->getId(),$users->findById($candidate->getUser()),$candidate->getGrowth(),
@@ -67,6 +67,8 @@ class CandidatesFilterController extends AbstractController
                 $candidate->getHairColor(),
                 $candidate->getEyeColor(),
                 $candidate->getAge(),
+                $candidate->getSurname(),
+                $candidate->getFirstName(),
                 $candidate->getSex());
 }
             return $this->render('Candidates/listCandidate.html.twig', [

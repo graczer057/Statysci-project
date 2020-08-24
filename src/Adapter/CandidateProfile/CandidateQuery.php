@@ -38,7 +38,10 @@ class CandidateQuery implements CandidateProfileQueryInterface
                         (string)$result['hair_length'],
                         (string)$result['hair_color'],
                         (string)$result['eye_color'],
-                        (int)$result['age']
+                        (int)$result['age'],
+                        (string)$result['sex'],
+                        (string)$result['first_name'],
+                        (string)$result['surname']
                     );
                 }
         );
@@ -54,10 +57,10 @@ class CandidateQuery implements CandidateProfileQueryInterface
 
 
 
-        $query='SELECT c.id as id, c.user_id as user_id, c.growth as growth, c.physique as physique, c.hair_length as hair_length, c.hair_color as hair_color, c.eye_color as eye_color, c.age as age, c.sex as sex
+        $query='SELECT c.id as id, c.user_id as user_id, c.growth as growth, c.physique as physique, c.hair_length as hair_length, c.hair_color as hair_color, c.eye_color as eye_color, c.age as age, c.sex as sex, c.first_name as first_name, c.surname as surname
                     From candidate_profil as c
                     WHERE  
-                    c.growth > '.$growthmin.' and c.growth < '.$growthmax.' and c.physique '.$physique.' and c.hair_length '.$hairLength.' and c.hair_color '.$hairColor.' and c.eye_color '.$eyeColor.' and c.age >'.$agemin.' and c.age <'.$agemax.' and c.sex'.$sex;
+                    c.growth >= '.$growthmin.' and c.growth <= '.$growthmax.' and c.physique '.$physique.' and c.hair_length '.$hairLength.' and c.hair_color '.$hairColor.' and c.eye_color '.$eyeColor.' and c.age >='.$agemin.' and c.age <='.$agemax.' and c.sex '.$sex.' and c.is_show = true';
 
         return $this->connection->project(
             $query,
@@ -74,7 +77,9 @@ class CandidateQuery implements CandidateProfileQueryInterface
                     (string)$result['hair_color'],
                     (string)$result['eye_color'],
                     (int)$result['age'],
-                    (string)$result['sex']
+                    (string)$result['sex'],
+                    (string)$result['first_name'],
+                    (string)$result['surname']
                 );
             }
         );

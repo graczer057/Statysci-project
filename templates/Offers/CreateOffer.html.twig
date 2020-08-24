@@ -1,0 +1,29 @@
+{% extends 'baseGroupe.html.twig' %}
+
+{% block body %}
+
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.growthMin) }}
+    {{ form_row(form.growthMax) }}
+    {{ form_row(form.physique) }}
+    {{ form_row(form.hair_length) }}
+    {{ form_row(form.hair_color) }}
+    {{ form_row(form.eye_color) }}
+    {{ form_row(form.sex) }}
+    {{ form_row(form.AgeMin) }}
+    {{ form_row(form.AgeMax) }}
+    <button type="submit" class="btn">
+        {% if dump(app.request.get("_route"))=='OfferAdd' %}
+        dodaj ogłoszenie
+    {% else %}
+        Zapisz zmiany
+        {% endif %}
+    </button>
+
+    {{ form_end(form) }}
+
+{% endblock %}

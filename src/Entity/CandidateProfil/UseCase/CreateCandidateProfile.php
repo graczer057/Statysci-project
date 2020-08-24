@@ -50,7 +50,9 @@ class CreateCandidateProfile extends AbstractController
             $command->getHairColor(),
             $command->getEyeColor(),
             $command->getAge(),
-            $command->getSex()
+            $command->getSex(),
+            $command->getFirstName(),
+            $command->getSurname()
         );
 
         $this->candidates->add($candidate);

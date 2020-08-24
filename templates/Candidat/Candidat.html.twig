@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 {% set flashesbag = app.flashes %}
 
+
 {% block body %}
 <!------ Include the above in your HEAD tag ---------->
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/Switch.css') }}">
+
 
 <div class="container emp-profile text-black-50">
     <form method="post" id="form_id" action="{{ path('addCandidat') }}" enctype="multipart/form-data">
@@ -16,13 +19,15 @@
                                accept=".jpg, .jpeg, .png" >
 
                     </div>
+
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="profile-head">
                     <h5>
-                        {{ user.login }}
+                        {{ user.candidateProfil.FirstName }} {{ user.candidateProfil.Surname }}
                     </h5>
+                    <label><input type="checkbox" id="isShow" name="isShow">Profil widoczny</label>
                 </div>
             </div>
         </div>
@@ -134,4 +139,25 @@
                 </div>
     </form>
 </div>
+{% endblock %}
+{% block javascripts %}
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+    <script>
+    $("#isShow").on('change', function () {
+        console.log(document.getElementById('isShow').checked)
+        console.log({{ user.candidateProfil.isShow }})
+    });
+</script>
+
+    <script>
+        $(document).ready(function(){
+          var tern ={{ user.candidateProfil.isShow }};
+              console.log(tern);
+            document.getElementById("isShow").checked = {{ user.candidateProfil.isShow }};
+
+        });
+    </script>
 {% endblock %}

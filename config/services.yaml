@@ -184,7 +184,6 @@ services:
         public: true
 
 
-
     App\Entity\CandidateProfil\UseCase\EditCandidate:
         arguments:
             - "@Candidate"
@@ -194,5 +193,17 @@ services:
     App\Entity\CandidateProfil\UseCase\ChangePhoto:
         arguments:
             - "@Users"
+            - "@application_transaction"
+        public: true
+
+    Offers:
+        class: App\Adapter\Offers\Offers
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+        public: true
+
+    App\Entity\Offers\Offers\UseCase\CreateOffer:
+        arguments:
+            - "@Offers"
             - "@application_transaction"
         public: true

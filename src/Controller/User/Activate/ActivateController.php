@@ -50,7 +50,9 @@ class ActivateController extends AbstractController implements ActivateResponder
                             $data['hair_color'],
                             $data['eye_color'],
                             $data['age'],
-                            $data['sex']
+                            $data['sex'],
+                            $date['firstname'],
+                            $date['surname']
                         );
                         $command->setResponder($this);
 
