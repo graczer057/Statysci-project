@@ -60,14 +60,14 @@ class OffersQuery implements OffersQueryInterface
             });
     }
     public function findForCandidat(string $physique,string $hairLength, string $hairColor, string $eyeColor, string $Sex, int $Growth, int $Age)
-    {
+    {;
         $query="SELECT o.id as id, o.title as title, o.description as description, o.physique as physique,
     o.hair_length as hair_length, o.hair_color as hair_color,o.eye_color as eye_color,o.sex as sex,o.growth_min as growth_min,
     o.growth_max as growth_max,o.age_max as age_max,o.age_min as age_min,o.is_active as is_active,
     o.id_user_id as id_user_id,o.date_add as date_add
                     FROM offers as o 
-                    WHERE o.physique = ('default' or ".$physique.") and o.hair_length = ('default' or ".$hairLength.") and o.hair_color = ('default' or ".$hairColor.
-            ") and o.eye_color = ('default' or ".$eyeColor.") and o.sex = ('default' or ".$Sex.") and o.growth_min <= ".$Growth." and o.growth_max >= ".$Growth." and o.age_min <= ".$Age." and o.age_max >= ".$Age." and o.is_active = true";
+                    WHERE o.physique = ('default' or '".$physique."') and o.hair_length = ('default' or '".$hairLength."') and o.hair_color = ('default' or '".$hairColor.
+            "') and o.eye_color = ('default' or '".$eyeColor."') and o.sex = ('default' or '".$Sex."') and o.growth_min <= '".$Growth."' and o.growth_max >= ".$Growth." and o.age_min <= ".$Age." and o.age_max >= ".$Age." and o.is_active = true";
         dd($query);
         return $this->connection->project(
             $query,
