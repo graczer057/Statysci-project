@@ -5,6 +5,7 @@ namespace App\Entity\User;
 use App\Entity\ActorGrupe\ActorGrupe;
 use App\Entity\Business\Business;
 use App\Entity\CandidateProfil\CandidateProfil;
+use App\Entity\Offers\Offers;
 use App\Repository\User\UserRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
@@ -101,6 +102,11 @@ class User implements UserInterface
      * @ORM\OneToOne(targetEntity=ActorGrupe::class, mappedBy="User", cascade={"persist", "remove"})
      */
     private $actorGrupe;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Offers::class, mappedBy="IdUser")
+     */
+    private $offers;
 
 
 
@@ -351,6 +357,18 @@ class User implements UserInterface
 
     public function ChangePhoto(string $Photo){
         $this->photo=$Photo;
+    }
+
+    public function getOffers(): ?Offers
+    {
+        return $this->offers;
+    }
+
+    public function setOffers(?Offers $offers): self
+    {
+        $this->offers = $offers;
+
+        return $this;
     }
 
 

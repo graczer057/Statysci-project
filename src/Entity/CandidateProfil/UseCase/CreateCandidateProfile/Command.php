@@ -16,6 +16,8 @@ class Command
      * @var string
      */
     private $Sex;
+    private $FirstName;
+    private $Surname;
 
     public function __construct(
         string $token,
@@ -25,7 +27,9 @@ class Command
         string $hair_color,
         string $eye_color,
         int $age,
-        string $Sex
+        string $Sex,
+    string $FirstName,
+    string $Surname
     ){
         $this->token = $token;
         $this->growth = $growth;
@@ -36,6 +40,8 @@ class Command
         $this->age = $age;
         $this->responder = new NullResponder();
         $this->Sex = $Sex;
+        $this->FirstName = $FirstName;
+        $this->Surname = $Surname;
     }
 
     public function getToken(): string{
@@ -82,5 +88,21 @@ class Command
     public function getSex(): string
     {
         return $this->Sex;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName(): string
+    {
+        return $this->FirstName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSurname(): string
+    {
+        return $this->Surname;
     }
 }

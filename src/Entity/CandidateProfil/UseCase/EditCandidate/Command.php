@@ -41,6 +41,10 @@ class Command
      * @var string|null
      */
     private $sex;
+    /**
+     * @var bool
+     */
+    private $isShow;
 
 
     public function __construct(
@@ -51,7 +55,8 @@ class Command
     ?string $Hair_Color,
     ?string $Eye_Color,
     ?int $Age,
-    ?string $sex
+    ?string $sex,
+    bool $isShow
 )
 {
     $this->candidateProfil = $candidateProfil;
@@ -63,6 +68,7 @@ class Command
     $this->Age = $Age;
     $this->Responder=new NullResponder();
     $this->sex = $sex;
+    $this->isShow = $isShow;
 }
 
     /**
@@ -138,6 +144,7 @@ class Command
         $this->Responder = $Responder;
     }
 
+
     /**
      * @return string|null
      */
@@ -145,4 +152,10 @@ class Command
     {
         return $this->sex;
     }
+
+    public function getIsShow(): ?bool
+    {
+        return $this->isShow;
+    }
+
 }

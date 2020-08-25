@@ -14,6 +14,18 @@ class UserActivateType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('firstname', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Imie'
+            ])
+            ->add('surname', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Nazwisko'
+            ])
             ->add('growth', IntegerType::class,[
                 'attr' =>[
                     'step'=>1,

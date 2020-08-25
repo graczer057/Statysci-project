@@ -2,6 +2,7 @@
 
 namespace App\Entity\CandidateProfil;
 
+use App\Entity\CandidateApplication\CandidatApplication;
 use App\Entity\SendOfferBusiness\SendOfferBusiness;
 use App\Entity\SendOfferGrupe\SendOfferGrupe;
 use App\Entity\User\User;
@@ -81,6 +82,26 @@ class CandidateProfil
      */
     private $Sex;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isShow;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $FirstName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Surname;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CandidatApplication::class, mappedBy="Candidate")
+     */
+    private $candidatApplications;
+
     public function __construct(
         User $User,
         int $Growth,
@@ -89,7 +110,10 @@ class CandidateProfil
         string $Hair_Color,
         string $Eye_Color,
         int $Age,
-        string $Sex
+        string $Sex,
+        string $FirstName,
+        string $Surname,
+        bool $isShow=true
     )
     {
         $this->User = $User;
@@ -100,6 +124,10 @@ class CandidateProfil
         $this->Eye_Color = $Eye_Color;
         $this->Age = $Age;
         $this->Sex = $Sex;
+        $this->isShow = $isShow;
+        $this->FirstName = $FirstName;
+        $this->Surname = $Surname;
+        $this->candidatApplications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -313,7 +341,8 @@ class CandidateProfil
         string $Hair_Color,
         string $Eye_Color,
         int $Age,
-        string $sex
+        string $sex,
+    bool $isShow
     )
     {
         $this->Growth = $Growth;
@@ -323,6 +352,7 @@ class CandidateProfil
         $this->Eye_Color = $Eye_Color;
         $this->Age = $Age;
         $this->Sex = $sex;
+        $this->isShow=$isShow;
     }
 
     public function getSex(): ?string
@@ -333,6 +363,73 @@ class CandidateProfil
     public function setSex(string $Sex): self
     {
         $this->Sex = $Sex;
+
+        return $this;
+    }
+
+    public function getIsShow(): ?bool
+    {
+        return $this->isShow;
+    }
+
+    public function setIsShow(bool $isShow): self
+    {
+        $this->isShow = $isShow;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->FirstName;
+    }
+
+    public function setFirstName(string $FirstName): self
+    {
+        $this->FirstName = $FirstName;
+
+        return $this;
+    }
+
+    public function getSurname(): ?string
+    {
+        return $this->Surname;
+    }
+
+    public function setSurname(string $Surname): self
+    {
+        $this->Surname = $Surname;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CandidatApplication[]
+     */
+    public function getCandidatApplications(): Collection
+    {
+        return $this->candidatApplications;
+    }
+
+    public function addCandidatApplication(CandidatApplication $candidatApplication): self
+    {
+        if (!$this->candidatApplications->contains($candidatApplication)) {
+            $this->candidatApplications[] = $candidatApplication;
+            $candidatApplication->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidatApplication(CandidatApplication $candidatApplication): self
+    {
+        if ($this->candidatApplications->contains($candidatApplication)) {
+            $this->candidatApplications->removeElement($candidatApplication);
+            // set the owning side to null (unless already changed)
+            if ($candidatApplication->getCandidate() === $this) {
+                $candidatApplication->setCandidate(null);
+            }
+        }
 
         return $this;
     }

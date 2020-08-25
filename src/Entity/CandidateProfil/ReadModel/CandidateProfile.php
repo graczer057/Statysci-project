@@ -18,6 +18,15 @@ class CandidateProfile
      * @var string
      */
     private $Sex;
+    /**
+     * @var string
+     */
+    private $FirstName;
+    /**
+     * @var string
+     */
+    private $Surname;
+
 
     public function __construct(
         int $id,
@@ -28,7 +37,9 @@ class CandidateProfile
         string $hair_color,
         string $eye_color,
         int $age,
-    string $Sex
+    string $Sex,
+        string $FirstName,
+        string $Surname
     ){
         $this->id = $id;
         $this->user = $user;
@@ -39,6 +50,8 @@ class CandidateProfile
         $this->eye_color = $eye_color;
         $this->age = $age;
         $this->Sex = $Sex;
+        $this->FirstName = $FirstName;
+        $this->Surname = $Surname;
     }
 
     public function getId(): int
@@ -81,6 +94,22 @@ class CandidateProfile
     public function getSex(): string
     {
         return $this->Sex;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName(): string
+    {
+        return $this->FirstName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSurname(): string
+    {
+        return $this->Surname;
     }
 
 }

@@ -18,6 +18,14 @@ class CandidateProfileandUser
      * @var string
      */
     private $Sex;
+    /**
+     * @var string
+     */
+    private $FirstName;
+    /**
+     * @var string
+     */
+    private $Surname;
 
     public function __construct(
         int $id,
@@ -28,6 +36,8 @@ class CandidateProfileandUser
         string $hair_color,
         string $eye_color,
         int $age,
+        string $FirstName,
+        string $Surname,
     string $Sex
     ){
         $this->id = $id;
@@ -39,6 +49,8 @@ class CandidateProfileandUser
         $this->eye_color = $eye_color;
         $this->age = $age;
         $this->Sex = $Sex;
+        $this->FirstName = $FirstName;
+        $this->Surname = $Surname;
     }
 
     public function getGrowth(): ?string {
@@ -68,5 +80,29 @@ class CandidateProfileandUser
     public function getUser(): ?User
     {
         return $this->user;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSurname(): string
+    {
+        return $this->Surname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName(): string
+    {
+        return $this->FirstName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSex(): string
+    {
+        return $this->Sex;
     }
 }

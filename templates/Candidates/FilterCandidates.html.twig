@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseGroupe.html.twig' %}
 {% set flashesbag = app.flashes %}
 
 {% block title %}Log in!{% endblock %}
@@ -21,11 +21,6 @@
         </div>
     {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
 
     {{ form_start(form) }}
     {{ form_row(form.growthMin) }}

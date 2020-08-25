@@ -1,7 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseGroupe.html.twig' %}
 {% set flashesbag = app.flashes %}
 
 {% block body %}
+
     <div class="container">
         <div class="row">
 
@@ -11,6 +12,9 @@
                 </div>
             {% endif %}
 
+            {% if candidates == null %}
+            <p>brak wyników wyszukiwaia</p>
+            {% else %}
             {% for candidate in candidates %}
                 <div class="col-5 mx-auto bg-dark border border-dark shadow my-3 p-2">
                     <div class="d-inline-block">
@@ -20,19 +24,27 @@
                                 </div>
                             </div>
                     </div>
-                   <strong>Imię: {{ candidate.user.login }}</strong>
+                   <strong>Imię: {{ candidate.Surname }}</strong>
                     <p>Wzrost: {{ candidate.growth }}</p>
                     <p>Sylwetka: {{ candidate.physique }}</p>
                     <p>Rodzaj włosów: {{ candidate.hairLength }}</p>
                     <p>Kolor włosów: {{ candidate.hairColor }}</p>
                     <p>Kolor oczu: {{ candidate.eyeColor }}</p>
                     <p>Wiek: {{ candidate.age }}</p>
-                    <button id="Button{{ candidate.user.login }}" onclick="myAction( '{{ candidate.user.login }}' )" >Wyślij</button>
+                    {% if app.request.get('_locale') == 'en' %}
+                    <p>Płeć: {{ candidate.sex }}</p>
+                    {% else %}
+                        {%  if  candidate.sex == 'woman' %}
+                        <p>Płeć: Kobieta</p>
+                        {% else %}
+                            <p>Płeć: Meżczyzna</p>
+                            {% endif %}{% endif %}
+                            <button id="Button{{ candidate.user.login }}" onclick="myAction( '{{ candidate.user.login }}' )" >Wyślij</button>
 
                 </div>
 
             {% endfor %}
-
+{% endif %}
         </div>
     </div>
 
@@ -43,6 +55,7 @@
 
     <script>
         function myAction(valu){
+            document.getElementById('Button'+valu).disabled = true;
             $.ajax({
                 url: "{{ path('send_candidate_mail') }}",
                 method: "post",
@@ -52,6 +65,13 @@
                 },
                 success: function (buttonn) {
                     document.getElementById(buttonn).disabled = true;
+                    alert('Propozycja wysłana!');
+
+                },
+                error: function(buttonn){
+                    alert('Błąd wysyłania!');
+                    document.getElementById(buttonn).disabled = false;
+
                 }
 
                 });

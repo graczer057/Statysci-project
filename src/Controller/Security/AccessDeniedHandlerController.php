@@ -18,9 +18,9 @@ class AccessDeniedHandlerController extends AbstractController implements Access
         {
             return $this->redirectToRoute('HomePageCandidat');
         }elseif ($this->getUser()->getRoles()==["ROLE_GROUP"]){
-            return $this->redirectToRoute('filter_candidate');
+            return $this->redirectToRoute('OffersList');
         }elseif ($this->getUser()->getRoles()==["ROLE_BUSINESS"]){
-            return $this->redirectToRoute('filter_candidate');
+            return $this->redirectToRoute('OffersList');
         }else{
             return $this->redirectToRoute('locals');
         }

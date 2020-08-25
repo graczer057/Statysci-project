@@ -37,7 +37,17 @@ class CandidatController extends AbstractController
     public function addCandidat(Request $request,EditCandidate $editCandidate,ChangePhoto $photo){
 
         $formData =$request->request->all();
-        $command= new EditCandidate\Command($this->getUser()->getCandidateProfil(),$formData['growth'],$formData['physique'],$formData['HairLength'],$formData['HairColor'],$formData['EyeColor'],$formData['age'],$formData["sex"]);
+
+
+        if (isset($formData["isShow"])==false)
+        {
+            $isShow=false;
+        }
+        else{
+            $isShow=true;
+        }
+
+        $command= new EditCandidate\Command($this->getUser()->getCandidateProfil(),$formData['growth'],$formData['physique'],$formData['HairLength'],$formData['HairColor'],$formData['EyeColor'],$formData['age'],$formData["sex"],$isShow);
         $editCandidate->execute($command);
 
         if ($request->files->get('file')!=null) {
