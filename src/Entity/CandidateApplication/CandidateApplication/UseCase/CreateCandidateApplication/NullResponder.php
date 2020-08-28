@@ -6,5 +6,8 @@ namespace App\Entity\CandidateApplication\CandidateApplication\UseCase\CreateCan
 
 class NullResponder implements Responder
 {
-
+    public function CreateCandidateApplication()
+    {
+        // TODO: Implement CreateCandidateApplication() method.
+    }
 }

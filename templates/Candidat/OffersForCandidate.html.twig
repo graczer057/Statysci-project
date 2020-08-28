@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+{% set flashesbag = app.flashes %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+
+            {% if flashesbag.success is defined %}
+                <div class="col-8 mx-auto bg-success border border-dark shadow rounded">
+                    <p>{{ flashesbag.success[0] }}</p>
+                </div>
+            {% endif %}
+
+            {% if offers == null %}
+                <p>brak wyników wyszukiwaia</p>
+            {% else %}
+                {% for offer in offers %}
+                    <div class="col-5 mx-auto bg-dark border border-dark shadow my-3 p-2">
+                        <strong>Id ogłoszenia: {{ offer.id }}</strong>
+                        <p>Tytuł: {{ offer.title}}</p>
+                        <p>Treść: {{ offer.description }}</p>
+                        <button id="Button{{ offer.id }}" onclick="myAction( '{{ offer.id }}' )" >Wyślij aplikację</button>
+                    </div>
+
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+
+    <script>
+        function myAction(valu){
+            document.getElementById('Button'+valu).disabled = true;
+            $.ajax({
+                url: "{{ path('send_application',{'id':offers.id}) }}",
+                method: "post",
+                dataType:"json",
+                data: {
+                    valu
+                },
+                success: function (buttonn) {
+                    document.getElementById(buttonn).disabled = true;
+                    alert('Propozycja wysłana!');
+
+                },
+                error: function(buttonn){
+                    alert('Błąd wysyłania!');
+                    document.getElementById(buttonn).disabled = false;
+
+                }
+
+            });
+        }
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                url: "{{ path('loadButtonCandidat') }}",
+                success: function (Buttonlist){
+
+                    Array.prototype.forEach.call(Buttonlist, entry => {
+                        document.getElementById(entry).disabled = true;
+                    });
+
+                }
+            });
+        });
+        function disable(element, index, array) {
+            document.getElementById("element").disabled = true;
+            console.log("element");
+``
+        }
+    </script>
+
+{% endblock %}

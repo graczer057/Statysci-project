@@ -49,14 +49,31 @@ class CandidateQuery implements CandidateProfileQueryInterface
 
     public function getByUser(User $user)
     {
-        // TODO: Implement getByUser() method.
+        return $this->connection->project(
+            'SELECT c.id as id, c.user_id as user_id, c.growth as growth, c.physique as physique, c.hair_length as hair_length, c.hair_color as hair_color, c.eye_color as eye_color, c.age as age, c.sex as sex, c.first_name as first_name, c.surname as surname
+            From candidate_profil as c',
+            [
+                'user_id' => $user
+            ],
+            function (array $result){
+                return new CandidateProfile(
+                    (int)$result['id'],
+                    $result['user_id'],
+                    (int)$result['growth'],
+                    (string)$result['physique'],
+                    (string)$result['hair_length'],
+                    (string)$result['hair_color'],
+                    (string)$result['eye_color'],
+                    (int)$result['age'],
+                    (string)$result['sex'],
+                    (string)$result['first_name'],
+                    (string)$result['surname']
+                );
+            }
+        );
     }
     public function getfilter(int $growthmin, int $growthmax, string $physique, string $hairLength, string $hairColor, string $eyeColor, int $agemin, int $agemax,string $sex)
     {
-
-
-
-
         $query='SELECT c.id as id, c.user_id as user_id, c.growth as growth, c.physique as physique, c.hair_length as hair_length, c.hair_color as hair_color, c.eye_color as eye_color, c.age as age, c.sex as sex, c.first_name as first_name, c.surname as surname
                     From candidate_profil as c
                     WHERE  

@@ -4,6 +4,8 @@
 namespace App\Entity\Offers\Offers\ReadModel;
 
 
+use App\Entity\User\User;
+
 class OffersRead
 {
     private $id;
@@ -20,9 +22,6 @@ class OffersRead
     private $AgeMax;
     private $AgeMin;
     private $isActive;
-    /**
-     * @var \DateTime
-     */
     private $dateTime;
 
     public function __construct(

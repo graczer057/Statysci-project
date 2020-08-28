@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Adapter\Offers;
-
 
 use App\Entity\Offers\Offers\ReadModel\OffersQueryInterface;
 use App\Entity\Offers\Offers\ReadModel\OffersRead;
@@ -68,7 +66,6 @@ class OffersQuery implements OffersQueryInterface
                     FROM offers as o 
                     WHERE o.physique = ('default' or '".$physique."') and o.hair_length = ('default' or '".$hairLength."') and o.hair_color = ('default' or '".$hairColor.
             "') and o.eye_color = ('default' or '".$eyeColor."') and o.sex = ('default' or '".$Sex."') and o.growth_min <= '".$Growth."' and o.growth_max >= ".$Growth." and o.age_min <= ".$Age." and o.age_max >= ".$Age." and o.is_active = true";
-        dd($query);
         return $this->connection->project(
             $query,
             [

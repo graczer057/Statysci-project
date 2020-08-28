@@ -12,9 +12,6 @@ class Command
     private $eye_color;
     private $age;
     private $responder;
-    /**
-     * @var string
-     */
     private $Sex;
     private $FirstName;
     private $Surname;
@@ -28,8 +25,8 @@ class Command
         string $eye_color,
         int $age,
         string $Sex,
-    string $FirstName,
-    string $Surname
+        string $FirstName,
+        string $Surname
     ){
         $this->token = $token;
         $this->growth = $growth;
@@ -38,10 +35,10 @@ class Command
         $this->hair_color = $hair_color;
         $this->eye_color = $eye_color;
         $this->age = $age;
-        $this->responder = new NullResponder();
         $this->Sex = $Sex;
         $this->FirstName = $FirstName;
         $this->Surname = $Surname;
+        $this->responder = new NullResponder();
     }
 
     public function getToken(): string{

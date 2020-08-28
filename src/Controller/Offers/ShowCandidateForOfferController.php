@@ -26,7 +26,7 @@ class ShowCandidateForOfferController extends AbstractController
         }
         $application=null;
         $application=$applicationQuery->findApplication($idoffer->getId());
-        dd($application);
 
+        return $this->render('Offers/ShowCandidate.html.twig');
     }
 }

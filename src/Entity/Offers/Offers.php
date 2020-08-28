@@ -314,12 +314,12 @@ class Offers
         return $this;
     }
 
-    public function getDateAdd(): ?\DateTimeInterface
+    public function getDateAdd(): ?\DateTime
     {
         return $this->DateAdd;
     }
 
-    public function setDateAdd(\DateTimeInterface $DateAdd): self
+    public function setDateAdd(\DateTime $DateAdd): self
     {
         $this->DateAdd = $DateAdd;
 

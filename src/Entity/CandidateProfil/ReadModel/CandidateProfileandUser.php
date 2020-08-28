@@ -14,17 +14,8 @@ class CandidateProfileandUser
     private $hair_color;
     private $eye_color;
     private $age;
-    /**
-     * @var string
-     */
     private $Sex;
-    /**
-     * @var string
-     */
     private $FirstName;
-    /**
-     * @var string
-     */
     private $Surname;
 
     public function __construct(
@@ -38,7 +29,7 @@ class CandidateProfileandUser
         int $age,
         string $FirstName,
         string $Surname,
-    string $Sex
+        string $Sex
     ){
         $this->id = $id;
         $this->user = $user;
@@ -82,25 +73,17 @@ class CandidateProfileandUser
         return $this->user;
     }
 
-    /**
-     * @return string
-     */
+
     public function getSurname(): string
     {
         return $this->Surname;
     }
 
-    /**
-     * @return string
-     */
     public function getFirstName(): string
     {
         return $this->FirstName;
     }
 
-    /**
-     * @return string
-     */
     public function getSex(): string
     {
         return $this->Sex;
